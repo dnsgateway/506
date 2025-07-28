@@ -2,56 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rumble Fantasy App</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RUMBLE Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo">Ⓡ RUMBLE</div>
-    <nav class="topnav">
-      <a href="#">How it works</a>
-      <a href="#">Live Scores</a>
-      <a href="#">Join</a>
-    </nav>
-    <button class="btn-deposit">Deposit +</button>
-  </header>
-
-  <main class="dashboard">
-    <section class="matchup">
-      <h2>EUROLEAGUE</h2>
-      <div class="game-row">
-        <div class="team">OLYMPIAKOS</div>
-        <div class="odds"><span>+2.5</span><span>-118</span><span>-145</span></div>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">🏀 <span>RUMBLE</span></div>
+      <div class="user">
+        <div class="avatar"></div>
+        <p>John Doe</p>
       </div>
-      <div class="game-row">
-        <div class="team">MONACO</div>
-        <div class="odds"><span>-2.5</span><span>+115</span><span>+114</span></div>
-      </div>
-    </section>
+      <ul class="nav">
+        <li class="active">Dashboard</li>
+        <li>My Bets</li>
+        <li>Favorites</li>
+        <li>Wallet</li>
+        <li>Promotions</li>
+        <li>Settings</li>
+        <li>Support</li>
+        <li>Logout</li>
+      </ul>
+    </aside>
 
-    <section class="scores">
-      <h3>SCORES</h3>
-      <div class="scorecard">
-        <div class="team-side">
-          <div class="jersey">11</div>
-          <div>Olympiakos</div>
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <nav class="tabs">
+          <a href="#" class="active">Basketball</a>
+          <a href="#">Soccer</a>
+          <a href="#">Tennis</a>
+        </nav>
+        <button class="deposit">Deposit +</button>
+      </header>
+
+      <!-- Betting Board -->
+      <section class="card">
+        <h3>🏆 EUROLEAGUE</h3>
+        <div class="matchup">
+          <div class="team">OLYMPIAKOS</div>
+          <div class="score">15</div>
         </div>
-        <div class="vs">VS</div>
-        <div class="team-side">
-          <div class="jersey blue">9</div>
-          <div>Monaco</div>
+        <div class="table">
+          <div class="row head">
+            <div>Spread</div><div>Total</div><div>Moneytine</div><div>Moneyline</div>
+          </div>
+          <div class="row">
+            <div>+2.5<br><span>-118</span></div>
+            <div>U 108.5<br><span>-115</span></div>
+            <div>-111</div>
+            <div class="green">+114</div>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer class="bottomnav">
-    <button><span class="icon-home">🏠</span><span>Home</span></button>
-    <button><span class="icon-live">📺</span><span>Live</span></button>
-    <button><span class="icon-user">👤</span><span>Profile</span></button>
-  </footer>
+      <!-- Promo -->
+      <section class="promo">
+        <h1>The Future of Fantasy Sports Betting is Now on the Go</h1>
+        <p>Build a team and place your bets in real time.</p>
+      </section>
+
+      <!-- Match -->
+      <section class="card">
+        <h3>⚽ SOCCER</h3>
+        <div class="league">PREMIR LEAGUE</div>
+        <div class="vs">
+          <div>Arsenal <span>1</span></div>
+          <div>vs</div>
+          <div>Monaco <span>9</span></div>
+        </div>
+        <button class="cta">Access Full Version</button>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
