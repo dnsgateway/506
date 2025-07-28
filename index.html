@@ -3,54 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rumble Dashboard</title>
+  <title>RUMBLE MVP</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <script src="script.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="app-header">
+  <header class="topbar">
     <div class="logo">Ⓡ RUMBLE</div>
+    <nav class="topnav">
+      <a href="#">How it works</a>
+      <a href="#">Live scores</a>
+      <a href="#">Join for free</a>
+    </nav>
     <button class="btn-deposit">Deposit +</button>
   </header>
 
-  <nav class="tabs">
-    <button class="tab active">Basketball</button>
-    <button class="tab">Soccer</button>
-    <button class="tab">Tennis</button>
-  </nav>
-
   <main class="dashboard">
-    <section class="match">
-      <h3>Euroleague</h3>
-      <div class="matchup">
-        <div class="team">Olympiakos <span class="score">15</span></div>
-        <div class="team">Monaco <span class="score">12</span></div>
+    <section class="matchup">
+      <h2>EUROLEAGUE</h2>
+      <div class="game-row">
+        <span class="team">OLYMPIAKOS</span>
+        <div class="odds">
+          <span>+2.5</span>
+          <span>-118</span>
+          <span>-145</span>
+        </div>
       </div>
-      <div class="odds">
-        <div>-2.5<br><small>-118</small></div>
-        <div>O 0.19.5<br><small>-119</small></div>
-        <div>-145</div>
-        <div>+2.5<br><small>-115</small></div>
-        <div>U 0.18.5<br><small>-115</small></div>
-        <div>+114</div>
+      <div class="game-row">
+        <span class="team">MONACO</span>
+        <div class="odds">
+          <span>+2.5</span>
+          <span>-115</span>
+          <span>-114</span>
+        </div>
       </div>
     </section>
 
-    <section class="match">
-      <h3>Premier League</h3>
-      <div class="matchup">
-        <div class="team">Olympiskos <div class="jersey blue">1</div></div>
+    <section class="scores">
+      <h3>PREMIR LEAGUE</h3>
+      <div class="scorecard">
+        <div class="team-side"><div class="jersey">1</div><span>Olympksos</span></div>
         <span class="vs">VS</span>
-        <div class="team">Monaco <div class="jersey red">9</div></div>
+        <div class="team-side"><div class="jersey blue">9</div><span>Monaco</span></div>
       </div>
     </section>
   </main>
 
-  <nav class="bottom-nav">
-    <button class="nav-btn active">Home</button>
-    <button class="nav-btn">Live</button>
-    <button class="nav-btn">Profile</button>
-  </nav>
+  <footer class="bottomnav">
+    <button><i class="icon-home"></i><span>Home</span></button>
+    <button><i class="icon-live"></i><span>Live</span></button>
+    <button><i class="icon-user"></i><span>Profile</span></button>
+  </footer>
 </body>
 </html>
