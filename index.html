@@ -114,157 +114,123 @@
       </section>
     </main>
   </div>
-<script>
-const tabs = document.querySelectorAll('.tab');
-const cards = document.querySelectorAll('.card');
+  <script>
+    const tabs = document.querySelectorAll('.tabs a');
+    const xpBody = document.getElementById("xpBody");
+    const xpHead = document.querySelector("#xpTable thead");
+    const liveScoreSection = document.querySelector(".live-teams");
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    cards.forEach(c => c.classList.add('hidden'));
-    tab.classList.add('active');
-    const selected = tab.dataset.tab;
-    document.getElementById(selected).classList.remove('hidden');
-  });
-});
+    const data = {
+      basketball: {
+        liveScore: {
+          home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
+          away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
+        },
+        boxScore: [
+          { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
+          { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 }
+        ]
+      },
+      soccer: {
+        liveScore: {
+          home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
+          away: { name: "Monaco", score: 3, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
+        },
+        boxScore: [
+          { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, penalty: 1 },
+          { name: "Erling Haaland", goals: 3, assists: 0, clean: true, penalty: 0 }
+        ]
+      },
+      tennis: {
+        liveScore: {
+          home: { name: "Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/7/70/Tennis_ball.svg" },
+          away: { name: "Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/7/70/Tennis_ball.svg" }
+        },
+        boxScore: [
+          { name: "Alcaraz", aces: 5, dblf: 2, winners: 30 },
+          { name: "Djokovic", aces: 8, dblf: 1, winners: 27 }
+        ]
+      }
+    };
 
-const topTabs = document.querySelectorAll('.tabs a');
-const xpBody = document.getElementById("xpBody");
-const xpHeader = document.querySelector(".xp-table thead tr");
-const liveScoreSection = document.querySelector(".live-score .live-teams");
+    function animateScore(el, newScore) {
+      const oldScore = parseInt(el.textContent);
+      if (oldScore !== newScore) {
+        el.classList.add("pulse");
+        el.textContent = newScore;
+        setTimeout(() => el.classList.remove("pulse"), 500);
+      }
+    }
 
-const data = {
-  basketball: {
-    liveScore: {
-      home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
-      away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
-    },
-    boxScore: [
-      { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
-      { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
-      { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
-    ]
-  },
-  soccer: {
-    liveScore: {
-      home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
-      away: { name: "Monaco", score: 9, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
-    },
-    boxScore: [
-      { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
-      { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
-      { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
-    ]
-  },
-  tennis: {
-    liveScore: {
-      home: { name: "Novak Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
-      away: { name: "Carlos Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
-    },
-    boxScore: [
-      { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
-      { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
-    ]
-  }
-};
+    function renderLiveScore(sport) {
+      const live = data[sport].liveScore;
+      liveScoreSection.innerHTML = `
+        <div class="team">
+          <img src="${live.home.logo}" alt="${live.home.name}" />
+          <div class="team-name">${live.home.name}</div>
+          <div class="team-score">${live.home.score}</div>
+        </div>
+        <div class="vs-text">vs</div>
+        <div class="team">
+          <img src="${live.away.logo}" alt="${live.away.name}" />
+          <div class="team-name">${live.away.name}</div>
+          <div class="team-score">${live.away.score}</div>
+        </div>
+      `;
+    }
 
-function calcXPBasketball(p) {
-  return (p.pts * 1 + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 + p.to * -2).toFixed(1);
-}
+    function renderXPTable(sport) {
+      xpBody.innerHTML = "";
+      xpHead.innerHTML = "";
+      let headRow = "";
 
-function calcXPSoccer(p) {
-  return (p.goals * 10 + p.assists * 6 + (p.clean ? 8 : 0) + p.yc * -3 + p.rc * -6).toFixed(1);
-}
+      const rows = data[sport].boxScore.map(player => {
+        let row = `<tr><td>${player.name}</td>`;
+        if (sport === "basketball") {
+          headRow = `<tr><th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th></tr>`;
+          row += `<td>${player.pts}</td><td>${player.reb}</td><td>${player.ast}</td><td>${player.stl}</td><td>${player.blk}</td><td>${player.to}</td>`;
+        } else if (sport === "soccer") {
+          headRow = `<tr><th>Player</th><th>Goals</th><th>Assists</th><th>Clean</th><th>Penalty</th></tr>`;
+          row += `<td>${player.goals}</td><td>${player.assists}</td><td>${player.clean ? "✔" : "✘"}</td><td>${player.penalty}</td>`;
+        } else if (sport === "tennis") {
+          headRow = `<tr><th>Player</th><th>Aces</th><th>Double Faults</th><th>Winners</th></tr>`;
+          row += `<td>${player.aces}</td><td>${player.dblf}</td><td>${player.winners}</td>`;
+        }
+        row += "</tr>";
+        return row;
+      });
 
-function calcXPTennis(p) {
-  return (p.aces * 1.5 + p.doubleFaults * -2 + p.winners * 1 + p.unforcedErrors * -1).toFixed(1);
-}
+      xpHead.innerHTML = headRow;
+      xpBody.innerHTML = rows.join("");
+    }
 
-function renderXPTable(sport) {
-  const players = data[sport].boxScore;
-  xpBody.innerHTML = "";
-  let headers = "";
+    function switchSport(sport) {
+      renderLiveScore(sport);
+      renderXPTable(sport);
+    }
 
-  if (sport === "basketball") {
-    headers = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPBasketball(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.pts}</td>
-        <td>${p.reb}</td>
-        <td>${p.ast}</td>
-        <td>${p.stl}</td>
-        <td>${p.blk}</td>
-        <td>${p.to}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
+    tabs.forEach(tab => {
+      tab.addEventListener("click", e => {
+        e.preventDefault();
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const sport = tab.dataset.sport;
+        switchSport(sport);
+      });
     });
-  } else if (sport === "soccer") {
-    headers = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean Sheet</th><th>YC</th><th>RC</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPSoccer(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.goals}</td>
-        <td>${p.assists}</td>
-        <td>${p.clean ? "✔" : "✘"}</td>
-        <td>${p.yc}</td>
-        <td>${p.rc}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
-    });
-  } else if (sport === "tennis") {
-    headers = "<th>Player</th><th>Aces</th><th>Double Faults</th><th>Winners</th><th>Unforced Errors</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPTennis(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.aces}</td>
-        <td>${p.doubleFaults}</td>
-        <td>${p.winners}</td>
-        <td>${p.unforcedErrors}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
-    });
-  }
 
-  xpHeader.innerHTML = headers;
-}
+    // Auto-refresh scores (simulate score changes)
+    setInterval(() => {
+      // Simulate score change
+      Object.keys(data).forEach(sport => {
+        data[sport].liveScore.home.score += Math.floor(Math.random() * 2);
+        data[sport].liveScore.away.score += Math.floor(Math.random() * 2);
+      });
+      const active = document.querySelector('.tabs a.active').dataset.sport;
+      switchSport(active);
+    }, 10000);
 
-function renderLiveScore(sport) {
-  const live = data[sport].liveScore;
-  liveScoreSection.innerHTML = `
-    <div class="team">
-      <img src="${live.home.logo}" alt="${live.home.name} Logo" />
-      <div class="team-name">${live.home.name}</div>
-      <div class="team-score">${live.home.score}</div>
-    </div>
-    <div class="vs-text">vs</div>
-    <div class="team">
-      <img src="${live.away.logo}" alt="${live.away.name} Logo" />
-      <div class="team-name">${live.away.name}</div>
-      <div class="team-score">${live.away.score}</div>
-    </div>
-  `;
-}
-
-topTabs.forEach(tab => {
-  tab.addEventListener("click", (e) => {
-    e.preventDefault();
-    const sport = tab.textContent.toLowerCase();
-    topTabs.forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-
-    renderLiveScore(sport);
-    renderXPTable(sport);
-  });
-});
-
-window.onload = () => {
-  renderLiveScore("basketball");
-  renderXPTable("basketball");
-};
+    window.onload = () => switchSport("basketball");
 </script>
 </body>
 </html>
