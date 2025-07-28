@@ -391,24 +391,29 @@ function renderLiveScore(sport) {
   `;
 }
 
-topTabs.forEach(tab => {
-  tab.addEventListener("click", (e) => {
-    e.preventDefault();
-    const sport = tab.textContent.toLowerCase();
-    topTabs.forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-  
+// Extend existing tab switching logic
+  topTabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sport = tab.textContent.toLowerCase();
 
-    renderLiveScore(sport);
-    renderXPTable(sport);
-    updateBettingBoard(sport); // 👈 Add this line
+      // Update tab UI
+      topTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      // Render dynamic sections
+      renderLiveScore(sport);
+      renderXPTable(sport);
+      renderUpcomingMatches(sport);
+    });
   });
-});
 
-window.onload = () => {
-  renderLiveScore("basketball");
-  renderXPTable("basketball");
-};
+  // Initial load
+  window.onload = () => {
+    renderLiveScore("basketball");
+    renderXPTable("basketball");
+    renderUpcomingMatches("basketball");
+  }
 </script>
 </body>
 </html>
