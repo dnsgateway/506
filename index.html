@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RUMBLE MVP</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🛡️ <span>RUMBLE</span></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Live</a>
+      <a href="#">Scores</a>
+      <a href="#">Join</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>The Future of Fantasy Sports<br/> Betting is Now on the Go</h1>
+        <p>Build your team and place bets in real time.</p>
+        <div class="store-badges">
+          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store" />
+        </div>
+      </div>
+      <div class="dashboard">
+        <div class="status-bar">
+          <span>LIVE</span><span>1:33</span>
+        </div>
+        <div class="matchups">
+          <div class="card red">
+            <span>11</span>
+            <p>Home</p>
+          </div>
+          <div class="card blue">
+            <span>9</span>
+            <p>Away</p>
+          </div>
+        </div>
+        <button class="access-btn">Access Full Version</button>
+        <div class="bottom-nav">
+          <button class="nav-btn active"><i data-feather="home"></i><span>Home</span></button>
+          <button class="nav-btn"><i data-feather="bar-chart-2"></i><span>Bets</span></button>
+          <button class="nav-btn"><i data-feather="user"></i><span>Profile</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 RUMBLE Sports — All rights reserved.</p>
+  </footer>
+
+  <script>
+    feather.replace();
+  </script>
+</body>
+</html>
