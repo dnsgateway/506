@@ -136,6 +136,51 @@ body {
   color: #00d9ff;
   font-weight: bold;
 }
+.boxscore h3 {
+  color: #00d9ff;
+  margin-bottom: 1rem;
+}
+
+.sport-select {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sport-select button {
+  padding: 0.5rem 1rem;
+  background: #014751;
+  color: #00d9ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.sport-select button:hover {
+  background: #016a75;
+}
+
+.xp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.xp-table th,
+.xp-table td {
+  border-bottom: 1px solid #222c3c;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.xp-table th {
+  color: #00d9ff;
+}
+
+.xp-table tbody tr:hover {
+  background-color: #0e2a3c;
+}
 
 .promo h1 {
   font-size: 2rem;
