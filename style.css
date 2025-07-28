@@ -1,200 +1,130 @@
-/* Font & Reset */
 body {
   margin: 0;
   font-family: 'Outfit', sans-serif;
-  background: radial-gradient(ellipse at top, #0a0f1c, #030509);
-  color: #fff;
+  background: linear-gradient(to bottom, #050d1a, #010409);
+  color: white;
 }
 
-a {
-  text-decoration: none;
-  color: #ccc;
-}
-
-/* Topbar */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #0d1325;
   padding: 1rem;
-  background: #050a15;
-  border-bottom: 1px solid #1e2a3c;
 }
 
 .logo {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #48b7ff;
+  color: cyan;
 }
 
-.topnav {
-  display: none;
+.topnav a {
+  color: white;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
 .btn-deposit {
-  background: #00c8ff;
-  color: #fff;
+  background: #00bfff;
+  color: #000;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 12px;
-  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-/* Dashboard Main */
 .dashboard {
   padding: 1rem;
 }
 
-/* Matchup Section */
-.matchup {
-  background: #0f1624;
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.matchup h2 {
-  font-size: 1rem;
-  color: #48b7ff;
-  margin-bottom: 1rem;
+.matchup h2, .scores h3 {
+  color: cyan;
 }
 
 .game-row {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #1a1a1a;
+  margin: 0.5rem 0;
 }
 
 .team {
-  font-weight: 600;
-}
-
-.odds {
-  display: flex;
-  gap: 1rem;
+  font-weight: bold;
 }
 
 .odds span {
-  font-size: 0.85rem;
-  color: #00ffcc;
-}
-
-/* Score Section */
-.scores h3 {
-  font-size: 1rem;
-  color: #48b7ff;
-  margin-bottom: 1rem;
+  margin-left: 0.5rem;
 }
 
 .scorecard {
-  background: #0f1624;
   display: flex;
-  align-items: center;
   justify-content: space-around;
-  border-radius: 12px;
+  align-items: center;
+  background: #111926;
   padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
 }
 
 .team-side {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
 .jersey {
-  background: #aa1d1d;
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  font-size: 1.5rem;
+  background: red;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .jersey.blue {
-  background: #1e55ff;
+  background: blue;
 }
 
 .vs {
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #ccc;
 }
 
-/* Bottom Navigation */
 .bottomnav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #050a15;
-  border-top: 1px solid #1e2a3c;
+  background: #050d1a;
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid #222;
 }
 
 .bottomnav button {
   background: none;
   border: none;
-  color: #ccc;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
 }
 
-.bottomnav button:hover,
-.bottomnav button:focus {
-  color: #48b7ff;
-}
-
-/* Placeholder icons */
-.icon-home::before { content: "🏠"; }
-.icon-live::before { content: "📺"; }
-.icon-user::before { content: "👤"; }
-
-/* Responsive Styling */
-@media (min-width: 768px) {
-  .topnav {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .bottomnav button span {
-    font-size: 0.9rem;
-  }
-
-  .scorecard {
-    max-width: 420px;
-    margin: auto;
-  }
-
-  .dashboard {
-    max-width: 700px;
-    margin: auto;
-  }
+.bottomnav button span {
+  display: block;
 }
 
 @media (max-width: 375px) {
-  .odds span {
-    font-size: 0.7rem;
-  }
-
-  .jersey {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+  .topnav a {
+    font-size: 0.75rem;
   }
 
   .btn-deposit {
-    font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
   }
 
-  .logo {
-    font-size: 1rem;
+  .scorecard {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
