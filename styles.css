@@ -160,6 +160,52 @@ body {
 .sport-select button:hover {
   background: #016a75;
 }
+/* Live Score Section */
+.live-score h3 {
+  color: #00d9ff;
+  margin-bottom: 1rem;
+}
+
+.live-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #0e1726;
+  border-radius: 10px;
+}
+
+.live-teams .team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.live-teams img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.live-teams .team-name {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.live-teams .team-score {
+  font-size: 1.5rem;
+  color: #00d9ff;
+  font-weight: bold;
+}
+
+.live-teams .vs-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #aaa;
+}
 
 .xp-table {
   width: 100%;
