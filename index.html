@@ -130,6 +130,66 @@ tabs.forEach(tab => {
     document.getElementById(selected).classList.remove('hidden');
   });
 });
+    const boardTitle = document.getElementById("leagueTitle");
+const teamA = document.getElementById("teamA");
+const scoreA = document.getElementById("scoreA");
+const spread = document.getElementById("spread");
+const total = document.getElementById("total");
+const moneyVegas = document.getElementById("moneyVegas");
+const moneyDraft = document.getElementById("moneyDraft");
+
+const bettingData = {
+  basketball: {
+    league: "🏀 NBA",
+    team: "LAKERS",
+    score: 102,
+    odds: {
+      spread: "-5.5<br><span>-110</span>",
+      total: "O 210.5<br><span>-115</span>",
+      moneyVegas: "-125",
+      moneyDraft: "+130"
+    }
+  },
+  soccer: {
+    league: "⚽ EPL",
+    team: "ARSENAL",
+    score: 1,
+    odds: {
+      spread: "+0.5<br><span>-105</span>",
+      total: "U 2.5<br><span>-110</span>",
+      moneyVegas: "+110",
+      moneyDraft: "+120"
+    }
+  },
+  tennis: {
+    league: "🎾 Wimbledon",
+    team: "DJOKOVIC",
+    score: 3,
+    odds: {
+      spread: "-1.5 Sets<br><span>-125</span>",
+      total: "O 21.5<br><span>-105</span>",
+      moneyVegas: "-200",
+      moneyDraft: "-180"
+    }
+  }
+};
+
+function updateBettingBoard(sport) {
+  const data = bettingData[sport];
+  boardTitle.textContent = data.league;
+  teamA.textContent = data.team;
+
+  scoreA.classList.add("score-fade");
+  setTimeout(() => {
+    scoreA.textContent = data.score;
+    scoreA.classList.remove("score-fade");
+  }, 150);
+
+  spread.innerHTML = data.odds.spread;
+  total.innerHTML = data.odds.total;
+  moneyVegas.textContent = data.odds.moneyVegas;
+  moneyDraft.textContent = data.odds.moneyDraft;
+}
 
 const topTabs = document.querySelectorAll('.tabs a');
 const xpBody = document.getElementById("xpBody");
@@ -258,9 +318,11 @@ topTabs.forEach(tab => {
     const sport = tab.textContent.toLowerCase();
     topTabs.forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
+  
 
     renderLiveScore(sport);
     renderXPTable(sport);
+    updateBettingBoard(sport); // 👈 Add this line
   });
 });
 
