@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RUMBLE MVP</title>
+  <title>Rumble Fantasy App</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="topbar">
     <div class="logo">Ⓡ RUMBLE</div>
     <nav class="topnav">
       <a href="#">How it works</a>
-      <a href="#">Live scores</a>
-      <a href="#">Join for free</a>
+      <a href="#">Live Scores</a>
+      <a href="#">Join</a>
     </nav>
     <button class="btn-deposit">Deposit +</button>
   </header>
@@ -23,37 +23,35 @@
     <section class="matchup">
       <h2>EUROLEAGUE</h2>
       <div class="game-row">
-        <span class="team">OLYMPIAKOS</span>
-        <div class="odds">
-          <span>+2.5</span>
-          <span>-118</span>
-          <span>-145</span>
-        </div>
+        <div class="team">OLYMPIAKOS</div>
+        <div class="odds"><span>+2.5</span><span>-118</span><span>-145</span></div>
       </div>
       <div class="game-row">
-        <span class="team">MONACO</span>
-        <div class="odds">
-          <span>+2.5</span>
-          <span>-115</span>
-          <span>-114</span>
-        </div>
+        <div class="team">MONACO</div>
+        <div class="odds"><span>-2.5</span><span>+115</span><span>+114</span></div>
       </div>
     </section>
 
     <section class="scores">
-      <h3>PREMIR LEAGUE</h3>
+      <h3>SCORES</h3>
       <div class="scorecard">
-        <div class="team-side"><div class="jersey">1</div><span>Olympksos</span></div>
-        <span class="vs">VS</span>
-        <div class="team-side"><div class="jersey blue">9</div><span>Monaco</span></div>
+        <div class="team-side">
+          <div class="jersey">11</div>
+          <div>Olympiakos</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team-side">
+          <div class="jersey blue">9</div>
+          <div>Monaco</div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="bottomnav">
-    <button><i class="icon-home"></i><span>Home</span></button>
-    <button><i class="icon-live"></i><span>Live</span></button>
-    <button><i class="icon-user"></i><span>Profile</span></button>
+    <button><span class="icon-home">🏠</span><span>Home</span></button>
+    <button><span class="icon-live">📺</span><span>Live</span></button>
+    <button><span class="icon-user">👤</span><span>Profile</span></button>
   </footer>
 </body>
 </html>
