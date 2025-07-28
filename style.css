@@ -1,130 +1,158 @@
 body {
   margin: 0;
-  font-family: 'Outfit', sans-serif;
-  background: linear-gradient(to bottom, #050d1a, #010409);
+  font-family: 'Segoe UI', sans-serif;
+  background: #0e1726;
   color: white;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 240px;
+  background: #121d2d;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #00d9ff;
+}
+
+.user {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0.5rem;
+  background: #cfd8dc;
+  border-radius: 50%;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.nav li.active,
+.nav li:hover {
+  background: #042c4b;
+  color: #00d9ff;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0d1325;
-  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
-.logo {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: cyan;
-}
-
-.topnav a {
-  color: white;
-  margin: 0 0.5rem;
+.tabs a {
+  margin-right: 1.5rem;
   text-decoration: none;
-  font-size: 0.9rem;
+  color: #aaa;
+  font-weight: 500;
 }
 
-.btn-deposit {
-  background: #00bfff;
-  color: #000;
+.tabs .active {
+  color: #00d9ff;
+  border-bottom: 2px solid #00d9ff;
+}
+
+.deposit {
+  background: #014751;
+  color: #00d9ff;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
   font-weight: bold;
 }
 
-.dashboard {
+.card {
+  background: #121d2d;
   padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
 }
 
-.matchup h2, .scores h3 {
-  color: cyan;
+.card h3 {
+  margin-bottom: 1rem;
+  color: #00d9ff;
 }
 
-.game-row {
+.matchup, .vs {
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem 0;
+  margin-bottom: 1rem;
 }
 
-.team {
-  font-weight: bold;
-}
-
-.odds span {
-  margin-left: 0.5rem;
-}
-
-.scorecard {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #111926;
+.table {
+  background: #0e1726;
+  border-radius: 8px;
   padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 10px;
 }
 
-.team-side {
-  text-align: center;
-}
-
-.jersey {
-  background: red;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-}
-
-.jersey.blue {
-  background: blue;
-}
-
-.vs {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.bottomnav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #050d1a;
+.row {
   display: flex;
-  justify-content: space-around;
-  padding: 0.75rem 0;
-  border-top: 1px solid #222;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-.bottomnav button {
-  background: none;
-  border: none;
+.row.head {
+  color: #ccc;
+  font-weight: bold;
+}
+
+.row span {
+  font-size: 0.8em;
+  color: #00d9ff;
+}
+
+.green {
+  color: #00d9ff;
+  font-weight: bold;
+}
+
+.promo h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.promo p {
+  color: #aaa;
+}
+
+.cta {
+  background: #007aff;
   color: white;
-  font-size: 0.8rem;
-  text-align: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-size: 1rem;
   cursor: pointer;
-}
-
-.bottomnav button span {
-  display: block;
-}
-
-@media (max-width: 375px) {
-  .topnav a {
-    font-size: 0.75rem;
-  }
-
-  .btn-deposit {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-  }
-
-  .scorecard {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 }
