@@ -1,162 +1,200 @@
+/* Font & Reset */
 body {
   margin: 0;
   font-family: 'Outfit', sans-serif;
-  background: #010a18;
+  background: radial-gradient(ellipse at top, #0a0f1c, #030509);
   color: #fff;
 }
 
-.app-header {
+a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+/* Topbar */
+.topbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
-  background: #0b1b2a;
+  background: #050a15;
+  border-bottom: 1px solid #1e2a3c;
 }
 
 .logo {
+  font-size: 1.2rem;
   font-weight: bold;
-  font-size: 1.1rem;
-  color: #33ccff;
+  color: #48b7ff;
+}
+
+.topnav {
+  display: none;
 }
 
 .btn-deposit {
-  background: #00bfff;
+  background: #00c8ff;
+  color: #fff;
   border: none;
   padding: 0.5rem 1rem;
-  color: #fff;
-  border-radius: 6px;
+  border-radius: 12px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem;
-  background: #071423;
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 0.75rem;
-  color: #aaa;
-  border-bottom: 2px solid transparent;
-  background: none;
-  border: none;
-}
-
-.tab.active {
-  color: #fff;
-  border-bottom: 2px solid #33ccff;
-}
-
+/* Dashboard Main */
 .dashboard {
   padding: 1rem;
 }
 
-.match {
-  background: #101f33;
-  margin-bottom: 1.2rem;
-  padding: 1rem;
+/* Matchup Section */
+.matchup {
+  background: #0f1624;
   border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.matchup {
+.matchup h2 {
+  font-size: 1rem;
+  color: #48b7ff;
+  margin-bottom: 1rem;
+}
+
+.game-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 1rem 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #1a1a1a;
 }
 
 .team {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-.score {
-  font-size: 1.2rem;
-  color: #00ffcc;
+  font-weight: 600;
 }
 
 .odds {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  text-align: center;
-  color: #33ccff;
+  display: flex;
+  gap: 1rem;
+}
+
+.odds span {
   font-size: 0.85rem;
+  color: #00ffcc;
+}
+
+/* Score Section */
+.scores h3 {
+  font-size: 1rem;
+  color: #48b7ff;
+  margin-bottom: 1rem;
+}
+
+.scorecard {
+  background: #0f1624;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.team-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .jersey {
-  display: inline-block;
-  background: #223;
-  padding: 0.4rem 0.8rem;
-  margin-top: 0.5rem;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  background: #aa1d1d;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .jersey.blue {
-  background: #0e3fff;
-}
-
-.jersey.red {
-  background: #cc0000;
+  background: #1e55ff;
 }
 
 .vs {
-  font-size: 1.1rem;
-  color: #aaa;
+  font-weight: bold;
+  color: #ccc;
 }
 
-.bottom-nav {
+/* Bottom Navigation */
+.bottomnav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #0b1b2a;
+  background: #050a15;
+  border-top: 1px solid #1e2a3c;
   display: flex;
   justify-content: space-around;
-  padding: 0.6rem 0;
-  border-top: 1px solid #223;
+  padding: 0.5rem 0;
 }
 
-.nav-btn {
+.bottomnav button {
   background: none;
   border: none;
-  color: #aaa;
-  font-size: 0.9rem;
+  color: #ccc;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.nav-btn.active {
-  color: #00bfff;
+.bottomnav button:hover,
+.bottomnav button:focus {
+  color: #48b7ff;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .dashboard {
-    padding: 0.5rem;
+/* Placeholder icons */
+.icon-home::before { content: "🏠"; }
+.icon-live::before { content: "📺"; }
+.icon-user::before { content: "👤"; }
+
+/* Responsive Styling */
+@media (min-width: 768px) {
+  .topnav {
+    display: flex;
+    gap: 1rem;
   }
 
-  .tabs button,
-  .nav-btn {
-    font-size: 0.75rem;
-  }
-
-  .match {
-    padding: 0.7rem;
-  }
-
-  .logo {
+  .bottomnav button span {
     font-size: 0.9rem;
   }
 
-  .btn-deposit {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+  .scorecard {
+    max-width: 420px;
+    margin: auto;
+  }
+
+  .dashboard {
+    max-width: 700px;
+    margin: auto;
+  }
+}
+
+@media (max-width: 375px) {
+  .odds span {
+    font-size: 0.7rem;
   }
 
   .jersey {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .btn-deposit {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .logo {
     font-size: 1rem;
-    padding: 0.3rem 0.6rem;
   }
 }
