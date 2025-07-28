@@ -136,253 +136,198 @@
     </main>
   </div>
   <script>
-const xpBody = document.getElementById("xpBody");
-const xpHeader = document.querySelector(".xp-table thead tr");
-const liveScoreSection = document.querySelector(".live-score .live-teams");
-const upcomingBody = document.getElementById("upcomingBody");
-const topTabs = document.querySelectorAll('.tabs a');
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll('.tab');
+  const cards = document.querySelectorAll('.card');
+  const topTabs = document.querySelectorAll('.tabs a');
 
-// Betting board DOM references
-const boardTitle = document.getElementById("leagueTitle");
-const teamA = document.getElementById("teamA");
-const scoreA = document.getElementById("scoreA");
-const spread = document.getElementById("spread");
-const total = document.getElementById("total");
-const moneyVegas = document.getElementById("moneyVegas");
-const moneyDraft = document.getElementById("moneyDraft");
+  const boardTitle = document.getElementById("leagueTitle");
+  const teamA = document.getElementById("teamA");
+  const scoreA = document.getElementById("scoreA");
+  const spread = document.getElementById("spread");
+  const total = document.getElementById("total");
+  const moneyVegas = document.getElementById("moneyVegas");
+  const moneyDraft = document.getElementById("moneyDraft");
 
-// Betting Board Data
-const bettingData = {
-  basketball: {
-    league: "🏀 NBA",
-    team: "LAKERS",
-    score: 102,
-    odds: {
-      spread: "-5.5<br><span>-110</span>",
-      total: "O 210.5<br><span>-115</span>",
-      moneyVegas: "-125",
-      moneyDraft: "+130"
+  const xpBody = document.getElementById("xpBody");
+  const xpHeader = document.querySelector(".xp-table thead tr");
+  const liveScoreSection = document.querySelector(".live-score .live-teams");
+  const upcomingBody = document.getElementById("upcomingBody");
+
+  const data = {
+    basketball: {
+      liveScore: {
+        home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
+        away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
+      },
+      boxScore: [
+        { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
+        { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
+        { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
+      ]
+    },
+    soccer: {
+      liveScore: {
+        home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
+        away: { name: "Monaco", score: 9, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
+      },
+      boxScore: [
+        { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
+        { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
+        { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
+      ]
+    },
+    tennis: {
+      liveScore: {
+        home: { name: "Novak Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
+        away: { name: "Carlos Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
+      },
+      boxScore: [
+        { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
+        { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
+      ]
     }
-  },
-  soccer: {
-    league: "⚽ EPL",
-    team: "ARSENAL",
-    score: 1,
-    odds: {
-      spread: "+0.5<br><span>-105</span>",
-      total: "U 2.5<br><span>-110</span>",
-      moneyVegas: "+110",
-      moneyDraft: "+120"
-    }
-  },
-  tennis: {
-    league: "🎾 Wimbledon",
-    team: "DJOKOVIC",
-    score: 3,
-    odds: {
-      spread: "-1.5 Sets<br><span>-125</span>",
-      total: "O 21.5<br><span>-105</span>",
-      moneyVegas: "-200",
-      moneyDraft: "-180"
-    }
-  }
-};
+  };
 
-function updateBettingBoard(sport) {
-  const data = bettingData[sport];
-  boardTitle?.textContent = data.league;
-  teamA?.textContent = data.team;
+  const bettingData = {
+    basketball: {
+      league: "🏀 NBA", team: "LAKERS", score: 102,
+      odds: {
+        spread: "-5.5<br><span>-110</span>",
+        total: "O 210.5<br><span>-115</span>",
+        moneyVegas: "-125", moneyDraft: "+130"
+      }
+    },
+    soccer: {
+      league: "⚽ EPL", team: "ARSENAL", score: 1,
+      odds: {
+        spread: "+0.5<br><span>-105</span>",
+        total: "U 2.5<br><span>-110</span>",
+        moneyVegas: "+110", moneyDraft: "+120"
+      }
+    },
+    tennis: {
+      league: "🎾 Wimbledon", team: "DJOKOVIC", score: 3,
+      odds: {
+        spread: "-1.5 Sets<br><span>-125</span>",
+        total: "O 21.5<br><span>-105</span>",
+        moneyVegas: "-200", moneyDraft: "-180"
+      }
+    }
+  };
 
-  if (scoreA) {
+  const oddsData = {
+    basketball: [
+      { match: "Lakers vs Warriors", vegas: "+2.5 (-110)", fanduel: "+2 (-108)", draftkings: "+3 (-115)" },
+      { match: "Celtics vs Heat", vegas: "-1.5 (-120)", fanduel: "-2 (-115)", draftkings: "-1.5 (-110)" }
+    ],
+    soccer: [
+      { match: "Arsenal vs Chelsea", vegas: "Arsenal +1.5 (-105)", fanduel: "Draw (+240)", draftkings: "Chelsea -1.5 (+200)" },
+      { match: "Real Madrid vs Barcelona", vegas: "Madrid +0.5 (-120)", fanduel: "Barca -0.5 (+130)", draftkings: "Draw (+220)" }
+    ],
+    tennis: [
+      { match: "Djokovic vs Alcaraz", vegas: "Djokovic -1.5 sets (-125)", fanduel: "Alcaraz ML (+115)", draftkings: "Over 3.5 sets (-110)" },
+      { match: "Nadal vs Sinner", vegas: "Nadal -2.5 games (-105)", fanduel: "Sinner ML (+135)", draftkings: "Under 3.5 sets (-115)" }
+    ]
+  };
+
+  function updateBettingBoard(sport) {
+    const data = bettingData[sport];
+    if (!boardTitle || !teamA || !scoreA || !spread || !total || !moneyVegas || !moneyDraft) return;
+
+    boardTitle.textContent = data.league;
+    teamA.textContent = data.team;
+
     scoreA.classList.add("score-fade");
     setTimeout(() => {
       scoreA.textContent = data.score;
       scoreA.classList.remove("score-fade");
     }, 150);
+
+    spread.innerHTML = data.odds.spread;
+    total.innerHTML = data.odds.total;
+    moneyVegas.textContent = data.odds.moneyVegas;
+    moneyDraft.textContent = data.odds.moneyDraft;
   }
 
-  spread?.innerHTML = data.odds.spread;
-  total?.innerHTML = data.odds.total;
-  moneyVegas?.textContent = data.odds.moneyVegas;
-  moneyDraft?.textContent = data.odds.moneyDraft;
-}
+  function renderXPTable(sport) {
+    const players = data[sport].boxScore;
+    xpBody.innerHTML = "";
+    let headers = "";
 
-// Upcoming Matches
-const oddsData = {
-  basketball: [
-    { match: "Lakers vs Warriors", vegas: "+2.5 (-110)", fanduel: "+2 (-108)", draftkings: "+3 (-115)" },
-    { match: "Celtics vs Heat", vegas: "-1.5 (-120)", fanduel: "-2 (-115)", draftkings: "-1.5 (-110)" }
-  ],
-  soccer: [
-    { match: "Arsenal vs Chelsea", vegas: "Arsenal +1.5 (-105)", fanduel: "Draw (+240)", draftkings: "Chelsea -1.5 (+200)" },
-    { match: "Real Madrid vs Barcelona", vegas: "Madrid +0.5 (-120)", fanduel: "Barca -0.5 (+130)", draftkings: "Draw (+220)" }
-  ],
-  tennis: [
-    { match: "Djokovic vs Alcaraz", vegas: "Djokovic -1.5 sets (-125)", fanduel: "Alcaraz ML (+115)", draftkings: "Over 3.5 sets (-110)" },
-    { match: "Nadal vs Sinner", vegas: "Nadal -2.5 games (-105)", fanduel: "Sinner ML (+135)", draftkings: "Under 3.5 sets (-115)" }
-  ]
-};
+    if (sport === "basketball") {
+      headers = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.pts}</td><td>${p.reb}</td><td>${p.ast}</td><td>${p.stl}</td><td>${p.blk}</td><td>${p.to}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    } else if (sport === "soccer") {
+      headers = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean Sheet</th><th>YC</th><th>RC</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.goals * 10 + p.assists * 6 + (p.clean ? 8 : 0) - p.yc * 3 - p.rc * 6).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.goals}</td><td>${p.assists}</td><td>${p.clean ? "✔" : "✘"}</td><td>${p.yc}</td><td>${p.rc}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    } else if (sport === "tennis") {
+      headers = "<th>Player</th><th>Aces</th><th>DF</th><th>Winners</th><th>UE</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.aces}</td><td>${p.doubleFaults}</td><td>${p.winners}</td><td>${p.unforcedErrors}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    }
 
-function renderUpcomingMatches(sport) {
-  if (!upcomingBody) return;
-  upcomingBody.innerHTML = "";
+    xpHeader.innerHTML = headers;
+  }
 
-  oddsData[sport].forEach(game => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${game.match}</td>
-      <td>${game.vegas}</td>
-      <td>${game.fanduel}</td>
-      <td>${game.draftkings}</td>
+  function renderLiveScore(sport) {
+    const live = data[sport].liveScore;
+    liveScoreSection.innerHTML = `
+      <div class="team">
+        <img src="${live.home.logo}" alt="${live.home.name}" />
+        <div class="team-name">${live.home.name}</div>
+        <div class="team-score">${live.home.score}</div>
+      </div>
+      <div class="vs-text">vs</div>
+      <div class="team">
+        <img src="${live.away.logo}" alt="${live.away.name}" />
+        <div class="team-name">${live.away.name}</div>
+        <div class="team-score">${live.away.score}</div>
+      </div>
     `;
-    upcomingBody.appendChild(row);
-  });
-}
-
-// Live and XP Table Data
-const data = {
-  basketball: {
-    liveScore: {
-      home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
-      away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
-    },
-    boxScore: [
-      { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
-      { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
-      { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
-    ]
-  },
-  soccer: {
-    liveScore: {
-      home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
-      away: { name: "Monaco", score: 9, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
-    },
-    boxScore: [
-      { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
-      { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
-      { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
-    ]
-  },
-  tennis: {
-    liveScore: {
-      home: { name: "Novak Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
-      away: { name: "Carlos Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
-    },
-    boxScore: [
-      { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
-      { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
-    ]
   }
-};
 
-function calcXPBasketball(p) {
-  return (p.pts * 1 + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 + p.to * -2).toFixed(1);
-}
-
-function calcXPSoccer(p) {
-  return (p.goals * 10 + p.assists * 6 + (p.clean ? 8 : 0) + p.yc * -3 + p.rc * -6).toFixed(1);
-}
-
-function calcXPTennis(p) {
-  return (p.aces * 1.5 + p.doubleFaults * -2 + p.winners * 1 + p.unforcedErrors * -1).toFixed(1);
-}
-
-function renderXPTable(sport) {
-  const players = data[sport].boxScore;
-  if (!xpHeader || !xpBody) return;
-
-  xpBody.innerHTML = "";
-  let headers = "";
-
-  if (sport === "basketball") {
-    headers = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPBasketball(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.pts}</td>
-        <td>${p.reb}</td>
-        <td>${p.ast}</td>
-        <td>${p.stl}</td>
-        <td>${p.blk}</td>
-        <td>${p.to}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
-    });
-  } else if (sport === "soccer") {
-    headers = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean Sheet</th><th>YC</th><th>RC</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPSoccer(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.goals}</td>
-        <td>${p.assists}</td>
-        <td>${p.clean ? "✔" : "✘"}</td>
-        <td>${p.yc}</td>
-        <td>${p.rc}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
-    });
-  } else if (sport === "tennis") {
-    headers = "<th>Player</th><th>Aces</th><th>Double Faults</th><th>Winners</th><th>Unforced Errors</th><th>XP</th>";
-    players.forEach(p => {
-      const xp = calcXPTennis(p);
-      xpBody.innerHTML += `<tr>
-        <td>${p.name}</td>
-        <td>${p.aces}</td>
-        <td>${p.doubleFaults}</td>
-        <td>${p.winners}</td>
-        <td>${p.unforcedErrors}</td>
-        <td><strong>${xp}</strong></td>
-      </tr>`;
+  function renderUpcomingMatches(sport) {
+    upcomingBody.innerHTML = "";
+    oddsData[sport].forEach(game => {
+      upcomingBody.innerHTML += `
+        <tr>
+          <td>${game.match}</td>
+          <td>${game.vegas}</td>
+          <td>${game.fanduel}</td>
+          <td>${game.draftkings}</td>
+        </tr>`;
     });
   }
 
-  xpHeader.innerHTML = headers;
-}
+  topTabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sport = tab.textContent.toLowerCase();
+      topTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
 
-function renderLiveScore(sport) {
-  const live = data[sport].liveScore;
-  if (!liveScoreSection) return;
-
-  liveScoreSection.innerHTML = `
-    <div class="team">
-      <img src="${live.home.logo}" alt="${live.home.name} Logo" />
-      <div class="team-name">${live.home.name}</div>
-      <div class="team-score">${live.home.score}</div>
-    </div>
-    <div class="vs-text">vs</div>
-    <div class="team">
-      <img src="${live.away.logo}" alt="${live.away.name} Logo" />
-      <div class="team-name">${live.away.name}</div>
-      <div class="team-score">${live.away.score}</div>
-    </div>
-  `;
-}
-
-// Top Tab Click Logic
-topTabs.forEach(tab => {
-  tab.addEventListener("click", (e) => {
-    e.preventDefault();
-    const sport = tab.textContent.toLowerCase();
-
-    topTabs.forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-
-    renderLiveScore(sport);
-    renderXPTable(sport);
-    renderUpcomingMatches(sport);
-    updateBettingBoard(sport);
+      updateBettingBoard(sport);
+      renderLiveScore(sport);
+      renderXPTable(sport);
+      renderUpcomingMatches(sport);
+    });
   });
-});
 
-// Initial Page Load
-window.onload = () => {
+  // Initial Load
+  updateBettingBoard("basketball");
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderUpcomingMatches("basketball");
-  updateBettingBoard("basketball");
-};
+});
 </script>
 </body>
 </html>
