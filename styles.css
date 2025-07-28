@@ -206,6 +206,48 @@ body {
   font-weight: bold;
   color: #aaa;
 }
+/* Animate score transitions */
+.score.animate {
+  transition: all 0.3s ease;
+}
+
+.score-fade {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #0e1726;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 120px;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.team-name {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.vs-text {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ccc;
+}
 
 .xp-table {
   width: 100%;
