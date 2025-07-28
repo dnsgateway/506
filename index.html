@@ -57,6 +57,29 @@
           </div>
         </div>
       </section>
+      <!-- XP Box Score Section -->
+<section class="card boxscore" id="xpBoxScore">
+  <h3>🔥 Top Player Picks XP</h3>
+  <div class="sport-select">
+    <button onclick="renderXPTable('basketball')">🏀 Basketball</button>
+    <button onclick="renderXPTable('soccer')">⚽ Soccer</button>
+  </div>
+  <table class="xp-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>PTS</th>
+        <th>REB</th>
+        <th>AST</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>TO</th>
+        <th>XP</th>
+      </tr>
+    </thead>
+    <tbody id="xpBody"></tbody>
+  </table>
+</section>
 
       <!-- Promo -->
       <section class="promo">
