@@ -115,7 +115,74 @@ tabs.forEach(tab => {
     const selected = tab.dataset.tab;
     document.getElementById(selected).classList.remove('hidden');
   });
-});
+  
+  const players = {
+    basketball: [
+      { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
+      { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
+      { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
+    ],
+    soccer: [
+      { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
+      { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
+      { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
+    ]
+  };
+
+  function calcXPBasketball(player) {
+    return (
+      player.pts * 1 +
+      player.reb * 1.2 +
+      player.ast * 1.5 +
+      player.stl * 3 +
+      player.blk * 3 +
+      player.to * -2
+    ).toFixed(1);
+  }
+
+  function calcXPSoccer(player) {
+    return (
+      player.goals * 10 +
+      player.assists * 6 +
+      (player.clean ? 8 : 0) +
+      player.yc * -3 +
+      player.rc * -6
+    ).toFixed(1);
+  }
+
+  function renderXPTable(sport) {
+    const tableBody = document.getElementById("xpBody");
+    tableBody.innerHTML = "";
+
+    const sportData = players[sport];
+    sportData.forEach(p => {
+      let xp, row;
+      if (sport === "basketball") {
+        xp = calcXPBasketball(p);
+        row = `<tr>
+          <td>${p.name}</td>
+          <td>${p.pts}</td>
+          <td>${p.reb}</td>
+          <td>${p.ast}</td>
+          <td>${p.stl}</td>
+          <td>${p.blk}</td>
+          <td>${p.to}</td>
+          <td><strong>${xp}</strong></td>
+        </tr>`;
+      } else {
+        xp = calcXPSoccer(p);
+        row = `<tr>
+          <td>${p.name}</td>
+          <td colspan="6">Goals: ${p.goals}, Ast: ${p.assists}, Clean: ${p.clean ? "✔" : "✘"}, YC: ${p.yc}, RC: ${p.rc}</td>
+          <td><strong>${xp}</strong></td>
+        </tr>`;
+      }
+      tableBody.innerHTML += row;
+    });
+  }
+
+  // Default render
+  window.onload = () => renderXPTable("basketball");
   </script>
 </body>
 </html>
