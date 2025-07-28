@@ -115,8 +115,13 @@
     </main>
   </div>
 <script>
-const tabs = document.querySelectorAll('.tab');
-const cards = document.querySelectorAll('.card');
+const tabs = document.querySelectorAll(".tabs a");
+const xpBody = document.getElementById("xpBody");
+const xpHeader = document.getElementById("xpHeader");
+const liveScoreSection = document.querySelector(".live-teams");
+const matchup = document.querySelector(".matchup");
+const table = document.querySelector(".table");
+const leagueTitle = document.getElementById("league-title");
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -167,7 +172,7 @@ const data = {
     ]
   }
 };
-
+  
 function calcXPBasketball(p) {
   return (p.pts * 1 + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 + p.to * -2).toFixed(1);
 }
@@ -231,7 +236,14 @@ function renderXPTable(sport) {
 
   xpHeader.innerHTML = headers;
 }
-
+function animateScore(el, newScore) {
+      const oldScore = parseInt(el.textContent);
+      if (oldScore !== newScore) {
+        el.classList.add("pulse");
+        el.textContent = newScore;
+        setTimeout(() => el.classList.remove("pulse"), 500);
+      }
+  
 function renderLiveScore(sport) {
   const live = data[sport].liveScore;
   liveScoreSection.innerHTML = `
@@ -260,6 +272,16 @@ topTabs.forEach(tab => {
     renderXPTable(sport);
   });
 });
+  // Auto-refresh scores (simulate score changes)
+    setInterval(() => {
+      // Simulate score change
+      Object.keys(data).forEach(sport => {
+        data[sport].liveScore.home.score += Math.floor(Math.random() * 2);
+        data[sport].liveScore.away.score += Math.floor(Math.random() * 2);
+      });
+      const active = document.querySelector('.tabs a.active').dataset.sport;
+      switchSport(active);
+    }, 10000);
 
 window.onload = () => {
   renderLiveScore("basketball");
