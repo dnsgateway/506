@@ -3,63 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RUMBLE MVP</title>
+  <title>Rumble Dashboard</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/feather-icons"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">🛡️ <span>RUMBLE</span></div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Live</a>
-      <a href="#">Scores</a>
-      <a href="#">Join</a>
-    </nav>
+  <header class="app-header">
+    <div class="logo">Ⓡ RUMBLE</div>
+    <button class="btn-deposit">Deposit +</button>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-text">
-        <h1>The Future of Fantasy Sports<br/> Betting is Now on the Go</h1>
-        <p>Build your team and place bets in real time.</p>
-        <div class="store-badges">
-          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store" />
-        </div>
+  <nav class="tabs">
+    <button class="tab active">Basketball</button>
+    <button class="tab">Soccer</button>
+    <button class="tab">Tennis</button>
+  </nav>
+
+  <main class="dashboard">
+    <section class="match">
+      <h3>Euroleague</h3>
+      <div class="matchup">
+        <div class="team">Olympiakos <span class="score">15</span></div>
+        <div class="team">Monaco <span class="score">12</span></div>
       </div>
-      <div class="dashboard">
-        <div class="status-bar">
-          <span>LIVE</span><span>1:33</span>
-        </div>
-        <div class="matchups">
-          <div class="card red">
-            <span>11</span>
-            <p>Home</p>
-          </div>
-          <div class="card blue">
-            <span>9</span>
-            <p>Away</p>
-          </div>
-        </div>
-        <button class="access-btn">Access Full Version</button>
-        <div class="bottom-nav">
-          <button class="nav-btn active"><i data-feather="home"></i><span>Home</span></button>
-          <button class="nav-btn"><i data-feather="bar-chart-2"></i><span>Bets</span></button>
-          <button class="nav-btn"><i data-feather="user"></i><span>Profile</span></button>
-        </div>
+      <div class="odds">
+        <div>-2.5<br><small>-118</small></div>
+        <div>O 0.19.5<br><small>-119</small></div>
+        <div>-145</div>
+        <div>+2.5<br><small>-115</small></div>
+        <div>U 0.18.5<br><small>-115</small></div>
+        <div>+114</div>
+      </div>
+    </section>
+
+    <section class="match">
+      <h3>Premier League</h3>
+      <div class="matchup">
+        <div class="team">Olympiskos <div class="jersey blue">1</div></div>
+        <span class="vs">VS</span>
+        <div class="team">Monaco <div class="jersey red">9</div></div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <p>© 2025 RUMBLE Sports — All rights reserved.</p>
-  </footer>
-
-  <script>
-    feather.replace();
-  </script>
+  <nav class="bottom-nav">
+    <button class="nav-btn active">Home</button>
+    <button class="nav-btn">Live</button>
+    <button class="nav-btn">Profile</button>
+  </nav>
 </body>
 </html>
