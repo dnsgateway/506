@@ -208,7 +208,68 @@ function updateBettingBoard(sport) {
   moneyVegas.textContent = data.odds.moneyVegas;
   moneyDraft.textContent = data.odds.moneyDraft;
 }
+const upcomingBody = document.getElementById("upcomingBody");
+  const topTabs = document.querySelectorAll('.tabs a');
 
+  const oddsData = {
+    basketball: [
+      {
+        match: "Lakers vs Warriors",
+        vegas: "+2.5 (-110)",
+        fanduel: "+2 (-108)",
+        draftkings: "+3 (-115)"
+      },
+      {
+        match: "Celtics vs Heat",
+        vegas: "-1.5 (-120)",
+        fanduel: "-2 (-115)",
+        draftkings: "-1.5 (-110)"
+      }
+    ],
+    soccer: [
+      {
+        match: "Arsenal vs Chelsea",
+        vegas: "Arsenal +1.5 (-105)",
+        fanduel: "Draw (+240)",
+        draftkings: "Chelsea -1.5 (+200)"
+      },
+      {
+        match: "Real Madrid vs Barcelona",
+        vegas: "Madrid +0.5 (-120)",
+        fanduel: "Barca -0.5 (+130)",
+        draftkings: "Draw (+220)"
+      }
+    ],
+    tennis: [
+      {
+        match: "Djokovic vs Alcaraz",
+        vegas: "Djokovic -1.5 sets (-125)",
+        fanduel: "Alcaraz ML (+115)",
+        draftkings: "Over 3.5 sets (-110)"
+      },
+      {
+        match: "Nadal vs Sinner",
+        vegas: "Nadal -2.5 games (-105)",
+        fanduel: "Sinner ML (+135)",
+        draftkings: "Under 3.5 sets (-115)"
+      }
+    ]
+  };
+
+  function renderUpcomingMatches(sport) {
+    upcomingBody.innerHTML = "";
+
+    oddsData[sport].forEach(game => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${game.match}</td>
+        <td>${game.vegas}</td>
+        <td>${game.fanduel}</td>
+        <td>${game.draftkings}</td>
+      `;
+      upcomingBody.appendChild(row);
+    });
+  }
 const topTabs = document.querySelectorAll('.tabs a');
 const xpBody = document.getElementById("xpBody");
 const xpHeader = document.querySelector(".xp-table thead tr");
