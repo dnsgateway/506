@@ -136,19 +136,14 @@
     </main>
   </div>
   <script>
-const tabs = document.querySelectorAll('.tab');
-const cards = document.querySelectorAll('.card');
+const xpBody = document.getElementById("xpBody");
+const xpHeader = document.querySelector(".xp-table thead tr");
+const liveScoreSection = document.querySelector(".live-score .live-teams");
+const upcomingBody = document.getElementById("upcomingBody");
+const topTabs = document.querySelectorAll('.tabs a');
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    cards.forEach(c => c.classList.add('hidden'));
-    tab.classList.add('active');
-    const selected = tab.dataset.tab;
-    document.getElementById(selected).classList.remove('hidden');
-  });
-});
-    const boardTitle = document.getElementById("leagueTitle");
+// Betting board DOM references
+const boardTitle = document.getElementById("leagueTitle");
 const teamA = document.getElementById("teamA");
 const scoreA = document.getElementById("scoreA");
 const spread = document.getElementById("spread");
@@ -156,6 +151,7 @@ const total = document.getElementById("total");
 const moneyVegas = document.getElementById("moneyVegas");
 const moneyDraft = document.getElementById("moneyDraft");
 
+// Betting Board Data
 const bettingData = {
   basketball: {
     league: "🏀 NBA",
@@ -194,87 +190,56 @@ const bettingData = {
 
 function updateBettingBoard(sport) {
   const data = bettingData[sport];
-  boardTitle.textContent = data.league;
-  teamA.textContent = data.team;
+  boardTitle?.textContent = data.league;
+  teamA?.textContent = data.team;
 
-  scoreA.classList.add("score-fade");
-  setTimeout(() => {
-    scoreA.textContent = data.score;
-    scoreA.classList.remove("score-fade");
-  }, 150);
-
-  spread.innerHTML = data.odds.spread;
-  total.innerHTML = data.odds.total;
-  moneyVegas.textContent = data.odds.moneyVegas;
-  moneyDraft.textContent = data.odds.moneyDraft;
-}
-const upcomingBody = document.getElementById("upcomingBody");
-  const topTabs = document.querySelectorAll('.tabs a');
-
-  const oddsData = {
-    basketball: [
-      {
-        match: "Lakers vs Warriors",
-        vegas: "+2.5 (-110)",
-        fanduel: "+2 (-108)",
-        draftkings: "+3 (-115)"
-      },
-      {
-        match: "Celtics vs Heat",
-        vegas: "-1.5 (-120)",
-        fanduel: "-2 (-115)",
-        draftkings: "-1.5 (-110)"
-      }
-    ],
-    soccer: [
-      {
-        match: "Arsenal vs Chelsea",
-        vegas: "Arsenal +1.5 (-105)",
-        fanduel: "Draw (+240)",
-        draftkings: "Chelsea -1.5 (+200)"
-      },
-      {
-        match: "Real Madrid vs Barcelona",
-        vegas: "Madrid +0.5 (-120)",
-        fanduel: "Barca -0.5 (+130)",
-        draftkings: "Draw (+220)"
-      }
-    ],
-    tennis: [
-      {
-        match: "Djokovic vs Alcaraz",
-        vegas: "Djokovic -1.5 sets (-125)",
-        fanduel: "Alcaraz ML (+115)",
-        draftkings: "Over 3.5 sets (-110)"
-      },
-      {
-        match: "Nadal vs Sinner",
-        vegas: "Nadal -2.5 games (-105)",
-        fanduel: "Sinner ML (+135)",
-        draftkings: "Under 3.5 sets (-115)"
-      }
-    ]
-  };
-
-  function renderUpcomingMatches(sport) {
-    upcomingBody.innerHTML = "";
-
-    oddsData[sport].forEach(game => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${game.match}</td>
-        <td>${game.vegas}</td>
-        <td>${game.fanduel}</td>
-        <td>${game.draftkings}</td>
-      `;
-      upcomingBody.appendChild(row);
-    });
+  if (scoreA) {
+    scoreA.classList.add("score-fade");
+    setTimeout(() => {
+      scoreA.textContent = data.score;
+      scoreA.classList.remove("score-fade");
+    }, 150);
   }
-const topTabs = document.querySelectorAll('.tabs a');
-const xpBody = document.getElementById("xpBody");
-const xpHeader = document.querySelector(".xp-table thead tr");
-const liveScoreSection = document.querySelector(".live-score .live-teams");
 
+  spread?.innerHTML = data.odds.spread;
+  total?.innerHTML = data.odds.total;
+  moneyVegas?.textContent = data.odds.moneyVegas;
+  moneyDraft?.textContent = data.odds.moneyDraft;
+}
+
+// Upcoming Matches
+const oddsData = {
+  basketball: [
+    { match: "Lakers vs Warriors", vegas: "+2.5 (-110)", fanduel: "+2 (-108)", draftkings: "+3 (-115)" },
+    { match: "Celtics vs Heat", vegas: "-1.5 (-120)", fanduel: "-2 (-115)", draftkings: "-1.5 (-110)" }
+  ],
+  soccer: [
+    { match: "Arsenal vs Chelsea", vegas: "Arsenal +1.5 (-105)", fanduel: "Draw (+240)", draftkings: "Chelsea -1.5 (+200)" },
+    { match: "Real Madrid vs Barcelona", vegas: "Madrid +0.5 (-120)", fanduel: "Barca -0.5 (+130)", draftkings: "Draw (+220)" }
+  ],
+  tennis: [
+    { match: "Djokovic vs Alcaraz", vegas: "Djokovic -1.5 sets (-125)", fanduel: "Alcaraz ML (+115)", draftkings: "Over 3.5 sets (-110)" },
+    { match: "Nadal vs Sinner", vegas: "Nadal -2.5 games (-105)", fanduel: "Sinner ML (+135)", draftkings: "Under 3.5 sets (-115)" }
+  ]
+};
+
+function renderUpcomingMatches(sport) {
+  if (!upcomingBody) return;
+  upcomingBody.innerHTML = "";
+
+  oddsData[sport].forEach(game => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${game.match}</td>
+      <td>${game.vegas}</td>
+      <td>${game.fanduel}</td>
+      <td>${game.draftkings}</td>
+    `;
+    upcomingBody.appendChild(row);
+  });
+}
+
+// Live and XP Table Data
 const data = {
   basketball: {
     liveScore: {
@@ -324,6 +289,8 @@ function calcXPTennis(p) {
 
 function renderXPTable(sport) {
   const players = data[sport].boxScore;
+  if (!xpHeader || !xpBody) return;
+
   xpBody.innerHTML = "";
   let headers = "";
 
@@ -376,6 +343,8 @@ function renderXPTable(sport) {
 
 function renderLiveScore(sport) {
   const live = data[sport].liveScore;
+  if (!liveScoreSection) return;
+
   liveScoreSection.innerHTML = `
     <div class="team">
       <img src="${live.home.logo}" alt="${live.home.name} Logo" />
@@ -391,29 +360,29 @@ function renderLiveScore(sport) {
   `;
 }
 
-// Extend existing tab switching logic
-  topTabs.forEach(tab => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sport = tab.textContent.toLowerCase();
+// Top Tab Click Logic
+topTabs.forEach(tab => {
+  tab.addEventListener("click", (e) => {
+    e.preventDefault();
+    const sport = tab.textContent.toLowerCase();
 
-      // Update tab UI
-      topTabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
+    topTabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
 
-      // Render dynamic sections
-      renderLiveScore(sport);
-      renderXPTable(sport);
-      renderUpcomingMatches(sport);
-    });
+    renderLiveScore(sport);
+    renderXPTable(sport);
+    renderUpcomingMatches(sport);
+    updateBettingBoard(sport);
   });
+});
 
-  // Initial load
-  window.onload = () => {
-    renderLiveScore("basketball");
-    renderXPTable("basketball");
-    renderUpcomingMatches("basketball");
-  };
+// Initial Page Load
+window.onload = () => {
+  renderLiveScore("basketball");
+  renderXPTable("basketball");
+  renderUpcomingMatches("basketball");
+  updateBettingBoard("basketball");
+};
 </script>
 </body>
 </html>
