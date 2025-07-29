@@ -545,6 +545,15 @@ body {
   background-color: #00cc77;
 }00cc66;
 }
+@keyframes spinReel {
+  0%   { transform: translateY(0);    opacity: 1; }
+  50%  { transform: translateY(-20px); opacity: 0.5; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+.slot-animate {
+  animation: spinReel 0.2s ease-in-out;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .app {
