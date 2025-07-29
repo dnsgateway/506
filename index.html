@@ -239,13 +239,13 @@ document.addEventListener("DOMContentLoaded", () => {
     data[sport].odds.forEach(g => {
       const formattedDate = formatDate(g.date);
       matchOddsBody.innerHTML += `
-        <tr>
-          <td>${g.match}</td>
-          <td>${formattedDate}</td>
-          <td>${g.vegas}</td>
-          <td>${g.total}</td>
-          <td><strong>${g.money}</strong></td>
-        </tr>`;
+  <tr>
+    <td>${formattedDate}</td>
+    <td>${g.match}</td>
+    <td>${g.vegas}</td>
+    <td>${g.total}</td>
+    <td><strong>${g.money}</strong></td>
+  </tr>`;
     });
   }
 
