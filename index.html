@@ -84,12 +84,11 @@
   <div class="casino-cards">
     <!-- Slot Machine -->
     <div class="casino-card">
-      <h3>Slot Machine</h3>
-      <div class="casino-display" id="slotDisplay">🍒 🍋 🍊</div>
-      <button onclick="spinSlots()">Spin</button>
-      <p id="slotResult"></p>
-    </div>
-
+  <h3>Slot Machine</h3>
+  <div class="casino-display" id="slotDisplay">🍒 🍋 🍊</div>
+  <button onclick="spinSlots()">Spin</button>
+  <p id="slotResult"></p>
+</div
     <!-- Wheel of Fortune -->
     <div class="casino-card">
       <h3>Wheel of Fortune</h3>
@@ -372,14 +371,32 @@ document.addEventListener("DOMContentLoaded", () => {
 // 🎰 Mini Casino Game Scripts
 function spinSlots() {
   const symbols = ["🍒", "🍋", "🍊", "💎", "7️⃣"];
-  const s1 = symbols[Math.floor(Math.random() * symbols.length)];
-  const s2 = symbols[Math.floor(Math.random() * symbols.length)];
-  const s3 = symbols[Math.floor(Math.random() * symbols.length)];
-  document.getElementById("slotDisplay").textContent = `${s1} ${s2} ${s3}`;
-  document.getElementById("slotResult").textContent =
-    (s1 === s2 && s2 === s3) ? "🎉 Jackpot!" : "Try Again!";
-}
+  const slotDisplay = document.getElementById("slotDisplay");
+  const resultText = document.getElementById("slotResult");
 
+  let count = 0;
+  resultText.textContent = "Spinning...";
+
+  const spinInterval = setInterval(() => {
+    const s1 = symbols[Math.floor(Math.random() * symbols.length)];
+    const s2 = symbols[Math.floor(Math.random() * symbols.length)];
+    const s3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+    slotDisplay.textContent = `${s1} ${s2} ${s3}`;
+    slotDisplay.classList.add("slot-animate");
+    setTimeout(() => slotDisplay.classList.remove("slot-animate"), 150);
+
+    count++;
+    if (count >= 15) {
+      clearInterval(spinInterval);
+      const final1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const final2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const final3 = symbols[Math.floor(Math.random() * symbols.length)];
+      slotDisplay.textContent = `${final1} ${final2} ${final3}`;
+      resultText.textContent = (final1 === final2 && final2 === final3) ? "🎉 Jackpot!" : "Try Again!";
+    }
+  }, 100);
+}
 // 🎡 Wheel of Fortune
 function spinWheel() {
   const sectors = ["$50", "$100", "$250", "$500", "BANKRUPT", "$1,000", "JACKPOT"];
