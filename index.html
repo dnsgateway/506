@@ -1,3 +1,5 @@
+HTML: 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,21 +39,26 @@
         </nav>
         <button class="deposit">Deposit +</button>
       </header>
- <!-- New: Upcoming Matches & Predictions -->
-      <section class="card" id="upcomingMatchesCard">
-        <h3>📅 Upcoming Matches & Oddsmaker Predictions</h3>
-       <div class="card">
-        <h2>Live & Upcoming Games & Odds</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Time</th><th>Game</th><th>Spread</th><th>Total</th><th>Moneyline</th><th>Score</th>
-            </tr>
-          </thead>
-          <tbody id="oddsTableBody"></tbody>
-        </table>
-      </div>
-</section>
+
+      <!-- Betting Board -->
+      <section class="card">
+        <h3>🏆 EUROLEAGUE</h3>
+        <div class="matchup">
+          <div class="team">OLYMPIAKOS</div>
+          <div class="score">15</div>
+        </div>
+        <div class="table">
+          <div class="row head">
+            <div>Spread</div><div>Total</div><div>Moneytine</div><div>Moneyline</div>
+          </div>
+          <div class="row">
+            <div>+2.5<br><span>-118</span></div>
+            <div>U 108.5<br><span>-115</span></div>
+            <div>-111</div>
+            <div class="green">+114</div>
+          </div>
+        </div>
+      </section>
 
       <!-- Live Score Section -->
 <section class="card live-score">
@@ -92,8 +99,7 @@
 
       <!-- Promo -->
       <section class="promo">
-        <h1>The Future of Fantasy Sports Betting <br /> 
-          Now Accessible on the Go</h1>
+        <h1>The Future of Fantasy Sports Betting is Now on the Go</h1>
         <p>Build a team and place your bets in real time.</p>
       </section>
 
@@ -110,7 +116,7 @@
       </section>
     </main>
   </div>
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll('.tab');
   const cards = document.querySelectorAll('.card');
@@ -128,24 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const upcomingBody = document.getElementById("upcomingBody");
-
-  const oddsData = {
-  basketball: [
-    { time: "Live", game: "Lakers vs Celtics", spread: "-5.5 (-110)", total: "-510 (-115)", moneyline: "-125", score: "1 - 3" },
-    { time: "7:00 PM", game: "Lakers vs Warriors", spread: "+2.5 (-110)", total: "O 227.5", moneyline: "+120", score: "120 - 115" },
-    { time: "7:00 PM", game: "Celtics vs Heat", spread: "-1.5 (-120)", total: "U 215.0", moneyline: "-135", score: "–" }
-  ],
-  soccer: [
-    { time: "Live", game: "Arsenal vs Monaco", spread: "+0.5 (-105)", total: "O 2.5", moneyline: "+110", score: "1 - 3" },
-    { time: "6:00 PM", game: "Arsenal vs Chelsea", spread: "-1.5 (-125)", total: "O 2.5", moneyline: "-155", score: "–" },
-    { time: "8:00 PM", game: "Real Madrid vs Barcelona", spread: "+0.5 (-120)", total: "U 2.5", moneyline: "+130", score: "–" }
-  ],
-  tennis: [
-    { time: "7:00 PM", game: "Djokovic vs Alcaraz", spread: "-1.5 (-125)", total: "O 215.5", moneyline: "-105", score: "1:30" },
-    { time: "6:00 PM", game: "Nadal vs Sinner", spread: "-2.5 (-105)", total: "U 39.5", moneyline: "-115", score: "–" }
-  ]
-};
-
 
   const data = {
     basketball: {
