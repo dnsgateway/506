@@ -367,6 +367,32 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPickemCards("basketball");
   renderStoreItems();
 });
+
+// 🎰 Mini Casino Game Scripts
+function spinSlots() {
+  const symbols = ["🍒", "🍋", "🍊", "💎", "7️⃣"];
+  const s1 = symbols[Math.floor(Math.random() * symbols.length)];
+  const s2 = symbols[Math.floor(Math.random() * symbols.length)];
+  const s3 = symbols[Math.floor(Math.random() * symbols.length)];
+  document.getElementById("slotDisplay").textContent = `${s1} ${s2} ${s3}`;
+  document.getElementById("slotResult").textContent =
+    (s1 === s2 && s2 === s3) ? "🎉 Jackpot!" : "Try Again!";
+}
+
+function rollDice() {
+  const dice = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+  const roll = dice[Math.floor(Math.random() * dice.length)];
+  document.getElementById("diceDisplay").textContent = roll;
+  document.getElementById("diceResult").textContent =
+    `You rolled a ${dice.indexOf(roll) + 1}`;
+}
+
+function flipCoin() {
+  const outcome = Math.random() < 0.5 ? "Heads" : "Tails";
+  const icon = outcome === "Heads" ? "🙂" : "👑";
+  document.getElementById("coinDisplay").textContent = icon;
+  document.getElementById("coinResult").textContent = `It's ${outcome}!`;
+}
 </script>
 </body>
 </html>
