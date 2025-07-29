@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const matchOddsBody = document.getElementById("matchOddsBody");
-  const pickemContainer = document.getElementById("pickemCards");
+  const pickEmContainer = document.querySelector(".pickem-cards");
 
   const data = {
     basketball: {
@@ -129,141 +129,72 @@ document.addEventListener("DOMContentLoaded", () => {
         home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
         away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
       },
-      boxScore: [
-        { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
-        { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
-        { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
-      ],
-      odds: [
-        { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
-        { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
-      ],
+      boxScore: [...],
+      odds: [...],
       pickem: [
-        {
-          title: "Bet These Stars to Score 25+",
-          challenges: [
-            "LeBron James 25+ PTS",
-            "Stephen Curry 25+ PTS",
-            "Jayson Tatum 25+ PTS"
-          ]
-        },
-        {
-          title: "Triple Threat Challenge",
-          challenges: [
-            "Giannis Double-Double",
-            "Jokic 8+ AST",
-            "Doncic 10+ REB"
-          ]
-        },
-        {
-          title: "Defense to Offense Combo",
-          challenges: [
-            "Bam 2+ BLK",
-            "Jrue 3+ STL",
-            "Siakam 1+ BLK & 20+ PTS"
-          ]
-        }
+        { player: "Jalen Brunson", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/3/34/New_York_Knicks_logo.svg" },
+        { player: "Tyrese Maxey", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg" },
+        { player: "Trae Young", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg" }
       ]
     },
     soccer: {
-      liveScore: {
-        home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
-        away: { name: "Monaco", score: 9, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
-      },
-      boxScore: [
-        { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
-        { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
-        { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
-      ],
-      odds: [
-        { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
-        { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
-      ],
+      liveScore: {...},
+      boxScore: [...],
+      odds: [...],
       pickem: [
-        {
-          title: "Goal Scorers Galore",
-          challenges: [
-            "Mbappé 1+ Goal",
-            "Ronaldo 2+ Goals",
-            "Messi Assist + Goal"
-          ]
-        },
-        {
-          title: "Clean Sheet Combo",
-          challenges: [
-            "Ederson Clean Sheet",
-            "Van Dijk 3+ Clearances",
-            "Alisson Save Penalty"
-          ]
-        },
-        {
-          title: "Playmaker Picks",
-          challenges: [
-            "Kane Draw Penalty",
-            "De Bruyne 2+ Assists",
-            "Modrić 90% Pass Accuracy"
-          ]
-        }
+        { player: "Messi", condition: "2+ Goals", teamLogo: "https://upload.wikimedia.org/wikipedia/en/e/e1/FC_Barcelona_%28crest%29.svg" },
+        { player: "Mbappé", condition: "1+ Assist", teamLogo: "https://upload.wikimedia.org/wikipedia/en/f/fd/Paris_Saint-Germain_F.C..svg" },
+        { player: "Ronaldo", condition: "Clean Sheet", teamLogo: "https://upload.wikimedia.org/wikipedia/en/5/56/Al-Nassr_FC_logo.svg" }
       ]
     },
     tennis: {
-      liveScore: {
-        home: { name: "Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
-        away: { name: "Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
-      },
-      boxScore: [
-        { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
-        { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
-      ],
-      odds: [
-        { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
-        { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
-      ],
+      liveScore: {...},
+      boxScore: [...],
+      odds: [...],
       pickem: [
-        {
-          title: "Ace Masters",
-          challenges: [
-            "Djokovic 10+ Aces",
-            "Alcaraz 8+ Aces",
-            "Tsitsipas 1+ Ace Per Game"
-          ]
-        },
-        {
-          title: "Set Sweeper Combo",
-          challenges: [
-            "Nadal Win in 2 Sets",
-            "Sinner Win 1st Set",
-            "Zverev 6-0 Set"
-          ]
-        },
-        {
-          title: "Endurance Picks",
-          challenges: [
-            "Thiem Win Tie Break",
-            "Rublev 30+ Winners",
-            "Medvedev 3+ Break Points"
-          ]
-        }
+        { player: "Djokovic", condition: "3+ Aces", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
+        { player: "Alcaraz", condition: "Win in 2 sets", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
+        { player: "Sinner", condition: "Fewer than 2 DFs", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
       ]
     }
   };
 
   function renderPickemCards(sport) {
-    const pickSets = data[sport].pickem || [];
-    pickemContainer.innerHTML = pickSets.map(set => `
-      <div class="pick-card">
-        <h4>${set.title}</h4>
-        <ul class="challenge-list">
-          ${set.challenges.map(ch => `<li>⚡ ${ch}</li>`).join("")}
-        </ul>
+    const picks = data[sport].pickem;
+    pickEmContainer.innerHTML = picks.map(p => `
+      <div class="pickem-card">
+        <img class="team-logo" src="${p.teamLogo}" alt="${p.player}" />
+        <div class="pickem-info">
+          <span class="player">${p.player}</span>
+          <span class="condition">${p.condition}</span>
+        </div>
       </div>
     `).join("");
   }
 
-  // TODO: Add back your renderXPTable(), renderLiveScore(), renderScheduleOddsTable()
-  // and topTabs eventListeners if not already present in your main script.
+  function renderLiveScore(sport) {...}
+  function renderXPTable(sport) {...}
+  function renderScheduleOddsTable(sport) {...}
 
-  // Initial Render:
+  topTabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sport = tab.textContent.toLowerCase();
+
+      topTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      renderLiveScore(sport);
+      renderXPTable(sport);
+      renderScheduleOddsTable(sport);
+      renderPickemCards(sport);
+    });
+  });
+
+  // Initial render
+  renderLiveScore("basketball");
+  renderXPTable("basketball");
+  renderScheduleOddsTable("basketball");
   renderPickemCards("basketball");
 });
 </script>
