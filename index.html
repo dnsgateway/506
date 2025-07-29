@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const matchOddsBody = document.getElementById("matchOddsBody");
+  const pickemContainer = document.getElementById("pickemCards");
 
   const data = {
     basketball: {
@@ -136,6 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
         { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
+      ],
+      pickem: [
+        "Jalen Brunson 25+ Points",
+        "Tyrese Maxey 25+ Points",
+        "Trae Young 25+ Points"
       ]
     },
     soccer: {
@@ -151,6 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
         { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
+      ],
+      pickem: [
+        "Messi 1+ Assist",
+        "Ronaldo 2+ Goals",
+        "Haaland Clean Sheet"
       ]
     },
     tennis: {
@@ -165,6 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
         { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
+      ],
+      pickem: [
+        "Djokovic 10+ Aces",
+        "Alcaraz 25+ Winners",
+        "Nadal Win in 2 Sets"
       ]
     }
   };
@@ -187,6 +203,33 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${live.away.logo}" alt="${live.away.name}" />
         <div class="team-name">${live.away.name}</div>
         <div class="team-score">${live.away.score}</div>
+      </div>`;
+  }
+
+  function renderScheduleOddsTable(sport) {
+    matchOddsBody.innerHTML = "";
+
+    data[sport].odds.forEach(g => {
+      const formattedDate = formatDate(g.date);
+      matchOddsBody.innerHTML += `
+        <tr>
+          <td>${formattedDate}</td>
+          <td>${g.match}</td>
+          <td>${g.vegas}</td>
+          <td>${g.total}</td>
+          <td><strong>${g.money}</strong></td>
+        </tr>`;
+    });
+  }
+
+  function renderPickemCards(sport) {
+    const picks = data[sport].pickem || [];
+    pickemContainer.innerHTML = `
+      <div class="pickem-card">
+        <h3>${sport.charAt(0).toUpperCase() + sport.slice(1)} Pick 'Em</h3>
+        <ul>
+          ${picks.map(p => `<li>🟢 ${p}</li>`).join("")}
+        </ul>
       </div>`;
   }
 
@@ -218,22 +261,6 @@ document.addEventListener("DOMContentLoaded", () => {
     xpHeader.innerHTML = header;
   }
 
-  function renderScheduleOddsTable(sport) {
-    matchOddsBody.innerHTML = "";
-
-    data[sport].odds.forEach(g => {
-      const formattedDate = formatDate(g.date);
-      matchOddsBody.innerHTML += `
-  <tr>
-    <td>${formattedDate}</td>
-    <td>${g.match}</td>
-    <td>${g.vegas}</td>
-    <td>${g.total}</td>
-    <td><strong>${g.money}</strong></td>
-  </tr>`;
-    });
-  }
-
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
@@ -242,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
       topTabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
 
+      renderPickemCards(sport);
       renderLiveScore(sport);
       renderXPTable(sport);
       renderScheduleOddsTable(sport);
@@ -249,6 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initial render
+  renderPickemCards("basketball");
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
