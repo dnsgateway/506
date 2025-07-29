@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const matchOddsBody = document.getElementById("matchOddsBody");
-  const pickEmContainer = document.querySelector(".pickem-cards");
 
   const data = {
     basketball: {
@@ -131,52 +130,111 @@ document.addEventListener("DOMContentLoaded", () => {
         home: { name: "Lakers", score: 102, logo: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Los_Angeles_Lakers_logo.svg" },
         away: { name: "Celtics", score: 97, logo: "https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg" }
       },
-      boxScore: [...],
-      odds: [...],
-      pickem: [
-        { player: "Jalen Brunson", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/3/34/New_York_Knicks_logo.svg" },
-        { player: "Tyrese Maxey", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/0/0e/Philadelphia_76ers_logo.svg" },
-        { player: "Trae Young", condition: "25+ Points", teamLogo: "https://upload.wikimedia.org/wikipedia/en/2/24/Atlanta_Hawks_logo.svg" }
+      boxScore: [
+        { name: "Kyrie Irving", pts: 36, reb: 5, ast: 6, stl: 2, blk: 1, to: 2 },
+        { name: "Luka Doncic", pts: 33, reb: 12, ast: 6, stl: 1, blk: 0, to: 4 },
+        { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
+      ],
+      odds: [
+        { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
+        { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
       ]
     },
     soccer: {
-      liveScore: {...},
-      boxScore: [...],
-      odds: [...],
-      pickem: [
-        { player: "Messi", condition: "2+ Goals", teamLogo: "https://upload.wikimedia.org/wikipedia/en/e/e1/FC_Barcelona_%28crest%29.svg" },
-        { player: "Mbappé", condition: "1+ Assist", teamLogo: "https://upload.wikimedia.org/wikipedia/en/f/fd/Paris_Saint-Germain_F.C..svg" },
-        { player: "Ronaldo", condition: "Clean Sheet", teamLogo: "https://upload.wikimedia.org/wikipedia/en/5/56/Al-Nassr_FC_logo.svg" }
+      liveScore: {
+        home: { name: "Arsenal", score: 1, logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
+        away: { name: "Monaco", score: 9, logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" }
+      },
+      boxScore: [
+        { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
+        { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
+        { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
+      ],
+      odds: [
+        { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
+        { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
       ]
     },
     tennis: {
-      liveScore: {...},
-      boxScore: [...],
-      odds: [...],
-      pickem: [
-        { player: "Djokovic", condition: "3+ Aces", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
-        { player: "Alcaraz", condition: "Win in 2 sets", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
-        { player: "Sinner", condition: "Fewer than 2 DFs", teamLogo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
+      liveScore: {
+        home: { name: "Djokovic", score: 3, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" },
+        away: { name: "Alcaraz", score: 2, logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/Tennis_pictogram.svg" }
+      },
+      boxScore: [
+        { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
+        { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
+      ],
+      odds: [
+        { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
+        { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
       ]
     }
   };
 
-  function renderPickemCards(sport) {
-    const picks = data[sport].pickem;
-    pickEmContainer.innerHTML = picks.map(p => `
-      <div class="pickem-card">
-        <img class="team-logo" src="${p.teamLogo}" alt="${p.player}" />
-        <div class="pickem-info">
-          <span class="player">${p.player}</span>
-          <span class="condition">${p.condition}</span>
-        </div>
-      </div>
-    `).join("");
+  function formatDate(dateStr) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateStr).toLocaleDateString(undefined, options);
   }
 
-  function renderLiveScore(sport) {...}
-  function renderXPTable(sport) {...}
-  function renderScheduleOddsTable(sport) {...}
+  function renderLiveScore(sport) {
+    const live = data[sport].liveScore;
+    liveScoreSection.innerHTML = `
+      <div class="team">
+        <img src="${live.home.logo}" alt="${live.home.name}" />
+        <div class="team-name">${live.home.name}</div>
+        <div class="team-score">${live.home.score}</div>
+      </div>
+      <div class="vs-text">vs</div>
+      <div class="team">
+        <img src="${live.away.logo}" alt="${live.away.name}" />
+        <div class="team-name">${live.away.name}</div>
+        <div class="team-score">${live.away.score}</div>
+      </div>`;
+  }
+
+  function renderXPTable(sport) {
+    const players = data[sport].boxScore;
+    xpBody.innerHTML = "";
+    let header = "";
+
+    if (sport === "basketball") {
+      header = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.pts}</td><td>${p.reb}</td><td>${p.ast}</td><td>${p.stl}</td><td>${p.blk}</td><td>${p.to}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    } else if (sport === "soccer") {
+      header = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean</th><th>YC</th><th>RC</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.goals}</td><td>${p.assists}</td><td>${p.clean ? "✔" : "✘"}</td><td>${p.yc}</td><td>${p.rc}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    } else if (sport === "tennis") {
+      header = "<th>Player</th><th>Aces</th><th>DF</th><th>Winners</th><th>UE</th><th>XP</th>";
+      players.forEach(p => {
+        const xp = (p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors).toFixed(1);
+        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.aces}</td><td>${p.doubleFaults}</td><td>${p.winners}</td><td>${p.unforcedErrors}</td><td><strong>${xp}</strong></td></tr>`;
+      });
+    }
+
+    xpHeader.innerHTML = header;
+  }
+
+  function renderScheduleOddsTable(sport) {
+    matchOddsBody.innerHTML = "";
+
+    data[sport].odds.forEach(g => {
+      const formattedDate = formatDate(g.date);
+      matchOddsBody.innerHTML += `
+  <tr>
+    <td>${formattedDate}</td>
+    <td>${g.match}</td>
+    <td>${g.vegas}</td>
+    <td>${g.total}</td>
+    <td><strong>${g.money}</strong></td>
+  </tr>`;
+    });
+  }
 
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
@@ -189,7 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
       renderLiveScore(sport);
       renderXPTable(sport);
       renderScheduleOddsTable(sport);
-      renderPickemCards(sport);
     });
   });
 
@@ -197,7 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
-  renderPickemCards("basketball");
 });
 </script>
 </body>
