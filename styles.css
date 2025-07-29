@@ -190,6 +190,11 @@ body {
   font-weight: bold;
   color: #00d9ff;
 }
+.upcoming-table th:first-child,
+.upcoming-table td:first-child {
+  min-width: 120px;
+  white-space: nowrap;
+}
 
 /* Live Score Section */
 .live-score h3 {
