@@ -43,6 +43,7 @@
     <thead>
       <tr>
         <th>Match</th>
+        <th>Date</th
         <th>Spread</th>
         <th>Total</th>
         <th>Moneyline</th>
@@ -130,6 +131,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
+
   const xpBody = document.getElementById("xpBody");
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
@@ -148,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       odds: [
         { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
-        { match: "Celtics vs Heat", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
+        { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
       ]
     },
     soccer: {
@@ -162,8 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
       ],
       odds: [
-        { match: "Arsenal vs Chelsea", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
-        { match: "Real Madrid vs Barcelona", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
+        { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
+        { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
       ]
     },
     tennis: {
@@ -176,11 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
       ],
       odds: [
-        { match: "Djokovic vs Alcaraz", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
-        { match: "Nadal vs Sinner", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
+        { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
+        { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
       ]
     }
   };
+
+  function formatDate(dateStr) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateStr).toLocaleDateString(undefined, options);
+  }
 
   function renderLiveScore(sport) {
     const live = data[sport].liveScore;
@@ -227,16 +234,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderScheduleOddsTable(sport) {
-    if (!matchOddsBody || !data[sport] || !data[sport].odds) return;
-
     matchOddsBody.innerHTML = "";
-    data[sport].odds.forEach(game => {
+
+    data[sport].odds.forEach(g => {
+      const formattedDate = formatDate(g.date);
       matchOddsBody.innerHTML += `
         <tr>
-          <td>${game.match}</td>
-          <td>${game.vegas}</td>
-          <td>${game.total}</td>
-          <td><strong>${game.money}</strong></td>
+          <td>${g.match}</td>
+          <td>${formattedDate}</td>
+          <td>${g.vegas}</td>
+          <td>${g.total}</td>
+          <td><strong>${g.money}</strong></td>
         </tr>`;
     });
   }
@@ -244,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
-      const sport = tab.textContent.trim().toLowerCase();
+      const sport = tab.textContent.toLowerCase();
 
       topTabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
@@ -255,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial Load
+  // Initial render
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
