@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sports Betting & Casino </title>
+  <title>Rumble Sports Betting</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">🚀 <span>Rumble</span></div>
       <div class="user">
@@ -27,7 +26,6 @@
       </ul>
     </aside>
 
-    <!-- Main -->
     <main class="main">
       <header class="topbar">
         <nav class="tabs">
@@ -37,79 +35,39 @@
         </nav>
         <button class="deposit">Deposit +</button>
       </header>
-<section class="card">
-   <h3>📅 Match Schedule & Odds</h3>
-  <table class="upcoming-table">
-  <thead>
-  <tr>
-    <th>Date</th>
-    <th>Match</th>
-    <th>Spread</th>
-    <th>Total</th>
-    <th>Moneyline</th>
-  </tr>
-</thead>
-  <tbody id="matchOddsBody"></tbody>
-</table
-</section>
-      <!-- Pick 'Em Section -->
-<section class="card pickem-section">
-  <h3>🎯 Pick 'Em Challenge</h3>
-  <div class="pickem-cards" id="pickemCards"></div>
-</section>
-      <!-- Live Score Section -->
-<section class="card live-score">
-  <h3>📺 Live Score</h3>
-  <div class="live-teams">
-    <div class="team">
-      <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" alt="Arsenal Logo" />
-      <div class="team-name">Arsenal</div>
-      <div class="team-score">1</div>
-    </div>
-    <div class="vs-text">vs</div>
-    <div class="team">
-      <img src="https://upload.wikimedia.org/wikipedia/en/e/eb/AS_Monaco_FC_Logo.svg" alt="Monaco Logo" />
-      <div class="team-name">Monaco</div>
-      <div class="team-score">9</div>
-    </div>
-  </div>
-</section>
-      <!-- XP Box Score Section -->
-<section class="card boxscore" id="xpBoxScore">
-  <h3>🔥 Top Performers</h3>
-  <table class="xp-table">
-    <thead>
-      <tr>
-        <th>Player</th>
-        <th>PTS</th>
-        <th>REB</th>
-        <th>AST</th>
-        <th>STL</th>
-        <th>BLK</th>
-        <th>TO</th>
-        <th>XP</th>
-      </tr>
-    </thead>
-    <tbody id="xpBody"></tbody>
-  </table>
-</section>
 
-      <!-- Promo -->
-      <section class="promo">
-        <h1>The Future of Fantasy Sports Betting is Now on the Go</h1>
-        <p>Build a team and place your bets in real time.</p>
+      <section class="card">
+        <h3>📅 Match Schedule & Odds</h3>
+        <table class="upcoming-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Match</th>
+              <th>Spread</th>
+              <th>Total</th>
+              <th>Moneyline</th>
+            </tr>
+          </thead>
+          <tbody id="matchOddsBody"></tbody>
+        </table>
       </section>
 
-      <!-- Match -->
-      <section class="card">
-        <h3>⚽ SOCCER</h3>
-        <div class="league">PREMIR LEAGUE</div>
-        <div class="vs">
-          <div>Arsenal <span>1</span></div>
-          <div>vs</div>
-          <div>Monaco <span>9</span></div>
-        </div>
-        <button class="cta">Access Full Version</button>
+      <section class="card pickem-section">
+        <h3>🎯 Pick 'Em Challenge</h3>
+        <div class="pickem-cards" id="pickemCards"></div>
+      </section>
+
+      <section class="card live-score">
+        <h3>📺 Live Score</h3>
+        <div class="live-teams"></div>
+      </section>
+
+      <section class="card boxscore" id="xpBoxScore">
+        <h3>🔥 Top Performers</h3>
+        <table class="xp-table">
+          <thead><tr id="xpHeader"></tr></thead>
+          <tbody id="xpBody"></tbody>
+        </table>
       </section>
     </main>
   </div>
