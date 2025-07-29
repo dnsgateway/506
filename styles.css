@@ -195,6 +195,46 @@ body {
   min-width: 120px;
   white-space: nowrap;
 }
+.pickem-section {
+  margin-bottom: 1.5rem;
+}
+
+.pickem-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pickem-card {
+  background: #1a1f2e;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #00ff9f;
+  box-shadow: 0 2px 8px rgba(0, 255, 159, 0.1);
+}
+
+.pickem-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #00ff9f;
+}
+
+.pickem-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pickem-card li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.pickem-card li::before {
+  content: "⭐";
+}
 
 /* Live Score Section */
 .live-score h3 {
