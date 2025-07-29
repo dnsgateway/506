@@ -40,43 +40,17 @@
  <!-- New: Upcoming Matches & Predictions -->
       <section class="card" id="upcomingMatchesCard">
         <h3>📅 Upcoming Matches & Oddsmaker Predictions</h3>
-        <table class="upcoming-table" id="upcomingTable">
+       <div class="card">
+        <h2>Live & Upcoming Games & Odds</h2>
+        <table>
           <thead>
             <tr>
-              <th>Match</th>
-              <th>Time</th>
-              <th>Vegas</th>
-              <th>DraftKings</th>
-              <th>FanDuel</th>
-              <th>Prediction</th>
+              <th>Time</th><th>Game</th><th>Spread</th><th>Total</th><th>Moneyline</th><th>Score</th>
             </tr>
           </thead>
-          <tbody id="upcomingBody">
-            <!-- Dynamic -->
-          </tbody>
+          <tbody id="oddsTableBody"></tbody>
         </table>
-      </section>
-      <!-- Betting Board -->
-<section class="card" id="bettingBoard">
-  <h3 id="leagueTitle">🏀 NBA</h3>
-  <div class="matchup">
-    <div class="team" id="teamA">LAKERS</div>
-    <div class="score animate" id="scoreA">102</div>
-  </div>
-  <div class="table">
-    <div class="row head">
-      <div>Spread (Vegas)</div>
-      <div>Total (Bet365)</div>
-      <div>Moneyline (Vegas)</div>
-      <div>Moneyline (DraftKings)</div>
-    </div>
-    <div class="row" id="oddsRow">
-      <div id="spread">-5.5<br><span>-110</span></div>
-      <div id="total">O 210.5<br><span>-115</span></div>
-      <div id="moneyVegas">-125</div>
-      <div class="green" id="moneyDraft">+130</div>
-    </div>
-  </div>
+      </div>
 </section>
 
       <!-- Live Score Section -->
@@ -154,6 +128,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const upcomingBody = document.getElementById("upcomingBody");
+
+  const oddsData = {
+  basketball: [
+    { time: "Live", game: "Lakers vs Celtics", spread: "-5.5 (-110)", total: "-510 (-115)", moneyline: "-125", score: "1 - 3" },
+    { time: "7:00 PM", game: "Lakers vs Warriors", spread: "+2.5 (-110)", total: "O 227.5", moneyline: "+120", score: "120 - 115" },
+    { time: "7:00 PM", game: "Celtics vs Heat", spread: "-1.5 (-120)", total: "U 215.0", moneyline: "-135", score: "–" }
+  ],
+  soccer: [
+    { time: "Live", game: "Arsenal vs Monaco", spread: "+0.5 (-105)", total: "O 2.5", moneyline: "+110", score: "1 - 3" },
+    { time: "6:00 PM", game: "Arsenal vs Chelsea", spread: "-1.5 (-125)", total: "O 2.5", moneyline: "-155", score: "–" },
+    { time: "8:00 PM", game: "Real Madrid vs Barcelona", spread: "+0.5 (-120)", total: "U 2.5", moneyline: "+130", score: "–" }
+  ],
+  tennis: [
+    { time: "7:00 PM", game: "Djokovic vs Alcaraz", spread: "-1.5 (-125)", total: "O 215.5", moneyline: "-105", score: "1:30" },
+    { time: "6:00 PM", game: "Nadal vs Sinner", spread: "-2.5 (-105)", total: "U 39.5", moneyline: "-115", score: "–" }
+  ]
+};
+
 
   const data = {
     basketball: {
