@@ -160,6 +160,37 @@ body {
 .sport-select button:hover {
   background: #016a75;
 }
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: #0e1726;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.schedule-table thead th {
+  background: #121d2d;
+  color: #00d9ff;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.schedule-table tbody td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #222c3c;
+  color: #eee;
+}
+
+.schedule-table tbody tr:hover {
+  background-color: #1b2b3f;
+}
+
+.schedule-table td:last-child {
+  font-weight: bold;
+  color: #00d9ff;
+}
+
 /* Live Score Section */
 .live-score h3 {
   color: #00d9ff;
