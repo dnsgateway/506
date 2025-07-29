@@ -84,12 +84,12 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
-
   const xpBody = document.getElementById("xpBody");
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
   const matchOddsBody = document.getElementById("matchOddsBody");
   const leaderboardBody = document.getElementById("leaderboardBody");
+  const pickemCards = document.getElementById("pickemCards");
 
   const data = {
     basketball: {
@@ -105,6 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
         { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
+      ],
+      pickem: [
+        { player: "Kyrie Irving", challenge: "Score 30+ PTS", image: "https://cdn.nba.com/headshots/nba/latest/260x190/202681.png" },
+        { player: "Luka Doncic", challenge: "Record 10+ AST", image: "https://cdn.nba.com/headshots/nba/latest/260x190/1629029.png" },
+        { player: "Jayson Tatum", challenge: "Make 5+ 3PT", image: "https://cdn.nba.com/headshots/nba/latest/260x190/1628369.png" },
+        { player: "Anthony Davis", challenge: "3+ Blocks", image: "https://cdn.nba.com/headshots/nba/latest/260x190/203076.png" }
       ]
     },
     soccer: {
@@ -120,6 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
         { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
+      ],
+      pickem: [
+        { player: "Cristiano Ronaldo", challenge: "Score 2+ Goals", image: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg" },
+        { player: "Haaland", challenge: "Hat Trick?", image: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Erling_Haaland_2020.jpg" },
+        { player: "Mbappé", challenge: "2 Assists", image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Kylian_Mbappé_2019.jpg" }
       ]
     },
     tennis: {
@@ -134,6 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
         { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
+      ],
+      pickem: [
+        { player: "Djokovic", challenge: "Serve 5+ Aces", image: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Novak_Djokovic_%2830157240541%29.jpg" },
+        { player: "Alcaraz", challenge: "Win 3 Straight Sets", image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Carlos_Alcaraz_2022.jpg" },
+        { player: "Nadal", challenge: "No Double Faults", image: "https://upload.wikimedia.org/wikipedia/commons/7/71/Nadal_Wimbledon_2009_1.jpg" }
       ]
     }
   };
@@ -209,28 +225,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     players.forEach(p => {
       let xp = 0;
-      if (sport === "basketball") {
-        xp = p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2;
-      } else if (sport === "soccer") {
-        xp = p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6;
-      } else if (sport === "tennis") {
-        xp = p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors;
-      }
+      if (sport === "basketball") xp = p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2;
+      if (sport === "soccer") xp = p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6;
+      if (sport === "tennis") xp = p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors;
       leaderboard.push({ name: p.name, xp: xp.toFixed(1) });
     });
 
     leaderboard.sort((a, b) => b.xp - a.xp);
     leaderboard.forEach((p, i) => {
-      leaderboardBody.innerHTML += `
-        <tr>
-          <td>#${i + 1}</td>
-          <td>${p.name}</td>
-          <td><strong>${p.xp}</strong></td>
-        </tr>`;
+      leaderboardBody.innerHTML += `<tr><td>#${i + 1}</td><td>${p.name}</td><td><strong>${p.xp}</strong></td></tr>`;
     });
   }
 
-  // Tab switching logic
+  function renderPickemCards(sport) {
+    pickemCards.innerHTML = "";
+    const pool = [...data[sport].pickem];
+    const picks = [];
+
+    while (picks.length < 3 && pool.length) {
+      const i = Math.floor(Math.random() * pool.length);
+      picks.push(pool.splice(i, 1)[0]);
+    }
+
+    picks.forEach(p => {
+      pickemCards.innerHTML += `
+        <div class="pickem-card">
+          <img src="${p.image}" alt="${p.player}" />
+          <div class="pick-player">${p.player}</div>
+          <div class="pick-desc">${p.challenge}</div>
+        </div>`;
+    });
+  }
+
+  // Top tab click handlers
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
@@ -243,14 +270,16 @@ document.addEventListener("DOMContentLoaded", () => {
       renderXPTable(sport);
       renderScheduleOddsTable(sport);
       renderLeaderboard(sport);
+      renderPickemCards(sport);
     });
   });
 
-  // Initial render
+  // Default on load
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
   renderLeaderboard("basketball");
+  renderPickemCards("basketball");
 });
 </script>
 </body>
