@@ -208,36 +208,47 @@ body {
   gap: 16px;
 }
 
+.pickem-cards-container {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pickem-cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .pickem-card {
-  background-color: #1f1f2b;
+  background: #121c2d;
+  border: 1px solid #2c3e50;
   border-radius: 12px;
-  padding: 16px;
-  width: 300px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  padding: 1rem;
+  width: 180px;
+  text-align: center;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease-in-out;
 }
-
-.pickem-card .pickem-title {
-  font-size: 1.1em;
+.pickem-card:hover {
+  transform: scale(1.05);
+}
+.team-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+.pickem-info .player {
+  display: block;
   font-weight: 600;
-  color: #00ffcc;
+  margin-bottom: 0.25rem;
 }
-
-.pickem-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.95em;
-}
-
-.pickem-item img {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  object-fit: cover;
+.pickem-info .condition {
+  font-size: 0.9rem;
+  color: #0ff;
 }
 /* Live Score Section */
 .live-score h3 {
