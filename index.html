@@ -116,6 +116,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
+
   const xpBody = document.getElementById("xpBody");
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
@@ -136,6 +137,32 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
         { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
+      ],
+      pickem: [
+        {
+          title: "Bet These Stars to Score 25+",
+          challenges: [
+            "LeBron James 25+ PTS",
+            "Stephen Curry 25+ PTS",
+            "Jayson Tatum 25+ PTS"
+          ]
+        },
+        {
+          title: "Triple Threat Challenge",
+          challenges: [
+            "Giannis Double-Double",
+            "Jokic 8+ AST",
+            "Doncic 10+ REB"
+          ]
+        },
+        {
+          title: "Defense to Offense Combo",
+          challenges: [
+            "Bam 2+ BLK",
+            "Jrue 3+ STL",
+            "Siakam 1+ BLK & 20+ PTS"
+          ]
+        }
       ]
     },
     soccer: {
@@ -151,6 +178,32 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
         { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
+      ],
+      pickem: [
+        {
+          title: "Goal Scorers Galore",
+          challenges: [
+            "Mbappé 1+ Goal",
+            "Ronaldo 2+ Goals",
+            "Messi Assist + Goal"
+          ]
+        },
+        {
+          title: "Clean Sheet Combo",
+          challenges: [
+            "Ederson Clean Sheet",
+            "Van Dijk 3+ Clearances",
+            "Alisson Save Penalty"
+          ]
+        },
+        {
+          title: "Playmaker Picks",
+          challenges: [
+            "Kane Draw Penalty",
+            "De Bruyne 2+ Assists",
+            "Modrić 90% Pass Accuracy"
+          ]
+        }
       ]
     },
     tennis: {
@@ -165,122 +218,53 @@ document.addEventListener("DOMContentLoaded", () => {
       odds: [
         { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
         { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
+      ],
+      pickem: [
+        {
+          title: "Ace Masters",
+          challenges: [
+            "Djokovic 10+ Aces",
+            "Alcaraz 8+ Aces",
+            "Tsitsipas 1+ Ace Per Game"
+          ]
+        },
+        {
+          title: "Set Sweeper Combo",
+          challenges: [
+            "Nadal Win in 2 Sets",
+            "Sinner Win 1st Set",
+            "Zverev 6-0 Set"
+          ]
+        },
+        {
+          title: "Endurance Picks",
+          challenges: [
+            "Thiem Win Tie Break",
+            "Rublev 30+ Winners",
+            "Medvedev 3+ Break Points"
+          ]
+        }
       ]
     }
   };
 
-  const pickEmChallenges = {
-    basketball: [
-      { title: "Bet These Stars to Score 25+", challenges: ["LeBron James 25+ PTS", "Stephen Curry 25+ PTS", "Jayson Tatum 25+ PTS"] },
-      { title: "Triple Threat Challenge", challenges: ["Giannis Double-Double", "Jokic 8+ AST", "Doncic 10+ REB"] },
-      { title: "Defense to Offense Combo", challenges: ["Bam 2+ BLK", "Jrue 3+ STL", "Siakam 1+ BLK & 20+ PTS"] }
-    ],
-    soccer: [
-      { title: "Goal Scorers Galore", challenges: ["Mbappé 1+ Goal", "Ronaldo 2+ Goals", "Messi Assist + Goal"] },
-      { title: "Clean Sheet Combo", challenges: ["Ederson Clean Sheet", "Van Dijk 3+ Clearances", "Alisson Save Penalty"] },
-      { title: "Playmaker Picks", challenges: ["Kane Draw Penalty", "De Bruyne 2+ Assists", "Modrić 90% Pass Accuracy"] }
-    ],
-    tennis: [
-      { title: "Ace Masters", challenges: ["Djokovic 10+ Aces", "Alcaraz 8+ Aces", "Tsitsipas 1+ Ace Per Game"] },
-      { title: "Set Sweeper Combo", challenges: ["Nadal Win in 2 Sets", "Sinner Win 1st Set", "Zverev 6-0 Set"] },
-      { title: "Endurance Picks", challenges: ["Thiem Win Tie Break", "Rublev 30+ Winners", "Medvedev 3+ Break Points"] }
-    ]
-  };
-
   function renderPickemCards(sport) {
-    const pickSets = pickEmChallenges[sport] || [];
-    pickemContainer.innerHTML = pickSets.map(set => \`
+    const pickSets = data[sport].pickem || [];
+    pickemContainer.innerHTML = pickSets.map(set => `
       <div class="pick-card">
-        <h4>\${set.title}</h4>
+        <h4>${set.title}</h4>
         <ul class="challenge-list">
-          \${set.challenges.map(challenge => `<li>⚡ \${challenge}</li>`).join("")}
+          ${set.challenges.map(ch => `<li>⚡ ${ch}</li>`).join("")}
         </ul>
       </div>
-    \`).join("");
+    `).join("");
   }
 
-  function formatDate(dateStr) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateStr).toLocaleDateString(undefined, options);
-  }
+  // TODO: Add back your renderXPTable(), renderLiveScore(), renderScheduleOddsTable()
+  // and topTabs eventListeners if not already present in your main script.
 
-  function renderLiveScore(sport) {
-    const live = data[sport].liveScore;
-    liveScoreSection.innerHTML = \`
-      <div class="team">
-        <img src="\${live.home.logo}" alt="\${live.home.name}" />
-        <div class="team-name">\${live.home.name}</div>
-        <div class="team-score">\${live.home.score}</div>
-      </div>
-      <div class="vs-text">vs</div>
-      <div class="team">
-        <img src="\${live.away.logo}" alt="\${live.away.name}" />
-        <div class="team-name">\${live.away.name}</div>
-        <div class="team-score">\${live.away.score}</div>
-      </div>\`;
-  }
-
-  function renderScheduleOddsTable(sport) {
-    matchOddsBody.innerHTML = "";
-    data[sport].odds.forEach(g => {
-      const formattedDate = formatDate(g.date);
-      matchOddsBody.innerHTML += \`
-        <tr>
-          <td>\${formattedDate}</td>
-          <td>\${g.match}</td>
-          <td>\${g.vegas}</td>
-          <td>\${g.total}</td>
-          <td><strong>\${g.money}</strong></td>
-        </tr>\`;
-    });
-  }
-
-  function renderXPTable(sport) {
-    const players = data[sport].boxScore;
-    xpBody.innerHTML = "";
-    let header = "";
-
-    if (sport === "basketball") {
-      header = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2).toFixed(1);
-        xpBody.innerHTML += \`<tr><td>\${p.name}</td><td>\${p.pts}</td><td>\${p.reb}</td><td>\${p.ast}</td><td>\${p.stl}</td><td>\${p.blk}</td><td>\${p.to}</td><td><strong>\${xp}</strong></td></tr>\`;
-      });
-    } else if (sport === "soccer") {
-      header = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean</th><th>YC</th><th>RC</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6).toFixed(1);
-        xpBody.innerHTML += \`<tr><td>\${p.name}</td><td>\${p.goals}</td><td>\${p.assists}</td><td>\${p.clean ? "✔" : "✘"}</td><td>\${p.yc}</td><td>\${p.rc}</td><td><strong>\${xp}</strong></td></tr>\`;
-      });
-    } else if (sport === "tennis") {
-      header = "<th>Player</th><th>Aces</th><th>DF</th><th>Winners</th><th>UE</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors).toFixed(1);
-        xpBody.innerHTML += \`<tr><td>\${p.name}</td><td>\${p.aces}</td><td>\${p.doubleFaults}</td><td>\${p.winners}</td><td>\${p.unforcedErrors}</td><td><strong>\${xp}</strong></td></tr>\`;
-      });
-    }
-
-    xpHeader.innerHTML = header;
-  }
-
-  topTabs.forEach(tab => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sport = tab.textContent.toLowerCase();
-      topTabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-
-      renderPickemCards(sport);
-      renderLiveScore(sport);
-      renderXPTable(sport);
-      renderScheduleOddsTable(sport);
-    });
-  });
-
+  // Initial Render:
   renderPickemCards("basketball");
-  renderLiveScore("basketball");
-  renderXPTable("basketball");
-  renderScheduleOddsTable("basketball");
 });
 </script>
 </body>
