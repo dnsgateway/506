@@ -135,10 +135,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
 
+  const boardTitle = document.getElementById("leagueTitle");
+  const teamA = document.getElementById("teamA");
+  const scoreA = document.getElementById("scoreA");
+  const spread = document.getElementById("spread");
+  const total = document.getElementById("total");
+  const moneyVegas = document.getElementById("moneyVegas");
+  const moneyDraft = document.getElementById("moneyDraft");
   const xpBody = document.getElementById("xpBody");
   const xpHeader = document.querySelector(".xp-table thead tr");
   const liveScoreSection = document.querySelector(".live-score .live-teams");
-  const matchOddsBody = document.getElementById("matchOddsBody");
+  const upcomingBody = document.getElementById("upcomingBody"); // Table tbody element
 
   const data = {
     basketball: {
@@ -232,17 +239,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderScheduleOddsTable(sport) {
-    if (!matchOddsBody || !data[sport] || !data[sport].odds) return;
+    const table = document.getElementById("matchOddsBody");
+    if (!table) return;
 
-    matchOddsBody.innerHTML = "";
-
-    data[sport].odds.forEach(game => {
-      matchOddsBody.innerHTML += `
+    const games = data[sport].odds;
+    table.innerHTML = "";
+    games.forEach(g => {
+      table.innerHTML += `
         <tr>
-          <td>${game.match}</td>
-          <td>${game.vegas}</td>
-          <td>${game.total}</td>
-          <td><strong>${game.money}</strong></td>
+          <td>${g.match}</td>
+          <td>${g.vegas}</td>
+          <td>${g.total}</td>
+          <td><strong>${g.money}</strong></td>
         </tr>`;
     });
   }
@@ -250,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
-      const sport = tab.textContent.toLowerCase().trim();
+      const sport = tab.textContent.toLowerCase();
 
       topTabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
@@ -261,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial Load
+  // Initial render
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
