@@ -86,33 +86,32 @@
     <!-- Items will be populated via JS -->
   </div>
 </section>
-      <!-- Online Store Section Ends -->
+      <section id="casino-section">
+  <h2>🎲 Casino Mini Games</h2>
+  <div class="casino-cards">
+    <!-- Slot Machine -->
+    <div class="casino-card">
+      <h3>Slot Machine</h3>
+      <div class="casino-display" id="slotDisplay">🍒 🍋 🍊</div>
+      <button onclick="spinSlots()">Spin</button>
+      <p id="slotResult"></p>
+    </div>
 
-<section id="casino-games" class="casino-section">
-  <h2>🎰 Casino Mini Games</h2>
+    <!-- Dice Roll -->
+    <div class="casino-card">
+      <h3>Dice Roll</h3>
+      <div class="casino-display" id="diceDisplay">🎲</div>
+      <button onclick="rollDice()">Roll</button>
+      <p id="diceResult"></p>
+    </div>
 
-  <!-- Slot Machine Game -->
-  <div class="casino-game">
-    <h3>Slot Machine</h3>
-    <div class="slot-display" id="slotDisplay">🍒 🍋 🍊</div>
-    <button onclick="spinSlots()">Spin</button>
-    <p id="slotResult"></p>
-  </div>
-
-  <!-- Dice Roll Game -->
-  <div class="casino-game">
-    <h3>Dice Roll</h3>
-    <div class="dice-display" id="diceDisplay">🎲</div>
-    <button onclick="rollDice()">Roll</button>
-    <p id="diceResult"></p>
-  </div>
-
-  <!-- Coin Flip Game -->
-  <div class="casino-game">
-    <h3>Coin Flip</h3>
-    <div class="coin-display" id="coinDisplay">🪙</div>
-    <button onclick="flipCoin()">Flip</button>
-    <p id="coinResult"></p>
+    <!-- Coin Flip -->
+    <div class="casino-card">
+      <h3>Coin Flip</h3>
+      <div class="casino-display" id="coinDisplay">🪙</div>
+      <button onclick="flipCoin()">Flip</button>
+      <p id="coinResult"></p>
+    </div>
   </div>
 </section>
     </main>
