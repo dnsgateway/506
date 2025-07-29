@@ -380,20 +380,45 @@ function spinSlots() {
     (s1 === s2 && s2 === s3) ? "🎉 Jackpot!" : "Try Again!";
 }
 
-function rollDice() {
-  const dice = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
-  const roll = dice[Math.floor(Math.random() * dice.length)];
-  document.getElementById("diceDisplay").textContent = roll;
-  document.getElementById("diceResult").textContent =
-    `You rolled a ${dice.indexOf(roll) + 1}`;
+// 🎡 Wheel of Fortune
+function spinWheel() {
+  const sectors = ["$50", "$100", "$250", "$500", "BANKRUPT", "$1,000", "JACKPOT"];
+  const result = sectors[Math.floor(Math.random() * sectors.length)];
+  document.getElementById("wheelDisplay").textContent = "🎡";
+  setTimeout(() => {
+    document.getElementById("wheelResult").textContent = `Wheel landed on: ${result}`;
+  }, 500);
 }
 
-function flipCoin() {
-  const outcome = Math.random() < 0.5 ? "Heads" : "Tails";
-  const icon = outcome === "Heads" ? "🙂" : "👑";
-  document.getElementById("coinDisplay").textContent = icon;
-  document.getElementById("coinResult").textContent = `It's ${outcome}!`;
+// 🎯 Keno (Draw 6 numbers from 1–40)
+function playKeno() {
+  const draw = new Set();
+  while (draw.size < 6) {
+    draw.add(Math.floor(Math.random() * 40) + 1);
+  }
+  const numbers = Array.from(draw).sort((a, b) => a - b);
+  document.getElementById("kenoDisplay").textContent = "🎯";
+  document.getElementById("kenoResult").textContent = `Drawn Numbers: ${numbers.join(", ")}`;
 }
+
+// 🃏 Baccarat
+function playBaccarat() {
+  function drawCard() {
+    const values = [1,2,3,4,5,6,7,8,9,0,0,0,0]; // J/Q/K/10 = 0
+    return values[Math.floor(Math.random() * values.length)];
+  }
+
+  const player = (drawCard() + drawCard()) % 10;
+  const banker = (drawCard() + drawCard()) % 10;
+
+  let result = "Draw!";
+  if (player > banker) result = "Player Wins!";
+  else if (banker > player) result = "Banker Wins!";
+
+  document.getElementById("baccaratDisplay").textContent = `👤 ${player} vs 🏦 ${banker}`;
+  document.getElementById("baccaratResult").textContent = result;
+}
+
 </script>
 </body>
 </html>
