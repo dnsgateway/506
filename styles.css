@@ -1,9 +1,9 @@
 :root {
   --bg: #0B0B0B; 
   --card: #161718;
-  --primary: #00ff88;
-  --accent: #ffffff;
-  --muted: #666;
+  --primary: #FFFFFF;
+  --accent: #7FFF00;
+  --muted: #C0C0C0;
 }
 
 * {
@@ -15,7 +15,7 @@
 body {
   background: var(--bg);
   font-family: 'Segoe UI', sans-serif;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .app {
@@ -26,9 +26,9 @@ body {
 
 .sidebar {
   width: 240px;
-  background: var(--bg);
+  background: #111111;
   padding: 1rem;
-  border: 1px solid #0f0;
+  border: 1px solid #FFFFFF;
   display: flex;
   flex-direction: column;
 }
@@ -50,7 +50,7 @@ body {
   height: 60px;
   margin: 0 auto 0.5rem;
   background: #cfd8dc;
-  border: 1px solid #0f0;
+  border: 1px solid #FFFFFF;
   border-radius: 50%;
 }
 
@@ -63,14 +63,14 @@ body {
 .nav li {
   padding: 0.75rem 1rem;
   border-radius: 4px;
-  color: #ccc;
+  color: #FFFFFF;
   cursor: pointer;
 }
 
 .nav li.active,
 .nav li:hover {
-  background: #042c4b;
-  color: #00d9ff;
+  background: #111111;
+  color: #7FFF00;
 }
 
 .main {
@@ -99,7 +99,8 @@ body {
 }
 
 .deposit {
-  background: #014751;
+  background: #111111
+;
   color: #00d9ff;
   border: none;
   padding: 0.5rem 1rem;
@@ -108,7 +109,8 @@ body {
 }
 
 .card {
-  background: #121d2d;
+  background: #111111
+;
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 2rem;
@@ -126,7 +128,8 @@ body {
 }
 
 .table {
-  background: #0e1726;
+  background: #111111
+;
   border-radius: 8px;
   padding: 1rem;
 }
@@ -164,7 +167,7 @@ body {
 
 .sport-select button {
   padding: 0.5rem 1rem;
-  background: #014751;
+  background: #111111;
   color: #00d9ff;
   border: none;
   border-radius: 6px;
@@ -179,7 +182,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
-  background: var(--bg);
+  background: #111111;
   border: 1px solid #0f0;
   border-radius: 8px;
   overflow: hidden;
@@ -229,8 +232,8 @@ body {
 
 .pickem-card {
   flex: 1;
-  background: #1f2937;
-  border: 1px solid #0f0;
+  background: #0B0B0B;
+  border: 1px solid #FFFFFF;
   border-radius: 10px;
   padding: 1rem;
   display: flex;
@@ -259,7 +262,7 @@ body {
 }
 
 .pickem-card .pick-desc {
-  color: #38bdf8;
+  color: #FFFFFF;
   font-size: 0.9rem;
   text-align: center;
 }
@@ -356,6 +359,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+  background-color: #111111;
 }
 
 .xp-table th,
