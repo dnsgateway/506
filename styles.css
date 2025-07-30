@@ -26,7 +26,7 @@ body {
 
 .sidebar {
   width: 240px;
-  background: #121d2d;
+  background: var(--bg);
   padding: 1rem;
   color: #39ff14; /* neon green */
   display: flex;
@@ -178,13 +178,13 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
-  background: #0e1726;
+  background: var(--bg);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .schedule-table thead th {
-  background: #121d2d;
+  background: var(--bg);
   color: #00d9ff;
   padding: 0.75rem;
   text-align: left;
