@@ -177,7 +177,7 @@ body {
 .schedule-table tbody td {
   padding: 0.5rem;
   border-bottom: 1px solid ##FFFFFF;
-  background-color:#111111;
+  background:#111111;
   color: #FFFFFF;
 }
 
