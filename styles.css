@@ -1,9 +1,23 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0e1726;
-  color: white;
+:root {
+  --bg: #0b0b0c;
+  --card: #161718;
+  --primary: #00ff88;
+  --accent: #ffffff;
+  --muted: #666;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--accent);
+}
+
 
 .app {
   display: flex;
