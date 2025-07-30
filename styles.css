@@ -53,6 +53,12 @@ body {
   border: 1px solid #FFFFFF;
   border-radius: 50%;
 }
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
 .nav {
   list-style: none;
@@ -161,12 +167,11 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
-  background-color:#111111;
+  background-color: #111111; /* charcoal black */
   border: 1px solid #0f0;
   border-radius: 8px;
   overflow: hidden;
 }
-
 .schedule-table thead th {
   background: #111111;
   color: #00FF80;
@@ -285,6 +290,9 @@ body {
   font-size: 1.5rem;
   color: #FFFFFF;
   font-weight: bold;
+}
+.live-teams .team-card {
+  background: #000000; /* black */
 }
 
 .live-teams .vs-text {
