@@ -1,5 +1,5 @@
 :root {
-  --bg: #0b0b0c;
+  --bg: #0f0f0f; 
   --card: #161718;
   --primary: #00ff88;
   --accent: #ffffff;
@@ -28,6 +28,7 @@ body {
   width: 240px;
   background: #121d2d;
   padding: 1rem;
+  color: #39ff14; /* neon green */
   display: flex;
   flex-direction: column;
 }
@@ -221,6 +222,7 @@ body {
   justify-content: space-between;
   gap: 16px;
   margin-top: 1rem;
+  border: 1px solid #0f0;
 }
 
 .pickem-card {
