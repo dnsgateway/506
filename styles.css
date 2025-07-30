@@ -101,7 +101,7 @@ body {
 .deposit {
   background: #111111;
   color: #FFFFFF;
-  border: none;
+  border: 1px solid #0f0;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-weight: bold;
@@ -169,7 +169,7 @@ body {
 
 .schedule-table thead th {
   background: #111111;
-  color: #FFFFFF;
+  color: #00FF80;
   padding: 0.75rem;
   text-align: left;
 }
