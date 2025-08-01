@@ -491,7 +491,74 @@ function playBaccarat() {
   document.getElementById("baccaratDisplay").textContent = `👤 ${player} vs 🏦 ${banker}`;
   document.getElementById("baccaratResult").textContent = result;
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const topTabs = document.querySelectorAll('.tabs a');
+  const xpBody = document.getElementById("xpBody");
+  const xpHeader = document.querySelector(".xp-table thead tr");
+  const liveScoreSection = document.querySelector(".live-score .live-teams");
+  const matchOddsBody = document.getElementById("matchOddsBody");
+  const leaderboardBody = document.getElementById("leaderboardBody");
+  const pickemCards = document.getElementById("pickemCards");
+  const storeGrid = document.getElementById("storeGrid");
+  const sidebar = document.querySelector(".sidebar");
+  const mainContent = document.querySelector(".main");
 
+  // Handle swipe gestures to toggle sidebar
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  document.body.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.body.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+
+    // Swipe Right → Show Sidebar
+    if (touchEndX - touchStartX > 100) {
+      sidebar.classList.remove("hidden");
+      mainContent.classList.remove("full-width");
+    }
+
+    // Swipe Left → Hide Sidebar
+    if (touchStartX - touchEndX > 100) {
+      sidebar.classList.add("hidden");
+      mainContent.classList.add("full-width");
+    }
+  });
+
+  // Desktop keyboard toggle: Press "h" to hide/show sidebar
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "h") {
+      sidebar.classList.toggle("hidden");
+      mainContent.classList.toggle("full-width");
+    }
+  });
+
+  // Sport tab switching logic (already in your existing script)
+  topTabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sport = tab.textContent.toLowerCase();
+      topTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      renderLiveScore(sport);
+      renderXPTable(sport);
+      renderScheduleOddsTable(sport);
+      renderLeaderboard(sport);
+      renderPickemCards(sport);
+    });
+  });
+
+  // Initial load
+  renderLiveScore("basketball");
+  renderXPTable("basketball");
+  renderScheduleOddsTable("basketball");
+  renderLeaderboard("basketball");
+  renderPickemCards("basketball");
+  renderStoreItems();
+});
 </script>
 </body>
 </html>
