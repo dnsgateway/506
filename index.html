@@ -315,10 +315,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     pickemCards.innerHTML += `
       <div class="pickem-card">
-        <img src="${imgSrc}" alt="${p.player}" />
+        <div class="pickem-xp">+${xpAmount} XP</div>
+        <div class="pickem-icons">
+          <span class="player-icon">👤</span>
+          <span class="team-name">${teamName}</span>
+          <span class="team-icon">${teamIcon}</span>
+        </div>
         <div class="pick-player">${p.player}</div>
-        <div class="pick-desc">${p.challenge}</div>
-      </div>`;
+        <div class="pick-desc">
+          ${p.challenge}<br />
+          <span style="font-size: 0.75rem; color: #aaa;">${legs}</span>
+        </div>
+        <div class="pick-details">Tap for more challenge info</div>
+      </div>
+    `;
   });
 }
   function renderStoreItems() {
