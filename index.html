@@ -301,33 +301,56 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderPickemCards(sport) {
   pickemCards.innerHTML = "";
 
-  const players = data[sport].pickem;
-  const subChallenges = [
-    "25+ Points", "2+ Assists", "3+ Rebounds", "1 Block",
-    "1 Steal", "10+ PRA", "Make 3+ 3PT", "No Turnovers"
-  ];
-
   const sportXpIcon = {
     basketball: "🏀",
     soccer: "⚽️",
     tennis: "🎾"
   };
 
-  players.forEach((p, index) => {
+  const challengeTemplates = {
+    basketball: [
+      "25+ Points", "2+ Assists", "3+ Rebounds", "1 Block", "1 Steal", "Double-Double", "5+ 3PT"
+    ],
+    soccer: [
+      "Score 1 Goal", "2 Assists", "Win Match", "No Yellow Cards", "Clean Sheet", "Hat Trick"
+    ],
+    tennis: [
+      "5+ Aces", "Win in Straight Sets", "No Double Faults", "30+ Winners", "Win 1st Set"
+    ]
+  };
+
+  const playerPool = {
+    basketball: ["LeBron James", "Stephen Curry", "Jayson Tatum", "Luka Doncic", "Giannis", "Durant"],
+    soccer: ["Messi", "Mbappé", "Ronaldo", "Haaland", "Vinicius Jr.", "Salah"],
+    tennis: ["Djokovic", "Alcaraz", "Nadal", "Medvedev", "Sinner", "Tsitsipas"]
+  };
+
+  const legsPerCard = 5;
+  const cardCount = 3;
+
+  for (let c = 0; c < cardCount; c++) {
+    const legs = [];
+
+    // shuffle both players and challenges
+    const shuffledPlayers = playerPool[sport].sort(() => 0.5 - Math.random()).slice(0, legsPerCard);
+    const shuffledChallenges = challengeTemplates[sport].sort(() => 0.5 - Math.random());
+
+    for (let i = 0; i < legsPerCard; i++) {
+      legs.push({
+        player: shuffledPlayers[i % shuffledPlayers.length],
+        challenge: shuffledChallenges[i % shuffledChallenges.length]
+      });
+    }
+
     const xpAmount = Math.floor(Math.random() * 50 + 20);
     const participantCount = Math.floor(Math.random() * 2000 + 500);
-    const legs = subChallenges
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 6);
+    const payoutText = `$10 pays $${(xpAmount * 2).toFixed(0)}`;
 
-    const legElements = legs.map((leg, i) => `
+    const legItems = legs.map((leg, i) => `
       <li class="leg-item ${i > 3 ? 'hidden-leg' : ''}">
-        👤 <strong>${p.player}</strong> — <span>${leg}</span>
+        👤 <strong>${leg.player}</strong> — <span>${leg.challenge}</span>
       </li>
     `).join("");
-
-    const betReturn = (xpAmount * 2).toFixed(0);
-    const payoutText = `$10 pays $${betReturn}`;
 
     pickemCards.innerHTML += `
       <div class="pickem-card">
@@ -336,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <h4 class="combo-title">Combo Challenge</h4>
         <ul class="legs-list">
-          ${legElements}
+          ${legItems}
         </ul>
         ${legs.length > 4 ? `
           <button class="reveal-btn" onclick="this.previousElementSibling.querySelectorAll('.hidden-leg').forEach(el => el.style.display = 'list-item'); this.remove();">+ Reveal More</button>
@@ -347,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-  });
+  }
 }
   function renderStoreItems() {
     if (!storeGrid) return;
