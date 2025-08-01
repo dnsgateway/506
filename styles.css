@@ -31,7 +31,19 @@ body {
   border: 1px solid #FFFFFF;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
 }
+.sidebar.hidden {
+  transform: translateX(-100%);
+  position: absolute;
+  z-index: 999;
+}
+
+.main.full-width {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
 
 .logo {
   font-size: 1.5rem;
@@ -603,11 +615,26 @@ body {
   }
 
   .sidebar {
-    flex-direction: row;
-    width: 100%;
-    overflow-x: auto;
-    height: auto;
+    width: 200px;
+    position: absolute;
+    height: 100%;
+    background: #111111;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
+    .main {
+    width: 100%;
+    margin-left: 0;
+    transition: margin 0.3s ease;
+  }
+
+
+    .sidebar.hidden + .main {
+    width: 100%;
+    margin-left: 0
+    }
+  
 
   .nav {
     display: flex;
