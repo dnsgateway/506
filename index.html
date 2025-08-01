@@ -299,19 +299,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderPickemCards(sport) {
+  const pickemCards = document.getElementById("pickemCards");
   pickemCards.innerHTML = "";
-  const pool = [...data[sport].pickem];
-  const picks = [];
 
-  while (picks.length < 3 && pool.length) {
-    const i = Math.floor(Math.random() * pool.length);
-    picks.push(pool.splice(i, 1)[0]);
-  }
+  const players = data[sport].pickem;
+  const subChallenges = [
+    "10+ Points", "2+ Assists", "3+ Rebounds", "No Turnovers",
+    "1 Steal", "1 Block", "2+ 3PT", "Double-Double"
+  ];
 
-  picks.forEach(p => {
-    const imgSrc = (p.image === "👤")
-      ? "57446348-9AB8-4268-B5FE-432365F04430.jpeg"
-      : p.image;
+  players.forEach((p, index) => {
+    const xpAmount = Math.floor(Math.random() * 50 + 10);
+    const legs = subChallenges
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 4)
+      .join(" | ");
+    const teamName = ["Lakers", "Celtics", "Warriors", "Heat"][index % 4];
+    const teamIcon = "🏀";
 
     pickemCards.innerHTML += `
       <div class="pickem-card">
