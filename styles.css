@@ -296,6 +296,59 @@ body {
 }
 
 
+.combo-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #00FF80;
+  margin-top: 0.5rem;
+}
+
+.legs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leg-item {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.hidden-leg {
+  display: none;
+}
+
+.reveal-btn {
+  margin-top: 0.5rem;
+  background: none;
+  color: #00FF80;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+.pick-stats {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin-top: 0.5rem;
+}
+
+.pick-bottom {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #222;
+  font-size: 0.85rem;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bet-info {
+  font-weight: bold;
+  color: #FFD700;
+}
 .pickem-card .pick-player {
   font-weight: 600;
   margin-bottom: 0.25rem;
