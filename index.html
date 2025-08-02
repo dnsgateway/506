@@ -507,6 +507,77 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+  
+  document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.querySelector('.sidebar');
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+
+  // TOUCH SUPPORT
+  document.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  document.addEventListener("touchmove", e => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+  });
+
+  document.addEventListener("touchend", () => {
+    const delta = currentX - startX;
+    if (delta > 80) {
+      sidebar.classList.remove("hidden"); // swipe right to show
+    } else if (delta < -80) {
+      sidebar.classList.add("hidden"); // swipe left to hide
+    }
+    isDragging = false;
+    startX = currentX = 0;
+  });
+
+  // MOUSE SUPPORT
+  document.addEventListener("mousedown", e => {
+    startX = e.clientX;
+    isDragging = true;
+  });
+
+  document.addEventListener("mousemove", e => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+  });
+
+  document.addEventListener("mouseup", () => {
+    const delta = currentX - startX;
+    if (delta > 100) {
+      sidebar.classList.remove("hidden"); // drag right
+    } else if (delta < -100) {
+      sidebar.classList.add("hidden"); // drag left
+    }
+    isDragging = false;
+    startX = currentX = 0;
+  });
+
+  // Optional button for toggling sidebar manually
+  const toggleBtn = document.createElement("button");
+  toggleBtn.textContent = "☰";
+  toggleBtn.style.position = "fixed";
+  toggleBtn.style.top = "1rem";
+  toggleBtn.style.left = "1rem";
+  toggleBtn.style.zIndex = "10000";
+  toggleBtn.style.background = "#000";
+  toggleBtn.style.color = "#00FF80";
+  toggleBtn.style.border = "1px solid #00FF80";
+  toggleBtn.style.padding = "0.5rem 1rem";
+  toggleBtn.style.borderRadius = "6px";
+  toggleBtn.style.cursor = "pointer";
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("hidden");
+  });
+
+  document.body.appendChild(toggleBtn);
+});
 </script>
 </body>
 </html>
