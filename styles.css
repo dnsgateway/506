@@ -39,6 +39,14 @@ body {
   z-index: 999;
 }
 
+.menu-panel {
+  transition: transform 0.3s ease;
+}
+
+.menu-panel.hidden {
+  transform: translateX(-200px); /* Slide out of view */
+}
+
 .main.full-width {
   margin-left: 0 !important;
   width: 100% !important;
