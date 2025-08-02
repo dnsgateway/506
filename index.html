@@ -559,6 +559,92 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPickemCards("basketball");
   renderStoreItems();
 });
+  document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.querySelector(".menu-panel");
+  const toggle = document.querySelector(".menu-toggle");
+
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let inactivityTimer;
+
+  const showSidebar = () => {
+    sidebar.classList.remove("hidden");
+    sidebar.style.transform = "translateX(0)";
+  };
+
+  const hideSidebar = () => {
+    sidebar.classList.add("hidden");
+    sidebar.style.transform = "translateX(-200px)";
+  };
+
+  const resetInactivityTimer = () => {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      hideSidebar();
+    }, 15000); // 15 seconds
+  };
+
+  // Click toggle
+  toggle.addEventListener("click", () => {
+    if (sidebar.classList.contains("hidden")) {
+      showSidebar();
+    } else {
+      hideSidebar();
+    }
+    resetInactivityTimer();
+  });
+
+  // Mouse/touch drag logic
+  document.addEventListener("mousedown", (e) => {
+    startX = e.clientX;
+    isDragging = true;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    if (currentX - startX > 80) {
+      showSidebar();
+    } else if (startX - currentX > 80) {
+      hideSidebar();
+    }
+    isDragging = false;
+  });
+
+  // Touch support
+  document.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+  });
+
+  document.addEventListener("touchend", () => {
+    if (!isDragging) return;
+    if (currentX - startX > 80) {
+      showSidebar();
+    } else if (startX - currentX > 80) {
+      hideSidebar();
+    }
+    isDragging = false;
+  });
+
+  // Reset inactivity timer on any input
+  ["click", "mousemove", "touchstart", "keydown"].forEach(event => {
+    document.addEventListener(event, resetInactivityTimer);
+  });
+
+  // Start initial inactivity timer
+  resetInactivityTimer();
+});
 </script>
 </body>
 </html>
