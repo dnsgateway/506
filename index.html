@@ -412,73 +412,79 @@ document.addEventListener("DOMContentLoaded", () => {
   renderStoreItems();
 });
 
-// 🎰 Mini Casino Game Scripts
-function spinSlots() {
-  const symbols = ["🍒", "🍋", "🍊", "💎", "7️⃣"];
-  const slotDisplay = document.getElementById("slotDisplay");
-  const resultText = document.getElementById("slotResult");
+document.addEventListener("DOMContentLoaded", () => {
+  const symbols = ["🍒", "🍋", "🍉", "🍇"];
 
-  let count = 0;
-  resultText.textContent = "Spinning...";
+  const getRandomSymbol = () => symbols[Math.floor(Math.random() * symbols.length)];
 
-  const spinInterval = setInterval(() => {
-    const s1 = symbols[Math.floor(Math.random() * symbols.length)];
-    const s2 = symbols[Math.floor(Math.random() * symbols.length)];
-    const s3 = symbols[Math.floor(Math.random() * symbols.length)];
+  document.querySelectorAll(".slot-card").forEach(card => {
+    const spinBtn = card.querySelector(".spin-btn");
+    const rows = card.querySelectorAll(".row");
+    const multiplier = parseInt(card.dataset.multiplier);
+    const resultText = card.querySelector(".result-text");
+    const betInput = card.querySelector(".bet-input");
+    const balanceDisplay = card.querySelector(".balance-value");
 
-    slotDisplay.textContent = `${s1} ${s2} ${s3}`;
-    slotDisplay.classList.add("slot-animate");
-    setTimeout(() => slotDisplay.classList.remove("slot-animate"), 150);
+    let balance = 100;
 
-    count++;
-    if (count >= 15) {
-      clearInterval(spinInterval);
-      const final1 = symbols[Math.floor(Math.random() * symbols.length)];
-      const final2 = symbols[Math.floor(Math.random() * symbols.length)];
-      const final3 = symbols[Math.floor(Math.random() * symbols.length)];
-      slotDisplay.textContent = `${final1} ${final2} ${final3}`;
-      resultText.textContent = (final1 === final2 && final2 === final3) ? "🎉 Jackpot!" : "Try Again!";
-    }
-  }, 100);
-}
-// 🎡 Wheel of Fortune
-function spinWheel() {
-  const sectors = ["$50", "$100", "$250", "$500", "BANKRUPT", "$1,000", "JACKPOT"];
-  const result = sectors[Math.floor(Math.random() * sectors.length)];
-  document.getElementById("wheelDisplay").textContent = "🎡";
-  setTimeout(() => {
-    document.getElementById("wheelResult").textContent = `Wheel landed on: ${result}`;
-  }, 500);
-}
+    spinBtn.addEventListener("click", () => {
+      const bet = parseInt(betInput.value);
+      if (bet > balance || bet <= 0) {
+        resultText.textContent = "❌ Invalid bet!";
+        return;
+      }
 
-// 🎯 Keno (Draw 6 numbers from 1–40)
-function playKeno() {
-  const draw = new Set();
-  while (draw.size < 6) {
-    draw.add(Math.floor(Math.random() * 40) + 1);
-  }
-  const numbers = Array.from(draw).sort((a, b) => a - b);
-  document.getElementById("kenoDisplay").textContent = "🎯";
-  document.getElementById("kenoResult").textContent = `Drawn Numbers: ${numbers.join(", ")}`;
-}
+      // Spin
+      const grid = [];
 
-// 🃏 Baccarat
-function playBaccarat() {
-  function drawCard() {
-    const values = [1,2,3,4,5,6,7,8,9,0,0,0,0]; // J/Q/K/10 = 0
-    return values[Math.floor(Math.random() * values.length)];
-  }
+      rows.forEach(row => {
+        const symbolsRow = [];
+        row.querySelectorAll("span").forEach(cell => {
+          const sym = getRandomSymbol();
+          cell.textContent = sym;
+          symbolsRow.push(sym);
+        });
+        grid.push(symbolsRow);
+      });
 
-  const player = (drawCard() + drawCard()) % 10;
-  const banker = (drawCard() + drawCard()) % 10;
+      // Evaluate wins
+      let matchCount = 0;
 
-  let result = "Draw!";
-  if (player > banker) result = "Player Wins!";
-  else if (banker > player) result = "Banker Wins!";
+      // Check rows
+      grid.forEach(row => {
+        if (row.every(s => s === row[0])) matchCount++;
+      });
 
-  document.getElementById("baccaratDisplay").textContent = `👤 ${player} vs 🏦 ${banker}`;
-  document.getElementById("baccaratResult").textContent = result;
-}
+      // Check columns
+      for (let col = 0; col < 3; col++) {
+        const column = [grid[0][col], grid[1][col], grid[2][col]];
+        if (column.every(s => s === column[0])) matchCount++;
+      }
+
+      // Win logic
+      let won = false;
+      if (multiplier === 2 && matchCount === 6) won = true;
+      if (multiplier === 5 && matchCount >= 2) won = true;
+
+      if (won) {
+        const winnings = bet * multiplier;
+        balance += winnings;
+        resultText.textContent = `🎉 You won $${winnings} with ${multiplier}x multiplier!`;
+      } else {
+        balance -= bet;
+        resultText.textContent = `😢 You lost $${bet}. Match more to win!`;
+      }
+
+      balanceDisplay.textContent = balance;
+
+      // Disable game if balance is depleted
+      if (balance <= 0) {
+        resultText.textContent = "💸 You're out of funds!";
+        spinBtn.disabled = true;
+      }
+    });
+  });
+});
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
   const xpBody = document.getElementById("xpBody");
