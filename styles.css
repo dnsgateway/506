@@ -606,28 +606,20 @@ body {
   color: #ccc;
 }
 @keyframes spinSymbol {
-  0%   { transform: translateY(0); opacity: 1; }
-  50%  { transform: translateY(20px); opacity: 0.5; }
-  100% { transform: translateY(0); opacity: 1; }
+  0%   { opacity: 1; transform: scale(1); }
+  50%  { opacity: 0.3; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .spin-animate {
-  animation: spinSymbol 0.4s ease-in-out;
+  animation: spinSymbol 0.2s ease-in-out;
 }
 .balance-value {
   font-size: 0.9rem;
   margin-top: 0.5rem;
   color: #00FF80;
 }
-@keyframes spinReel {
-  0%   { transform: translateY(0);    opacity: 1; }
-  50%  { transform: translateY(-20px); opacity: 0.5; }
-  100% { transform: translateY(0);    opacity: 1; }
-}
 
-.slot-animate {
-  animation: spinReel 0.2s ease-in-out;
-}
 /* ─── Responsive Styles for Sidebar and Layout ─── */
 @media (max-width: 768px) {
   .main {
