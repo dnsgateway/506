@@ -81,41 +81,29 @@
     <tbody id="leaderboardBody"></tbody>
   </table>
 </section>
-      <section id="casino-section">
-  <h2>🎲 Casino Mini Games</h2>
-  <div class="casino-cards">
-    <!-- Slot Machine -->
-    <div class="casino-card">
-  <h3>Slot Machine</h3>
-  <div class="casino-display" id="slotDisplay">🍒 🍋 🍊</div>
-  <button onclick="spinSlots()">Spin</button>
-  <p id="slotResult"></p>
-</div
-    <!-- Wheel of Fortune -->
-    <div class="casino-card">
-      <h3>Wheel of Fortune</h3>
-      <div class="casino-display" id="wheelDisplay">🎡</div>
-      <button onclick="spinWheel()">Spin Wheel</button>
-      <p id="wheelResult"></p>
+      <div class="casino-section">
+  <div class="slot-card" data-multiplier="2">
+    <h3>🎰 Classic 2x Slot</h3>
+    <div class="slot-grid">
+      <div class="row"><span>🍒</span><span>🍋</span><span>🍒</span></div>
+      <div class="row"><span>🍋</span><span>🍒</span><span>🍒</span></div>
+      <div class="row"><span>🍒</span><span>🍋</span><span>🍋</span></div>
     </div>
-
-    <!-- Keno -->
-    <div class="casino-card">
-      <h3>Keno</h3>
-      <div class="casino-display" id="kenoDisplay">🎯</div>
-      <button onclick="playKeno()">Play Keno</button>
-      <p id="kenoResult"></p>
-    </div>
-
-    <!-- Baccarat -->
-    <div class="casino-card">
-      <h3>Baccarat</h3>
-      <div class="casino-display" id="baccaratDisplay">🃏</div>
-      <button onclick="playBaccarat()">Deal</button>
-      <p id="baccaratResult"></p>
-    </div>
+    <button class="spin-btn">Spin</button>
+    <p class="result-text">Get all rows and columns to match for 2x win!</p>
   </div>
-</section>
+
+  <div class="slot-card" data-multiplier="5">
+    <h3>💥 Wild 5x Slot</h3>
+    <div class="slot-grid">
+      <div class="row"><span>🍇</span><span>🍉</span><span>🍇</span></div>
+      <div class="row"><span>🍉</span><span>🍇</span><span>🍇</span></div>
+      <div class="row"><span>🍇</span><span>🍉</span><span>🍉</span></div>
+    </div>
+    <button class="spin-btn">Spin</button>
+    <p class="result-text">Get 2 full matching rows to win 5x!</p>
+  </div>
+</div>
     </main>
   </div>
 <script>
