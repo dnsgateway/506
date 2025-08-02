@@ -549,63 +549,61 @@ body {
 .leaderboard h3 {
   color: #00FF80;
 }
-#casino-section {
-  padding: 50px 20px;
-  background-color: #1b1d2e;
-  color: #fff;
-  text-align: center;
-  border-top: 3px solid #00ff99;
-}
-
-#casino-section h2 {
-  font-size: 2rem;
-  color: #00ff99;
-  margin-bottom: 30px;
-}
-
-.casino-cards {
+.casino-section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-around;
+  gap: 1.5rem;
+  margin: 2rem 0;
 }
 
-.casino-card {
-  background: #2a2d40;
+.slot-card {
+  background: #0a0a0a;
+  border: 2px solid #00ff94;
   border-radius: 12px;
-  padding: 20px;
-  width: 250px;
-  box-shadow: 0 0 20px rgba(0,255,153,0.15);
-  transition: transform 0.2s ease;
+  padding: 1rem;
+  width: 300px;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 255, 148, 0.4);
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
-.casino-card:hover {
-  transform: translateY(-5px);
+.slot-grid {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  gap: 0.25rem;
 }
 
-.casino-card h3 {
-  color: #ffd700;
-  margin-bottom: 10px;
+.slot-grid .row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.casino-display {
-  font-size: 2.4rem;
-  margin: 15px 0;
+.slot-grid .row span {
+  font-size: 2rem;
+  background: #1f1f1f;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
-.casino-card button {
-  background-color: #00ff99;
-  color: #000;
+.spin-btn {
+  background: #0056ff;
+  color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 0.5rem;
 }
 
-.casino-card button:hover {
-  background-color: #00cc77;
-}00cc66;
+.result-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 @keyframes spinReel {
   0%   { transform: translateY(0);    opacity: 1; }
