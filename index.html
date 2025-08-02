@@ -413,79 +413,78 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-      const symbols = ["🍒", "🍋", "🍉", "🍇"];
+  const symbols = ["🍒", "🍋", "🍉", "🍇"];
+  let globalBalance = 100; // shared token pool across all slot machines
 
-      const card = document.querySelector(".slot-card");
-      const spinBtn = card.querySelector(".spin-btn");
-      const rows = card.querySelectorAll(".row");
-      const multiplier = parseInt(card.dataset.multiplier);
-      const resultText = card.querySelector(".result-text");
-      const betInput = card.querySelector(".bet-input");
-      const balanceDisplay = card.querySelector(".balance-value");
+  document.querySelectorAll(".slot-card").forEach(card => {
+    const spinBtn = card.querySelector(".spin-btn");
+    const rows = card.querySelectorAll(".row");
+    const multiplier = parseInt(card.dataset.multiplier);
+    const resultText = card.querySelector(".result-text");
 
-      let balance = 100;
+    // Add balance display under each card
+    const balanceDisplay = document.createElement("p");
+    balanceDisplay.classList.add("balance-value");
+    balanceDisplay.style.marginTop = "0.5rem";
+    balanceDisplay.innerHTML = `💰 Tokens: <strong>${globalBalance}</strong>`;
+    card.appendChild(balanceDisplay);
 
-      function getRandomSymbol() {
-        return symbols[Math.floor(Math.random() * symbols.length)];
+    spinBtn.addEventListener("click", () => {
+      const spinCost = 10;
+
+      if (globalBalance < spinCost) {
+        resultText.textContent = "💸 Not enough tokens!";
+        return;
       }
 
-      spinBtn.addEventListener("click", () => {
-        const bet = parseInt(betInput.value);
-        if (isNaN(bet) || bet <= 0 || bet > balance) {
-          resultText.textContent = "❌ Invalid bet amount!";
-          return;
-        }
+      globalBalance -= spinCost;
 
-        let grid = [];
+      let grid = [];
 
-        // Spin the slot machine with animation
-        rows.forEach(row => {
-          const symbolsRow = [];
-          row.querySelectorAll("span").forEach(cell => {
-            const newSymbol = getRandomSymbol();
-            cell.classList.remove("spin-animate");
-            void cell.offsetWidth; // force reflow
-            cell.textContent = newSymbol;
-            cell.classList.add("spin-animate");
-            symbolsRow.push(newSymbol);
-          });
-          grid.push(symbolsRow);
+      // Spin and animate
+      rows.forEach(row => {
+        const symbolsRow = [];
+        row.querySelectorAll("span").forEach(cell => {
+          const newSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+          cell.classList.remove("spin-animate");
+          void cell.offsetWidth; // force reflow to restart animation
+          cell.textContent = newSymbol;
+          cell.classList.add("spin-animate");
+          symbolsRow.push(newSymbol);
         });
-
-        // Evaluate win conditions
-        let matchCount = 0;
-
-        // Rows
-        grid.forEach(row => {
-          if (row.every(s => s === row[0])) matchCount++;
-        });
-
-        // Columns
-        for (let c = 0; c < 3; c++) {
-          const col = [grid[0][c], grid[1][c], grid[2][c]];
-          if (col.every(s => s === col[0])) matchCount++;
-        }
-
-        let won = false;
-        if (multiplier === 2 && matchCount === 6) won = true;
-        if (multiplier === 5 && matchCount >= 2) won = true;
-
-        if (won) {
-          const winnings = bet * multiplier;
-          balance += winnings;
-          resultText.textContent = `🎉 You won $${winnings}!`;
-        } else {
-          balance -= bet;
-          resultText.textContent = `😢 You lost $${bet}.`;
-        }
-
-        balanceDisplay.textContent = balance;
-
-        if (balance <= 0) {
-          resultText.textContent = "💸 You're out of funds!";
-          spinBtn.disabled = true;
-        }
+        grid.push(symbolsRow);
       });
+
+      // Check rows
+      let matchCount = 0;
+      grid.forEach(row => {
+        if (row.every(s => s === row[0])) matchCount++;
+      });
+
+      // Check columns
+      for (let c = 0; c < 3; c++) {
+        const col = [grid[0][c], grid[1][c], grid[2][c]];
+        if (col.every(s => s === col[0])) matchCount++;
+      }
+
+      let won = false;
+      if (multiplier === 2 && matchCount === 6) won = true;
+      if (multiplier === 5 && matchCount >= 2) won = true;
+
+      if (won) {
+        const winnings = spinCost * multiplier;
+        globalBalance += winnings;
+        resultText.textContent = `🎉 You won ${winnings} tokens!`;
+      } else {
+        resultText.textContent = `😢 Lost ${spinCost} tokens. Try again!`;
+      }
+
+      balanceDisplay.innerHTML = `💰 Tokens: <strong>${globalBalance}</strong>`;
+
+      if (globalBalance <= 0) {
+        resultText.textContent = "💀 You're out of tokens!";
+        spinBtn.disabled = true;
+      }
     });
 </script>
 </body>
