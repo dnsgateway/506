@@ -614,6 +614,11 @@ body {
 .spin-animate {
   animation: spinSymbol 0.4s ease-in-out;
 }
+.balance-value {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #00FF80;
+}
 @keyframes spinReel {
   0%   { transform: translateY(0);    opacity: 1; }
   50%  { transform: translateY(-20px); opacity: 0.5; }
