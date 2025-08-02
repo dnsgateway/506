@@ -412,9 +412,31 @@ document.addEventListener("DOMContentLoaded", () => {
   renderStoreItems();
 });
 
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const symbols = ["🍒", "🍋", "🍉", "🍇"];
-  let globalBalance = 100; // shared token pool across all slot machines
+  let globalBalance = 100; // Shared token pool
+
+  function getRandomSymbol() {
+    return symbols[Math.floor(Math.random() * symbols.length)];
+  }
+
+  function spinReelAnimation(cell, delay) {
+    return new Promise(resolve => {
+      let count = 0;
+      const maxSpins = 20 + Math.floor(Math.random() * 10); // Randomized spin length
+      const interval = setInterval(() => {
+        cell.textContent = getRandomSymbol();
+        cell.classList.add("spin-animate");
+        count++;
+        if (count >= maxSpins) {
+          clearInterval(interval);
+          cell.classList.remove("spin-animate");
+          resolve(cell.textContent);
+        }
+      }, delay);
+    });
+  }
 
   document.querySelectorAll(".slot-card").forEach(card => {
     const spinBtn = card.querySelector(".spin-btn");
@@ -429,39 +451,38 @@ document.addEventListener("DOMContentLoaded", () => {
     balanceDisplay.innerHTML = `💰 Tokens: <strong>${globalBalance}</strong>`;
     card.appendChild(balanceDisplay);
 
-    spinBtn.addEventListener("click", () => {
+    spinBtn.addEventListener("click", async () => {
       const spinCost = 10;
-
       if (globalBalance < spinCost) {
         resultText.textContent = "💸 Not enough tokens!";
         return;
       }
 
       globalBalance -= spinCost;
+      balanceDisplay.innerHTML = `💰 Tokens: <strong>${globalBalance}</strong>`;
+      resultText.textContent = "🎰 Spinning...";
 
-      let grid = [];
+      const grid = [];
 
-      // Spin and animate
-      rows.forEach(row => {
-        const symbolsRow = [];
-        row.querySelectorAll("span").forEach(cell => {
-          const newSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-          cell.classList.remove("spin-animate");
-          void cell.offsetWidth; // force reflow to restart animation
-          cell.textContent = newSymbol;
-          cell.classList.add("spin-animate");
-          symbolsRow.push(newSymbol);
-        });
-        grid.push(symbolsRow);
-      });
+      for (let r = 0; r < rows.length; r++) {
+        const rowSymbols = [];
+        const cells = rows[r].querySelectorAll("span");
+        for (let c = 0; c < cells.length; c++) {
+          const finalSymbol = await spinReelAnimation(cells[c], 50 + c * 30);
+          rowSymbols.push(finalSymbol);
+        }
+        grid.push(rowSymbols);
+      }
 
-      // Check rows
+      // Check for matches
       let matchCount = 0;
+
+      // Rows
       grid.forEach(row => {
         if (row.every(s => s === row[0])) matchCount++;
       });
 
-      // Check columns
+      // Columns
       for (let c = 0; c < 3; c++) {
         const col = [grid[0][c], grid[1][c], grid[2][c]];
         if (col.every(s => s === col[0])) matchCount++;
@@ -488,6 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+</script>
 </script>
 </body>
 </html>
