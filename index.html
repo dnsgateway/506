@@ -106,8 +106,7 @@
 </div>
     </main>
   </div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+<script>document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll('.tabs a');
   const xpBody = document.getElementById("xpBody");
   const xpHeader = document.querySelector(".xp-table thead tr");
@@ -116,6 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const leaderboardBody = document.getElementById("leaderboardBody");
   const pickemCards = document.getElementById("pickemCards");
   const storeGrid = document.getElementById("storeGrid");
+  const sidebar = document.querySelector(".sidebar");
+  const mainContent = document.querySelector(".main");
+
+  const symbols = ["🍒", "🍋", "🍉", "🍇"];
+
+  const getRandomSymbol = () => symbols[Math.floor(Math.random() * symbols.length)];
 
   const data = {
     basketball: {
@@ -129,155 +134,88 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Christian Wood", pts: 24, reb: 5, ast: 2, stl: 1, blk: 0, to: 0 }
       ],
       odds: [
-        { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" },
-        { match: "Celtics vs Heat", date: "2025-07-30", vegas: "-1.5 (-120)", total: "U 215.0", money: "-130" }
-      ],
-      pickem: [
-        { player: "Kyrie Irving", challenge: "Score 30+ PTS", image: "https://cdn.nba.com/headshots/nba/latest/260x190/202681.png" },
-        { player: "Luka Doncic", challenge: "Record 10+ AST", image: "https://cdn.nba.com/headshots/nba/latest/260x190/1629029.png" },
-        { player: "Jayson Tatum", challenge: "Make 5+ 3PT", image: "https://cdn.nba.com/headshots/nba/latest/260x190/1628369.png" }
+        { match: "Lakers vs Warriors", date: "2025-07-29", vegas: "+2.5 (-110)", total: "O 210.5", money: "+110" }
       ]
     },
     soccer: {
       liveScore: {
-        home: { name: "Arsenal", score: 1, logo: "1C98676C-C6E7-40D3-A8F6-9A81D63FD7F0.png" },
-        away: { name: "Monaco", score: 9, logo: "10B6589A-812B-4650-83F8-ABF490B12EB4.png" }
+        home: { name: "Arsenal", score: 1, logo: "arsenal.png" },
+        away: { name: "Monaco", score: 9, logo: "monaco.png" }
       },
       boxScore: [
-        { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 },
-        { name: "Erling Haaland", goals: 3, assists: 0, clean: true, yc: 0, rc: 0 },
-        { name: "Kylian Mbappé", goals: 1, assists: 2, clean: false, yc: 1, rc: 0 }
+        { name: "Cristiano Ronaldo", goals: 2, assists: 1, clean: false, yc: 0, rc: 0 }
       ],
       odds: [
-        { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" },
-        { match: "Real Madrid vs Barcelona", date: "2025-08-03", vegas: "PK (-115)", total: "O 3.0", money: "+125" }
-      ],
-      pickem: [
-        { player: "Cristiano Ronaldo", challenge: "Score 2+ Goals", image: "👤" },
-        { player: "Haaland", challenge: "Hat Trick?", image: "👤" },
-        { player: "Mbappé", challenge: "2 Assists", image: "👤" }
+        { match: "Arsenal vs Chelsea", date: "2025-08-01", vegas: "+1.5 (-105)", total: "U 2.5", money: "+145" }
       ]
     },
     tennis: {
       liveScore: {
-        home: { name: "Djokovic", score: 3, logo: "10B6589A-812B-4650-83F8-ABF490B12EB4.png" },
-        away: { name: "Alcaraz", score: 2, logo: "1C98676C-C6E7-40D3-A8F6-9A81D63FD7F0.png" }
+        home: { name: "Djokovic", score: 3, logo: "djokovic.png" },
+        away: { name: "Alcaraz", score: 2, logo: "alcaraz.png" }
       },
       boxScore: [
-        { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 },
-        { name: "Carlos Alcaraz", aces: 5, doubleFaults: 1, winners: 28, unforcedErrors: 15 }
+        { name: "Novak Djokovic", aces: 7, doubleFaults: 2, winners: 30, unforcedErrors: 12 }
       ],
       odds: [
-        { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" },
-        { match: "Nadal vs Sinner", date: "2025-08-06", vegas: "-2.5 games (-110)", total: "U 21.5", money: "+150" }
-      ],
-      pickem: [
-        { player: "Djokovic", challenge: "Serve 5+ Aces", image: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Novak_Djokovic_%2830157240541%29.jpg" },
-        { player: "Alcaraz", challenge: "Win 3 Straight Sets", image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Carlos_Alcaraz_2022.jpg" },
-        { player: "Nadal", challenge: "No Double Faults", image: "https://upload.wikimedia.org/wikipedia/commons/7/71/Nadal_Wimbledon_2009_1.jpg" }
+        { match: "Djokovic vs Alcaraz", date: "2025-08-04", vegas: "-1.5 sets (-125)", total: "O 22.5", money: "-175" }
       ]
     }
   };
 
   const storeData = [
     {
-      name: "Rumble Jersey",
-      description: "Limited edition team jersey",
-      image: "https://via.placeholder.com/180x120?text=Jersey",
-      price: "29.99",
-      type: "merch"
+      name: "Rumble Jersey", description: "Limited edition team jersey",
+      image: "https://via.placeholder.com/180x120?text=Jersey", price: "$29.99", type: "merch"
     },
     {
-      name: "RUM Tokens",
-      description: "Bundle of 500 tokens",
-      image: "https://via.placeholder.com/180x120?text=Tokens",
-      price: "9.99",
-      type: "tokens"
-    },
-    {
-      name: "Signed Ball",
-      description: "Collectible - Signed by legend",
-      image: "https://via.placeholder.com/180x120?text=Collectible",
-      price: "Bid Starting: $150",
-      type: "collectible"
+      name: "RUM Tokens", description: "Bundle of 500 tokens",
+      image: "https://via.placeholder.com/180x120?text=Tokens", price: "$9.99", type: "tokens"
     }
   ];
-
-  function formatDate(dateStr) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateStr).toLocaleDateString(undefined, options);
-  }
 
   function renderLiveScore(sport) {
     const live = data[sport].liveScore;
     liveScoreSection.innerHTML = `
-      <div class="team">
-        <img src="${live.home.logo}" alt="${live.home.name}" />
-        <div class="team-name">${live.home.name}</div>
-        <div class="team-score">${live.home.score}</div>
-      </div>
+      <div class="team"><img src="${live.home.logo}" /><div>${live.home.name}</div><div>${live.home.score}</div></div>
       <div class="vs-text">vs</div>
-      <div class="team">
-        <img src="${live.away.logo}" alt="${live.away.name}" />
-        <div class="team-name">${live.away.name}</div>
-        <div class="team-score">${live.away.score}</div>
-      </div>`;
+      <div class="team"><img src="${live.away.logo}" /><div>${live.away.name}</div><div>${live.away.score}</div></div>`;
   }
 
   function renderXPTable(sport) {
-    const players = data[sport].boxScore;
     xpBody.innerHTML = "";
-    let header = "";
+    let header = "", rows = "";
 
     if (sport === "basketball") {
-      header = "<th>Player</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2).toFixed(1);
-        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.pts}</td><td>${p.reb}</td><td>${p.ast}</td><td>${p.stl}</td><td>${p.blk}</td><td>${p.to}</td><td><strong>${xp}</strong></td></tr>`;
+      header = "<th>Player</th><th>PTS</th><th>REB</th><th>XP</th>";
+      data[sport].boxScore.forEach(p => {
+        const xp = (p.pts + p.reb * 1.2).toFixed(1);
+        rows += `<tr><td>${p.name}</td><td>${p.pts}</td><td>${p.reb}</td><td>${xp}</td></tr>`;
       });
     } else if (sport === "soccer") {
-      header = "<th>Player</th><th>Goals</th><th>Assists</th><th>Clean</th><th>YC</th><th>RC</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6).toFixed(1);
-        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.goals}</td><td>${p.assists}</td><td>${p.clean ? "✔" : "✘"}</td><td>${p.yc}</td><td>${p.rc}</td><td><strong>${xp}</strong></td></tr>`;
+      header = "<th>Player</th><th>Goals</th><th>XP</th>";
+      data[sport].boxScore.forEach(p => {
+        const xp = (p.goals * 10).toFixed(1);
+        rows += `<tr><td>${p.name}</td><td>${p.goals}</td><td>${xp}</td></tr>`;
       });
     } else if (sport === "tennis") {
-      header = "<th>Player</th><th>Aces</th><th>DF</th><th>Winners</th><th>UE</th><th>XP</th>";
-      players.forEach(p => {
-        const xp = (p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors).toFixed(1);
-        xpBody.innerHTML += `<tr><td>${p.name}</td><td>${p.aces}</td><td>${p.doubleFaults}</td><td>${p.winners}</td><td>${p.unforcedErrors}</td><td><strong>${xp}</strong></td></tr>`;
+      header = "<th>Player</th><th>Aces</th><th>XP</th>";
+      data[sport].boxScore.forEach(p => {
+        const xp = (p.aces * 1.5).toFixed(1);
+        rows += `<tr><td>${p.name}</td><td>${p.aces}</td><td>${xp}</td></tr>`;
       });
     }
 
     xpHeader.innerHTML = header;
-  }
-
-  function renderLeaderboard(sport) {
-    leaderboardBody.innerHTML = "";
-    const players = data[sport].boxScore;
-    const leaderboard = [];
-
-    players.forEach(p => {
-      let xp = 0;
-      if (sport === "basketball") xp = p.pts + p.reb * 1.2 + p.ast * 1.5 + p.stl * 3 + p.blk * 3 - p.to * 2;
-      if (sport === "soccer") xp = p.goals * 10 + p.assists * 6 + (p.clean ? 5 : 0) - p.yc * 3 - p.rc * 6;
-      if (sport === "tennis") xp = p.aces * 1.5 - p.doubleFaults * 2 + p.winners - p.unforcedErrors;
-      leaderboard.push({ name: p.name, xp: xp.toFixed(1) });
-    });
-
-    leaderboard.sort((a, b) => b.xp - a.xp);
-    leaderboard.forEach((p, i) => {
-      leaderboardBody.innerHTML += `<tr><td>#${i + 1}</td><td>${p.name}</td><td><strong>${p.xp}</strong></td></tr>`;
-    });
+    xpBody.innerHTML = rows;
   }
 
   function renderScheduleOddsTable(sport) {
     matchOddsBody.innerHTML = "";
     data[sport].odds.forEach(g => {
-      const formattedDate = formatDate(g.date);
       matchOddsBody.innerHTML += `
         <tr>
-          <td>${formattedDate}</td>
+          <td>${g.date}</td>
           <td>${g.match}</td>
           <td>${g.vegas}</td>
           <td>${g.total}</td>
@@ -286,250 +224,129 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderPickemCards(sport) {
-  pickemCards.innerHTML = "";
-
-  const sportXpIcon = {
-    basketball: "🏀",
-    soccer: "⚽️",
-    tennis: "🎾"
-  };
-
-  const challengeTemplates = {
-    basketball: [
-      "25+ Points", "2+ Assists", "3+ Rebounds", "1 Block", "1 Steal", "Double-Double", "5+ 3PT"
-    ],
-    soccer: [
-      "Score 1 Goal", "2 Assists", "Win Match", "No Yellow Cards", "Clean Sheet", "Hat Trick"
-    ],
-    tennis: [
-      "5+ Aces", "Win in Straight Sets", "No Double Faults", "30+ Winners", "Win 1st Set"
-    ]
-  };
-
-  const playerPool = {
-    basketball: ["LeBron James", "Stephen Curry", "Jayson Tatum", "Luka Doncic", "Giannis", "Durant"],
-    soccer: ["Messi", "Mbappé", "Ronaldo", "Haaland", "Vinicius Jr.", "Salah"],
-    tennis: ["Djokovic", "Alcaraz", "Nadal", "Medvedev", "Sinner", "Tsitsipas"]
-  };
-
-  const legsPerCard = 5;
-  const cardCount = 3;
-
-  for (let c = 0; c < cardCount; c++) {
-    const legs = [];
-
-    // shuffle both players and challenges
-    const shuffledPlayers = playerPool[sport].sort(() => 0.5 - Math.random()).slice(0, legsPerCard);
-    const shuffledChallenges = challengeTemplates[sport].sort(() => 0.5 - Math.random());
-
-    for (let i = 0; i < legsPerCard; i++) {
-      legs.push({
-        player: shuffledPlayers[i % shuffledPlayers.length],
-        challenge: shuffledChallenges[i % shuffledChallenges.length]
-      });
-    }
-
-    const xpAmount = Math.floor(Math.random() * 50 + 20);
-    const participantCount = Math.floor(Math.random() * 2000 + 500);
-    const payoutText = `$10 pays $${(xpAmount * 2).toFixed(0)}`;
-
-    const legItems = legs.map((leg, i) => `
-      <li class="leg-item ${i > 3 ? 'hidden-leg' : ''}">
-        👤 <strong>${leg.player}</strong> — <span>${leg.challenge}</span>
-      </li>
-    `).join("");
-
-    pickemCards.innerHTML += `
-      <div class="pickem-card">
-        <div class="pickem-xp">
-          ${sportXpIcon[sport]} +${xpAmount} XP
-        </div>
-        <h4 class="combo-title">Combo Challenge</h4>
-        <ul class="legs-list">
-          ${legItems}
-        </ul>
-        ${legs.length > 4 ? `
-          <button class="reveal-btn" onclick="this.previousElementSibling.querySelectorAll('.hidden-leg').forEach(el => el.style.display = 'list-item'); this.remove();">+ Reveal More</button>
-        ` : ""}
-        <div class="pick-stats">${participantCount.toLocaleString()} people placed this bet</div>
-        <div class="pick-bottom">
-          <div class="bet-info">${payoutText}</div>
-        </div>
-      </div>
-    `;
+  function renderLeaderboard(sport) {
+    leaderboardBody.innerHTML = "";
+    data[sport].boxScore.forEach((p, i) => {
+      leaderboardBody.innerHTML += `<tr><td>#${i + 1}</td><td>${p.name}</td><td>${(Math.random() * 100).toFixed(1)}</td></tr>`;
+    });
   }
-}
+
   function renderStoreItems() {
-    if (!storeGrid) return;
     storeGrid.innerHTML = "";
     storeData.forEach(item => {
       storeGrid.innerHTML += `
         <div class="store-item">
-          <img src="${item.image}" alt="${item.name}" />
-          <h4>${item.name}</h4>
-          <p>${item.description}</p>
-          <p><strong>${item.price}</strong></p>
-          ${item.type === "collectible"
-            ? `<button onclick="placeBid('${item.name}')">Place Bid</button>`
-            : `<button onclick="buyNow('${item.name}')">Buy Now</button>`}
+          <img src="${item.image}" /><h4>${item.name}</h4><p>${item.description}</p>
+          <p><strong>${item.price}</strong></p><button>Buy</button>
         </div>`;
     });
   }
 
-  window.buyNow = function(productName) {
-    alert(`Thank you for purchasing ${productName}!`);
-  };
+  function renderPickemCards(sport) {
+    const challenges = ["25+ Points", "Score 1 Goal", "5+ Aces"];
+    const players = ["👤 Player A", "👤 Player B", "👤 Player C"];
+    pickemCards.innerHTML = "";
 
-  window.placeBid = function(itemName) {
-    const amount = prompt(`Enter your bid for ${itemName}:`);
-    if (amount && !isNaN(amount)) {
-      alert(`Your bid of $${amount} for ${itemName} has been placed!`);
+    for (let i = 0; i < 3; i++) {
+      pickemCards.innerHTML += `
+        <div class="pickem-card">
+          <div class="pickem-xp">${sport === "basketball" ? "🏀" : sport === "soccer" ? "⚽️" : "🎾"} +${Math.floor(Math.random() * 40)} XP</div>
+          <h4>Combo Challenge</h4>
+          <ul class="legs-list">
+            ${players.map(p => `<li>${p} — ${challenges[Math.floor(Math.random() * challenges.length)]}</li>`).join("")}
+          </ul>
+          <div class="pick-bottom">💰 $10 pays $${Math.floor(Math.random() * 200)}</div>
+        </div>`;
     }
-  };
+  }
 
-  topTabs.forEach(tab => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sport = tab.textContent.toLowerCase();
-      topTabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
+  function renderSlots() {
+    document.querySelectorAll(".slot-card").forEach(card => {
+      const spinBtn = card.querySelector(".spin-btn");
+      const rows = card.querySelectorAll(".row");
+      const resultText = card.querySelector(".result-text");
+      const betInput = card.querySelector(".bet-input");
+      const balanceDisplay = card.querySelector(".balance-value");
+      let balance = 100;
 
-      renderLiveScore(sport);
-      renderXPTable(sport);
-      renderScheduleOddsTable(sport);
-      renderLeaderboard(sport);
-      renderPickemCards(sport);
-    });
-  });
+      spinBtn.addEventListener("click", () => {
+        const bet = parseInt(betInput.value);
+        if (bet > balance || bet <= 0) return resultText.textContent = "❌ Invalid bet!";
 
-  // Initial Load
-  renderLiveScore("basketball");
-  renderXPTable("basketball");
-  renderScheduleOddsTable("basketball");
-  renderLeaderboard("basketball");
-  renderPickemCards("basketball");
-  renderStoreItems();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const symbols = ["🍒", "🍋", "🍉", "🍇"];
-
-  const getRandomSymbol = () => symbols[Math.floor(Math.random() * symbols.length)];
-
-  document.querySelectorAll(".slot-card").forEach(card => {
-    const spinBtn = card.querySelector(".spin-btn");
-    const rows = card.querySelectorAll(".row");
-    const multiplier = parseInt(card.dataset.multiplier);
-    const resultText = card.querySelector(".result-text");
-    const betInput = card.querySelector(".bet-input");
-    const balanceDisplay = card.querySelector(".balance-value");
-
-    let balance = 100;
-
-    spinBtn.addEventListener("click", () => {
-      const bet = parseInt(betInput.value);
-      if (bet > balance || bet <= 0) {
-        resultText.textContent = "❌ Invalid bet!";
-        return;
-      }
-
-      // Spin
-      const grid = [];
-
-      rows.forEach(row => {
-        const symbolsRow = [];
-        row.querySelectorAll("span").forEach(cell => {
-          const sym = getRandomSymbol();
-          cell.textContent = sym;
-          symbolsRow.push(sym);
+        const grid = [];
+        rows.forEach(row => {
+          const cells = row.querySelectorAll("span");
+          const line = Array.from(cells).map(cell => {
+            const s = getRandomSymbol();
+            cell.textContent = s;
+            return s;
+          });
+          grid.push(line);
         });
-        grid.push(symbolsRow);
+
+        let matchCount = 0;
+        grid.forEach(row => row.every(s => s === row[0]) && matchCount++);
+        for (let c = 0; c < 3; c++) {
+          const col = [grid[0][c], grid[1][c], grid[2][c]];
+          if (col.every(s => s === col[0])) matchCount++;
+        }
+
+        const multiplier = parseInt(card.dataset.multiplier);
+        const win = (multiplier === 2 && matchCount === 6) || (multiplier === 5 && matchCount >= 2);
+        if (win) {
+          const winAmt = bet * multiplier;
+          balance += winAmt;
+          resultText.textContent = `🎉 Won $${winAmt}`;
+        } else {
+          balance -= bet;
+          resultText.textContent = `😢 Lost $${bet}`;
+        }
+
+        balanceDisplay.textContent = balance;
+        if (balance <= 0) spinBtn.disabled = true;
       });
-
-      // Evaluate wins
-      let matchCount = 0;
-
-      // Check rows
-      grid.forEach(row => {
-        if (row.every(s => s === row[0])) matchCount++;
-      });
-
-      // Check columns
-      for (let col = 0; col < 3; col++) {
-        const column = [grid[0][col], grid[1][col], grid[2][col]];
-        if (column.every(s => s === column[0])) matchCount++;
-      }
-
-      // Win logic
-      let won = false;
-      if (multiplier === 2 && matchCount === 6) won = true;
-      if (multiplier === 5 && matchCount >= 2) won = true;
-
-      if (won) {
-        const winnings = bet * multiplier;
-        balance += winnings;
-        resultText.textContent = `🎉 You won $${winnings} with ${multiplier}x multiplier!`;
-      } else {
-        balance -= bet;
-        resultText.textContent = `😢 You lost $${bet}. Match more to win!`;
-      }
-
-      balanceDisplay.textContent = balance;
-
-      // Disable game if balance is depleted
-      if (balance <= 0) {
-        resultText.textContent = "💸 You're out of funds!";
-        spinBtn.disabled = true;
-      }
     });
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const topTabs = document.querySelectorAll('.tabs a');
-  const xpBody = document.getElementById("xpBody");
-  const xpHeader = document.querySelector(".xp-table thead tr");
-  const liveScoreSection = document.querySelector(".live-score .live-teams");
-  const matchOddsBody = document.getElementById("matchOddsBody");
-  const leaderboardBody = document.getElementById("leaderboardBody");
-  const pickemCards = document.getElementById("pickemCards");
-  const storeGrid = document.getElementById("storeGrid");
-  const sidebar = document.querySelector(".sidebar");
-  const mainContent = document.querySelector(".main");
+  }
 
-  // Handle swipe gestures to toggle sidebar
-  let touchStartX = 0;
-  let touchEndX = 0;
+  function enableSidebarGestures() {
+    let startX = 0, currentX = 0;
+    let inactivityTimer;
 
-  document.body.addEventListener("touchstart", (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  document.body.addEventListener("touchend", (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-
-    // Swipe Right → Show Sidebar
-    if (touchEndX - touchStartX > 100) {
+    const showSidebar = () => {
       sidebar.classList.remove("hidden");
       mainContent.classList.remove("full-width");
-    }
+    };
 
-    // Swipe Left → Hide Sidebar
-    if (touchStartX - touchEndX > 100) {
+    const hideSidebar = () => {
       sidebar.classList.add("hidden");
       mainContent.classList.add("full-width");
-    }
-  });
+    };
 
-  // Desktop keyboard toggle: Press "h" to hide/show sidebar
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "h") {
-      sidebar.classList.toggle("hidden");
-      mainContent.classList.toggle("full-width");
-    }
-  });
+    document.addEventListener("mousedown", e => { startX = e.clientX; });
+    document.addEventListener("mouseup", e => {
+      currentX = e.clientX;
+      if (currentX - startX > 80) showSidebar();
+      if (startX - currentX > 80) hideSidebar();
+    });
 
-  // Sport tab switching logic (already in your existing script)
+    document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+    document.addEventListener("touchend", e => {
+      currentX = e.changedTouches[0].clientX;
+      if (currentX - startX > 80) showSidebar();
+      if (startX - currentX > 80) hideSidebar();
+    });
+
+    const resetInactivityTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(hideSidebar, 15000);
+    };
+
+    ["click", "mousemove", "keydown", "touchstart"].forEach(evt =>
+      document.addEventListener(evt, resetInactivityTimer)
+    );
+    resetInactivityTimer();
+  }
+
   topTabs.forEach(tab => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
@@ -545,99 +362,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial load
   renderLiveScore("basketball");
   renderXPTable("basketball");
   renderScheduleOddsTable("basketball");
   renderLeaderboard("basketball");
   renderPickemCards("basketball");
   renderStoreItems();
-});
-  document.addEventListener("DOMContentLoaded", () => {
-  const sidebar = document.querySelector(".menu-panel");
-  const toggle = document.querySelector(".menu-toggle");
-
-  let isDragging = false;
-  let startX = 0;
-  let currentX = 0;
-  let inactivityTimer;
-
-  const showSidebar = () => {
-    sidebar.classList.remove("hidden");
-    sidebar.style.transform = "translateX(0)";
-  };
-
-  const hideSidebar = () => {
-    sidebar.classList.add("hidden");
-    sidebar.style.transform = "translateX(-200px)";
-  };
-
-  const resetInactivityTimer = () => {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-      hideSidebar();
-    }, 5000); // 15 seconds
-  };
-
-  // Click toggle
-  toggle.addEventListener("click", () => {
-    if (sidebar.classList.contains("hidden")) {
-      showSidebar();
-    } else {
-      hideSidebar();
-    }
-    resetInactivityTimer();
-  });
-
-  // Mouse/touch drag logic
-  document.addEventListener("mousedown", (e) => {
-    startX = e.clientX;
-    isDragging = true;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    currentX = e.clientX;
-  });
-
-  document.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    if (currentX - startX > 80) {
-      showSidebar();
-    } else if (startX - currentX > 80) {
-      hideSidebar();
-    }
-    isDragging = false;
-  });
-
-  // Touch support
-  document.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
-
-  document.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-  });
-
-  document.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    if (currentX - startX > 80) {
-      showSidebar();
-    } else if (startX - currentX > 80) {
-      hideSidebar();
-    }
-    isDragging = false;
-  });
-
-  // Reset inactivity timer on any input
-  ["click", "mousemove", "touchstart", "keydown"].forEach(event => {
-    document.addEventListener(event, resetInactivityTimer);
-  });
-
-  // Start initial inactivity timer
-  resetInactivityTimer();
+  renderSlots();
+  enableSidebarGestures();
 });
 </script>
 </body>
