@@ -3,60 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Casino Slots</title>
-  <link rel="stylesheet" href="casino.css" />
+  <title>Hollywood Casino Slots</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="casino-app">
     <header>
-      <h1>🎰 Hollywood Casino Slots</h1>
+      <h1>🎰 Hollywood Slots</h1>
       <div class="store">
-        <h3>🪙 Buy Tokens</h3>
+        <h3>🪙 Token Store</h3>
         <ul>
           <li>500 Tokens - $4.99</li>
           <li>1000 Tokens - $8.99</li>
           <li>2500 Tokens - $17.99</li>
-          <button class="btn-store">Go to Store</button>
         </ul>
+        <button class="btn-store">Go to Store</button>
       </div>
     </header>
 
     <main class="slots-container">
-      <div class="slot-card">
-        <h2>Lucky 7s</h2>
-        <div class="reels">🍒 🍋 🔔</div>
-        <span class="multiplier">x3</span>
-        <button class="btn-play">Play Now</button>
-      </div>
-
-      <div class="slot-card">
-        <h2>Fruit Frenzy</h2>
-        <div class="reels">🍇 🍉 🍓</div>
+      <div class="slot-card" id="slot1">
+        <h2>🔥 Jackpot Blaze</h2>
+        <div class="slot-reel">
+          <div class="reel" id="reel1">🍒</div>
+          <div class="reel" id="reel2">🍋</div>
+          <div class="reel" id="reel3">🍇</div>
+        </div>
         <span class="multiplier">x5</span>
-        <button class="btn-play">Play Now</button>
-      </div>
-
-      <div class="slot-card">
-        <h2>Jackpot Blaze</h2>
-        <div class="reels">🔥 💰 💎</div>
-        <span class="multiplier">x10</span>
-        <button class="btn-play">Play Now</button>
-      </div>
-
-      <div class="slot-card">
-        <h2>Bar Bonanza</h2>
-        <div class="reels">BAR BAR 🍒</div>
-        <span class="multiplier">x4</span>
-        <button class="btn-play">Play Now</button>
-      </div>
-
-      <div class="slot-card">
-        <h2>Spin Royale</h2>
-        <div class="reels">👑 💎 💰</div>
-        <span class="multiplier">x7</span>
-        <button class="btn-play">Play Now</button>
+        <button class="btn-play" onclick="spin()">Spin</button>
       </div>
     </main>
   </div>
+
+  <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/10/31/audio_d2034c0308.mp3?filename=slot-machine-spin-113612.mp3"></audio>
+  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></audio>
+
+  <script >
+    const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
+const reels = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
+const spinSound = document.getElementById("spinSound");
+const winSound = document.getElementById("winSound");
+
+function spin() {
+  spinSound.play();
+
+  reels.forEach((reel, i) => {
+    setTimeout(() => {
+      reel.style.animation = "spin 1s ease-in-out";
+      setTimeout(() => {
+        reel.style.animation = "none";
+        let result = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.textContent = result;
+      }, 900);
+    }, i * 300);
+  });
+
+  // Simulate win sound after all reels finish
+  setTimeout(() => {
+    if (Math.random() > 0.6) winSound.play(); // simulate win
+  }, 2000);
+}
+  </script>
 </body>
 </html>
