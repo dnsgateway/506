@@ -76,42 +76,43 @@
 </main>
 
   <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/10/31/audio_d2034c0308.mp3?filename=slot-machine-spin-113612.mp3"></audio>
-  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></<script>
+  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></audio>
+
+    <script>
   const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
   const spinSound = document.getElementById("spinSound");
   const winSound = document.getElementById("winSound");
 
+  // Generic spin for grid-based slots
   function spinCard(cardId) {
     const card = document.getElementById(cardId);
     const reels = card.querySelectorAll(".reel");
+    const totalReels = reels.length;
     const finalSymbols = [];
 
     spinSound.play();
 
-    reels.forEach((reel, index) => {
+    reels.forEach((reel, i) => {
       let intervalId;
 
-      // Start cycling
       setTimeout(() => {
         intervalId = setInterval(() => {
           reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         }, 75);
-      }, index * 100); // stagger start
+      }, i * 30);
 
-      // Stop and assign final symbol with bounce
       setTimeout(() => {
         clearInterval(intervalId);
         const finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
         reel.textContent = finalSymbol;
-        finalSymbols[index] = finalSymbol;
-
+        finalSymbols[i] = finalSymbol;
         reel.classList.add("bounce");
-        setTimeout(() => reel.classList.remove("bounce"), 500);
+        setTimeout(() => reel.classList.remove("bounce"), 400);
 
-        // On last reel, check for win
-        if (index === reels.length - 1) {
+        // If last reel finished
+        if (i === totalReels - 1) {
           setTimeout(() => {
-            const isWin = checkWin(reels, finalSymbols);
+            const isWin = checkGridWin(reels, cardId);
             if (isWin) {
               winSound.play();
               triggerTokenPayout();
@@ -119,10 +120,11 @@
             }
           }, 300);
         }
-      }, 1500 + index * 150);
+      }, 1500 + i * 80);
     });
   }
 
+  // Special staggered spin for Jackpot Blaze (3x1)
   function spinJackpot() {
     const reels = [
       document.getElementById("jackpot1"),
@@ -135,7 +137,6 @@
 
     reels.forEach((reel, i) => {
       let intervalId;
-
       setTimeout(() => {
         intervalId = setInterval(() => {
           reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
@@ -149,11 +150,11 @@
         finalSymbols[i] = finalSymbol;
 
         reel.classList.add("bounce");
-        setTimeout(() => reel.classList.remove("bounce"), 500);
+        setTimeout(() => reel.classList.remove("bounce"), 400);
 
         if (i === reels.length - 1) {
           setTimeout(() => {
-            const isWin = checkWin(reels, finalSymbols);
+            const isWin = checkRowMatch(finalSymbols);
             if (isWin) {
               winSound.play();
               triggerTokenPayout();
@@ -161,13 +162,45 @@
             }
           }, 300);
         }
-      }, 1500 + i * 300);
+      }, 1500 + i * 250);
     });
   }
 
-  function checkWin(reels, symbolsArray) {
-    // Basic check: all symbols must match
-    return symbolsArray.every((val, i, arr) => val === arr[0]);
+  // Simple match-3 for horizontal win
+  function checkRowMatch(symbols) {
+    return symbols.every(sym => sym === symbols[0]);
+  }
+
+  // Check win logic for 3x3 and 5x3 grids
+  function checkGridWin(reels, cardId) {
+    const rows = cardId === "slot3" ? 3 : 3;
+    const cols = cardId === "slot3" ? 5 : 3;
+    const grid = [];
+
+    reels.forEach((r, i) => {
+      const row = Math.floor(i / cols);
+      if (!grid[row]) grid[row] = [];
+      grid[row].push(r.textContent);
+    });
+
+    // Horizontal check
+    for (let row of grid) {
+      if (row.every(s => s === row[0])) return true;
+    }
+
+    // Vertical check
+    for (let c = 0; c < cols; c++) {
+      let colMatch = true;
+      for (let r = 0; r < rows - 1; r++) {
+        if (grid[r][c] !== grid[r + 1][c]) {
+          colMatch = false;
+          break;
+        }
+      }
+      if (colMatch) return true;
+    }
+
+    return false;
   }
 
   function triggerTokenPayout() {
@@ -175,7 +208,6 @@
     payout.className = "token-payout";
     payout.innerHTML = "🪙 +500";
     document.body.appendChild(payout);
-
     setTimeout(() => payout.remove(), 2000);
   }
 
