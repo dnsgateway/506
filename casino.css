@@ -208,6 +208,11 @@ header h1 {
 }
 
 @keyframes spin {
-  0% { transform: rotateX(0deg); }
-  100% { transform: rotateX(1080deg); }
+  0%   { opacity: 1; transform: scale(1); }
+  50%  { opacity: 0.3; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.spin-animate {
+  animation: spinSymbol 0.2s ease-in-out;
 }
