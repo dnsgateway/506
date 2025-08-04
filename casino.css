@@ -63,15 +63,16 @@ header h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px; /* add spacing between cards */
   margin-top: 2rem;
 }
 
 .slot-card {
+  width: 300px;
   background: linear-gradient(145deg, #111, #1a1a1a);
   border: 2px solid #00ff9f;
   border-radius: 12px;
   padding: 1rem;
-  max-width: 280px;
   text-align: center;
   position: relative;
   box-shadow: 0 0 15px #00ff9f50;
@@ -96,7 +97,7 @@ header h1 {
 .reel {
   width: 50px;
   text-align: center;
-  animation: none;
+  font-size: 2rem;
 }
 
 .multiplier {
@@ -108,16 +109,25 @@ header h1 {
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .btn-play {
   background-color: #ff007a;
   border: none;
   color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 8px #ff007a66;
+}
+
+.btn-play:hover {
+  background-color: #ff3399;
+  box-shadow: 0 0 12px #ff339966;
 }
 
 @keyframes spin {
