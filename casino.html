@@ -76,58 +76,120 @@
 </main>
 
   <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/10/31/audio_d2034c0308.mp3?filename=slot-machine-spin-113612.mp3"></audio>
-  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></audio>
+  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></<script>
+  const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
+  const spinSound = document.getElementById("spinSound");
+  const winSound = document.getElementById("winSound");
 
-  <script >
-const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
-const spinSound = document.getElementById("spinSound");
-const winSound = document.getElementById("winSound");
+  function spinCard(cardId) {
+    const card = document.getElementById(cardId);
+    const reels = card.querySelectorAll(".reel");
+    const finalSymbols = [];
 
-// For Classic 3x Slot and similar grid slots
-function spinCard(cardId) {
-  const card = document.getElementById(cardId);
-  const reels = card.querySelectorAll(".reel");
+    spinSound.play();
 
-  spinSound.play();
+    reels.forEach((reel, index) => {
+      let intervalId;
 
-  reels.forEach((reel, index) => {
-    reel.style.animation = "spin 0.8s ease-in-out";
-    setTimeout(() => {
-      const result = symbols[Math.floor(Math.random() * symbols.length)];
-      reel.textContent = result;
-      reel.style.animation = "none";
-    }, 800 + (index * 40));
-  });
-
-  setTimeout(() => {
-    if (Math.random() > 0.6) winSound.play();
-  }, 2200);
-}
-
-// For Jackpot Blaze: flip each reel one after the other
-function spinJackpot() {
-  const reels = [
-    document.getElementById("jackpot1"),
-    document.getElementById("jackpot2"),
-    document.getElementById("jackpot3")
-  ];
-
-  spinSound.play();
-
-  reels.forEach((reel, i) => {
-    setTimeout(() => {
-      reel.style.animation = "flip 0.8s ease-in-out";
+      // Start cycling
       setTimeout(() => {
-        reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        reel.style.animation = "none";
-      }, 700);
-    }, i * 500);
-  });
+        intervalId = setInterval(() => {
+          reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        }, 75);
+      }, index * 100); // stagger start
 
-  setTimeout(() => {
-    if (Math.random() > 0.6) winSound.play();
-  }, 2500);
-}
-  </script>
+      // Stop and assign final symbol with bounce
+      setTimeout(() => {
+        clearInterval(intervalId);
+        const finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.textContent = finalSymbol;
+        finalSymbols[index] = finalSymbol;
+
+        reel.classList.add("bounce");
+        setTimeout(() => reel.classList.remove("bounce"), 500);
+
+        // On last reel, check for win
+        if (index === reels.length - 1) {
+          setTimeout(() => {
+            const isWin = checkWin(reels, finalSymbols);
+            if (isWin) {
+              winSound.play();
+              triggerTokenPayout();
+              triggerEmojiBurst();
+            }
+          }, 300);
+        }
+      }, 1500 + index * 150);
+    });
+  }
+
+  function spinJackpot() {
+    const reels = [
+      document.getElementById("jackpot1"),
+      document.getElementById("jackpot2"),
+      document.getElementById("jackpot3")
+    ];
+    const finalSymbols = [];
+
+    spinSound.play();
+
+    reels.forEach((reel, i) => {
+      let intervalId;
+
+      setTimeout(() => {
+        intervalId = setInterval(() => {
+          reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        }, 75);
+      }, i * 200);
+
+      setTimeout(() => {
+        clearInterval(intervalId);
+        const finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.textContent = finalSymbol;
+        finalSymbols[i] = finalSymbol;
+
+        reel.classList.add("bounce");
+        setTimeout(() => reel.classList.remove("bounce"), 500);
+
+        if (i === reels.length - 1) {
+          setTimeout(() => {
+            const isWin = checkWin(reels, finalSymbols);
+            if (isWin) {
+              winSound.play();
+              triggerTokenPayout();
+              triggerEmojiBurst();
+            }
+          }, 300);
+        }
+      }, 1500 + i * 300);
+    });
+  }
+
+  function checkWin(reels, symbolsArray) {
+    // Basic check: all symbols must match
+    return symbolsArray.every((val, i, arr) => val === arr[0]);
+  }
+
+  function triggerTokenPayout() {
+    const payout = document.createElement("div");
+    payout.className = "token-payout";
+    payout.innerHTML = "🪙 +500";
+    document.body.appendChild(payout);
+
+    setTimeout(() => payout.remove(), 2000);
+  }
+
+  function triggerEmojiBurst() {
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement("div");
+      particle.className = "emoji-burst";
+      particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.animationDuration = 1 + Math.random() * 1 + "s";
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 1500);
+    }
+  }
+</script>
 </body>
 </html>
