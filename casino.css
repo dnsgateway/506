@@ -94,10 +94,29 @@ header h1 {
   border-radius: 10px;
 }
 
+/* Grid layout for 5x3 reels */
+.slot-reel-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 1.2rem 0;
+  font-size: 2.2rem;
+  background-color: #000;
+  padding: 0.8rem;
+  border: 1px solid #555;
+  border-radius: 10px;
+}
+
 .reel {
   width: 50px;
+  height: 50px;
   text-align: center;
-  font-size: 2rem;
+  line-height: 50px;
+  background: #111;
+  border-radius: 6px;
+  box-shadow: inset 0 0 4px #333;
+  animation: none;
+  transition: transform 0.2s;
 }
 
 .multiplier {
