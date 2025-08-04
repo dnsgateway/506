@@ -63,27 +63,26 @@
 
   <script >
     const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
-const reels = [document.getElementById("reel1"), document.getElementById("reel2"), document.getElementById("reel3")];
 const spinSound = document.getElementById("spinSound");
 const winSound = document.getElementById("winSound");
 
-function spin() {
+function spinCard(cardId) {
+  const card = document.getElementById(cardId);
+  const reels = card.querySelectorAll(".reel");
+
   spinSound.play();
 
-  reels.forEach((reel, i) => {
+  reels.forEach((reel, index) => {
+    reel.style.animation = "spin 1s ease-in-out";
     setTimeout(() => {
-      reel.style.animation = "spin 1s ease-in-out";
-      setTimeout(() => {
-        reel.style.animation = "none";
-        let result = symbols[Math.floor(Math.random() * symbols.length)];
-        reel.textContent = result;
-      }, 900);
-    }, i * 300);
+      const result = symbols[Math.floor(Math.random() * symbols.length)];
+      reel.textContent = result;
+      reel.style.animation = "none";
+    }, 900 + index * 200);
   });
 
-  // Simulate win sound after all reels finish
   setTimeout(() => {
-    if (Math.random() > 0.6) winSound.play(); // simulate win
+    if (Math.random() > 0.6) winSound.play();
   }, 2000);
 }
   </script>
