@@ -83,6 +83,7 @@ const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
 const spinSound = document.getElementById("spinSound");
 const winSound = document.getElementById("winSound");
 
+// For Classic 3x Slot and similar grid slots
 function spinCard(cardId) {
   const card = document.getElementById(cardId);
   const reels = card.querySelectorAll(".reel");
@@ -90,12 +91,37 @@ function spinCard(cardId) {
   spinSound.play();
 
   reels.forEach((reel, index) => {
-    reel.style.animation = "spin 0.9s ease-in-out";
+    reel.style.animation = "spin 0.8s ease-in-out";
     setTimeout(() => {
       const result = symbols[Math.floor(Math.random() * symbols.length)];
       reel.textContent = result;
       reel.style.animation = "none";
-    }, 900 + (index * 30));
+    }, 800 + (index * 40));
+  });
+
+  setTimeout(() => {
+    if (Math.random() > 0.6) winSound.play();
+  }, 2200);
+}
+
+// For Jackpot Blaze: flip each reel one after the other
+function spinJackpot() {
+  const reels = [
+    document.getElementById("jackpot1"),
+    document.getElementById("jackpot2"),
+    document.getElementById("jackpot3")
+  ];
+
+  spinSound.play();
+
+  reels.forEach((reel, i) => {
+    setTimeout(() => {
+      reel.style.animation = "flip 0.8s ease-in-out";
+      setTimeout(() => {
+        reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.style.animation = "none";
+      }, 700);
+    }, i * 500);
   });
 
   setTimeout(() => {
