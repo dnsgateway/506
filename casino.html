@@ -34,40 +34,66 @@
   </div>
 
   <!-- 2x Multiplier Slot -->
-  <div class="slot-card" id="slot2" data-multiplier="2">
-    <h2>🎰 Classic 2x Slot</h2>
-    <div class="slot-reel">
-      <div class="reel">🍒</div>
-      <div class="reel">🍋</div>
-      <div class="reel">🍇</div>
-      <div class="reel">💎</div>
-      <div class="reel">🍊</div>
-    </div>
-    <span class="multiplier">x2</span>
-    <button class="btn-play" onclick="spinCard('slot2')">▶ Play</button>
-    <p class="result-text">Get all rows and columns to match for 2x win!</p>
+  <!-- 2x Multiplier Slot (5x3 grid) -->
+<div class="slot-card" id="slot2" data-multiplier="2">
+  <h2>🎰 Classic 2x Slot</h2>
+  <div class="slot-reel-grid">
+    <div class="reel">🍒</div>
+    <div class="reel">🍋</div>
+    <div class="reel">🍇</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
+
+    <div class="reel">🍒</div>
+    <div class="reel">🍋</div>
+    <div class="reel">🍇</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
+
+    <div class="reel">🍒</div>
+    <div class="reel">🍋</div>
+    <div class="reel">🍇</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
   </div>
-<!-- 5x Multiplier Slot -->
-  <div class="slot-card" id="slot3" data-multiplier="5">
-    <h2>💥 Wild 5x Slot</h2>
-    <div class="slot-reel">
-      <div class="reel">🍇</div>
-      <div class="reel">🍉</div>
-      <div class="reel">🍒</div>
-      <div class="reel">💎</div>
-      <div class="reel">🍊</div>
-    </div>
-    <span class="multiplier">x5</span>
-    <button class="btn-play" onclick="spinCard('slot3')">▶ Play</button>
-    <p class="result-text">Get 2 full matching rows to win 5x!</p>
+  <span class="multiplier">x2</span>
+  <button class="btn-play" onclick="spinCard('slot2')">▶ Play</button>
+  <p class="result-text">Match across 3 rows or columns to win 2x!</p>
+</div>
+
+<!-- 5x Multiplier Slot (5x3 grid) -->
+<div class="slot-card" id="slot3" data-multiplier="5">
+  <h2>💥 Wild 5x Slot</h2>
+  <div class="slot-reel-grid">
+    <div class="reel">🍉</div>
+    <div class="reel">🍇</div>
+    <div class="reel">🍒</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
+
+    <div class="reel">🍉</div>
+    <div class="reel">🍇</div>
+    <div class="reel">🍒</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
+
+    <div class="reel">🍉</div>
+    <div class="reel">🍇</div>
+    <div class="reel">🍒</div>
+    <div class="reel">💎</div>
+    <div class="reel">🍊</div>
   </div>
+  <span class="multiplier">x5</span>
+  <button class="btn-play" onclick="spinCard('slot3')">▶ Play</button>
+  <p class="result-text">Match 3 full rows or 3 columns for 5x win!</p>
+</div>
 </main>
 
   <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/10/31/audio_d2034c0308.mp3?filename=slot-machine-spin-113612.mp3"></audio>
   <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></audio>
 
   <script >
-    const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
+const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
 const spinSound = document.getElementById("spinSound");
 const winSound = document.getElementById("winSound");
 
@@ -78,17 +104,17 @@ function spinCard(cardId) {
   spinSound.play();
 
   reels.forEach((reel, index) => {
-    reel.style.animation = "spin 1s ease-in-out";
+    reel.style.animation = "spin 0.9s ease-in-out";
     setTimeout(() => {
       const result = symbols[Math.floor(Math.random() * symbols.length)];
       reel.textContent = result;
       reel.style.animation = "none";
-    }, 900 + index * 100);
+    }, 900 + (index * 30));
   });
 
   setTimeout(() => {
     if (Math.random() > 0.6) winSound.play();
-  }, 2000);
+  }, 2500);
 }
   </script>
 </body>
