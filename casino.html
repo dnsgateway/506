@@ -22,45 +22,31 @@
     </header>
 
     <main class="slots-container">
-  <div class="slot-card" id="slot1" data-multiplier="5">
-    <h2>🔥 Jackpot Blaze</h2>
-    <div class="slot-reel">
-      <div class="reel" id="reel1">🍒</div>
-      <div class="reel" id="reel2">🍋</div>
-      <div class="reel" id="reel3">🍇</div>
-    </div>
-    <span class="multiplier">x5</span>
-    <button class="btn-play" onclick="spinCard('slot1')">▶ Play</button>
+  <!-- Jackpot Blaze (3x1, flip one at a time) -->
+<div class="slot-card" id="slot1" data-multiplier="5">
+  <h2>🔥 Jackpot Blaze</h2>
+  <div class="slot-reel-row">
+    <div class="reel" id="jackpot1">🍒</div>
+    <div class="reel" id="jackpot2">🍋</div>
+    <div class="reel" id="jackpot3">🍇</div>
   </div>
-
-  <!-- 2x Multiplier Slot -->
-  <!-- 2x Multiplier Slot (5x3 grid) -->
-<div class="slot-card" id="slot2" data-multiplier="2">
-  <h2>🎰 Classic 2x Slot</h2>
-  <div class="slot-reel-grid">
-    <div class="reel">🍒</div>
-    <div class="reel">🍋</div>
-    <div class="reel">🍇</div>
-    <div class="reel">💎</div>
-    <div class="reel">🍊</div>
-
-    <div class="reel">🍒</div>
-    <div class="reel">🍋</div>
-    <div class="reel">🍇</div>
-    <div class="reel">💎</div>
-    <div class="reel">🍊</div>
-
-    <div class="reel">🍒</div>
-    <div class="reel">🍋</div>
-    <div class="reel">🍇</div>
-    <div class="reel">💎</div>
-    <div class="reel">🍊</div>
-  </div>
-  <span class="multiplier">x2</span>
-  <button class="btn-play" onclick="spinCard('slot2')">▶ Play</button>
-  <p class="result-text">Match across 3 rows or columns to win 2x!</p>
+  <span class="multiplier">x5</span>
+  <button class="btn-play" onclick="spinJackpot()">▶ Play</button>
 </div>
 
+<!-- Classic 3x Slot (3x3 grid) -->
+<div class="slot-card" id="slot2" data-multiplier="3">
+  <h2>🎰 Classic 3x Slot</h2>
+  <div class="slot-reel-grid-3x3">
+    <!-- 3 rows x 3 columns = 9 reels -->
+    <div class="reel">🍒</div><div class="reel">🍋</div><div class="reel">🍇</div>
+    <div class="reel">🍉</div><div class="reel">💎</div><div class="reel">🍊</div>
+    <div class="reel">7️⃣</div><div class="reel">🍋</div><div class="reel">🍒</div>
+  </div>
+  <span class="multiplier">x3</span>
+  <button class="btn-play" onclick="spinCard('slot2')">▶ Play</button>
+  <p class="result-text">Match across any row or column to win 3x!</p>
+</div>
 <!-- 5x Multiplier Slot (5x3 grid) -->
 <div class="slot-card" id="slot3" data-multiplier="5">
   <h2>💥 Wild 5x Slot</h2>
