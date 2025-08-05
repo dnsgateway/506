@@ -112,16 +112,16 @@ header h1 {
 
 .token-cost {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #0077ff;
-  color: #fff;
-  padding: 0.3rem 0.6rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  z-index: 10;
+      top: 10px;
+      right: 10px;
+      background-color: #00ff9f;
+      color: #000;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
 }
-
+      
 /* ✅ Reel Layouts */
 .slot-reel {
   display: flex;
@@ -293,12 +293,26 @@ header h1 {
   to { opacity: 0; transform: translateY(-150px) rotate(360deg); }
 }
 
-/* ✅ Footer */
-   .footer {
+    .footer {
       text-align: center;
       padding: 1.5rem;
       font-size: 0.9rem;
       margin-top: auto;
       color: #ccc;
       border-top: 1px solid #333;
-   }
+    }
+
+    .token-payout {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: gold;
+      background: #000;
+      padding: 0.5rem 1rem;
+      border: 2px solid gold;
+      border-radius: 10px;
+      z-index: 1000;
+      animation: riseFade 2s ease-out forwards;
+    
