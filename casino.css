@@ -28,6 +28,28 @@ header h1 {
   color: #00ffb3;
   text-shadow: 0 0 8px #00ffb3;
 }
+    .user-card {
+      background-color: rgba(0, 0, 50, 0.7);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border: 1px solid #00eaff;
+      min-width: 240px;
+    }
+
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      background-color: #00eaff;
+      border-radius: 50%;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-size: 0.9rem;
+    
 
 .store {
   background-color: rgba(0, 0, 0, 0.6);
@@ -78,11 +100,20 @@ header h1 {
   box-shadow: 0 0 15px #00ff9f50;
   transition: transform 0.3s ease;
 }
-
+ .token-cost {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #0077ff;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+ }
 .slot-card:hover {
   transform: scale(1.05);
 }
-
+      
 .slot-reel {
   display: flex;
   justify-content: space-evenly;
