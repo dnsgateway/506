@@ -10,8 +10,16 @@
   <div class="casino-app">
     <header>
       <h1>🎰 Hollywood Slots</h1>
+
+       <div class="user-card">
+        <div class="user-avatar"></div>
+        <div class="user-info">
+          <p><strong id="username">Player1</strong></p>
+          <p>💰 Tokens: <span id="tokenCount">1000</span></p
+        </div>
+      </div>
       <div class="store">
-        <h3>🪙 Token Store</h3>
+        <h3>💰 Token Store</h3>
         <ul>
           <li>500 Tokens - $4.99</li>
           <li>1000 Tokens - $8.99</li>
@@ -24,6 +32,7 @@
     <main class="slots-container">
   <!-- Jackpot Blaze (3x1, flip one at a time) -->
 <div class="slot-card" id="slot1" data-multiplier="5">
+   <span class="token-cost">💰 50 Tokens</span>
   <h2>🔥 Jackpot Blaze</h2>
   <div class="slot-reel-row">
     <div class="reel" id="jackpot1">🍒</div>
@@ -36,6 +45,7 @@
 
 <!-- Classic 2x Slot (3x3 grid) -->
 <div class="slot-card" id="slot2" data-multiplier="3">
+  <span class="token-cost">💰 75 Tokens</span>
   <h2>🎰 Classic 2x Slot</h2>
   <div class="slot-reel-grid-3x3">
     <!-- 3 rows x 3 columns = 9 reels -->
@@ -49,6 +59,7 @@
 </div>
 <!-- 5x Multiplier Slot (5x3 grid) -->
 <div class="slot-card" id="slot3" data-multiplier="5">
+ <span class="token-cost">💰 100 Tokens</span>
   <h2>💥 Wild 5x Slot</h2>
   <div class="slot-reel-grid">
     <div class="reel">🍉</div>
@@ -74,7 +85,9 @@
   <p class="result-text">Match 3 full rows or 3 columns for 5x win!</p>
 </div>
 </main>
-
+    <footer>
+      © 2025 Rumble Sports Casino — Powered by WordPress
+    </footer>
   <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/10/31/audio_d2034c0308.mp3?filename=slot-machine-spin-113612.mp3"></audio>
   <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_74f22b92c2.mp3?filename=casino-bell-ding-112024.mp3"></audio>
 
@@ -222,6 +235,42 @@
       setTimeout(() => particle.remove(), 1500);
     }
   }
+      const symbols = ["🍒", "🍋", "🍇", "7️⃣", "💎", "🍊"];
+      const user = {
+        name: "Player1",
+        tokens: 1000
+      };
+
+      document.getElementById("username").textContent = user.name;
+      document.getElementById("tokenCount").textContent = user.tokens;
+
+      function updateTokensDisplay() {
+        document.getElementById("tokenCount").textContent = user.tokens;
+      }
+
+      function handleSpin(slotId, cost) {
+        if (user.tokens < cost) {
+          alert("❌ Not enough tokens!");
+          return;
+        }
+
+        user.tokens -= cost;
+        updateTokensDisplay();
+        alert("🎉 Spun slot: " + slotId + " for " + cost + " tokens!");
+
+        // Simulate win
+        const didWin = Math.random() > 0.6;
+        if (didWin) {
+          const reward = cost * 2;
+          alert("💰 You won " + reward + " tokens!");
+          user.tokens += reward;
+          updateTokensDisplay();
+        }
+      }
+
+      function handleJackpotSpin() {
+        handleSpin('slot1', 50);
+      }
 </script>
 </body>
 </html>
