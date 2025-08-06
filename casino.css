@@ -294,12 +294,13 @@ header h1 {
 }
 
     .footer {
-     text-align: center;
+    background: none;
+    text-align: center;
     padding: 1.5rem;
-   font-size: 0.9rem;
-   margin-top: auto;
-   color: #ccc;
-   border-top: 1px solid #333;
+    font-size: 0.9rem;
+    margin-top: auto;
+    color: #ccc;
+    border-top: 1px solid #333;
     }
 
     .token-payout {
