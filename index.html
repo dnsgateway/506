@@ -208,20 +208,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderLiveScore(sport) {
-    const live = data[sport].liveScore;
-    liveScoreSection.innerHTML = `
-      <div class="team">
-        <img src="${live.home.logo}" alt="${live.home.name}" />
-        <div class="team-name">${live.home.name}</div>
-        <div class="team-score">${live.home.score}</div>
+  const live = data[sport].liveScore;
+  const homeColor = getJerseyColor(live.home.name);
+  const awayColor = getJerseyColor(live.away.name);
+
+  liveScoreSection.innerHTML = `
+    <div class="team">
+      <div class="jersey-wrapper">
+        <img class="jersey-img" src="assets/jersey-placeholder.png" alt="Home Jersey" style="filter: ${generateColorFilter(homeColor)};">
       </div>
-      <div class="vs-text">vs</div>
-      <div class="team">
-        <img src="${live.away.logo}" alt="${live.away.name}" />
-        <div class="team-name">${live.away.name}</div>
-        <div class="team-score">${live.away.score}</div>
-      </div>`;
-  }
+      <img src="${live.home.logo}" alt="${live.home.name}" />
+      <div class="team-name">${live.home.name}</div>
+      <div class="team-score">${live.home.score}</div>
+    </div>
+    <div class="vs-text">vs</div>
+    <div class="team">
+      <div class="jersey-wrapper">
+        <img class="jersey-img" src="assets/jersey-placeholder.png" alt="Away Jersey" style="filter: ${generateColorFilter(awayColor)};">
+      </div>
+      <img src="${live.away.logo}" alt="${live.away.name}" />
+      <div class="team-name">${live.away.name}</div>
+      <div class="team-score">${live.away.score}</div>
+    </div>
+  `;
+}
 
   function renderXPTable(sport) {
     const players = data[sport].boxScore;
