@@ -583,6 +583,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Start the timer on load
   resetIdleTimer();
 });
+  function generateColorFilter(hexColor) {
+  const color = hexColor.replace("#", "").toUpperCase();
+
+  // Use a simple approximation for red/green/blue values
+  const r = parseInt(color.substring(0, 2), 16);
+  const g = parseInt(color.substring(2, 4), 16);
+  const b = parseInt(color.substring(4, 6), 16);
+
+  // Normalize values and exaggerate filter effect
+  return `brightness(0) saturate(100%) sepia(1) hue-rotate(${Math.floor((r + g + b) / 3)}deg)`;
+}
 </script>
 </body>
 </html>
