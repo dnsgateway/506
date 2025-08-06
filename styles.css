@@ -98,7 +98,9 @@ body {
   background: #111111;
   color: #00FF80;
 }
-
+.nav li a {
+  text-decoration:none;
+}
 .main {
   flex: 1;
   padding: 2rem;
