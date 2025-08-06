@@ -100,6 +100,7 @@ body {
 }
 .nav li a {
   text-decoration:none;
+  color: #fff; 
 }
 .main {
   flex: 1;
