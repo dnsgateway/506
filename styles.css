@@ -635,7 +635,40 @@ body {
   margin-top: 0.5rem;
   color: #00FF80;
 }
+footer.structured-footer {
+  background: #717378;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 
+.footer-col {
+  flex: 1;
+  max-width: 300px;
+  margin: 1rem;
+}
+
+.footer-col h4 {
+  color: cyan;
+  margin-bottom: 0.75rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-copy {
+  text-align: center;
+  margin-top: 2rem;
+  width: 100%;
+  color: #777;
+}
 /* ─── Responsive Styles for Sidebar and Layout ─── */
 @media (max-width: 768px) {
   .main {
